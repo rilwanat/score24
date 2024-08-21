@@ -143,14 +143,14 @@ export default function MainContent({  }) {
                     bg-scBackground rounded-lg p-3
                     ">
                     {matchesGroupedByCompetition[competition].map((match, index) => (
-                        <div key={index} className="text-scMenuText mb-2 text-sm ">
+                        <div key={index} className="text-scMenuText mb-2 ">
                           <div className='flex '>
                             <p  className="flex items-center justify-start " style={{ width: '60px' }}>{match.time}</p>
 
                             <div className='md:flex w-full justify-center mx-4 hidden'>
                               <div className='flex w-4/12 md:w-5/12 justify-end'><p className='text-white text-right'>{match.homeTeam}</p></div>  
                               <div className='flex w-5/12 md:w-2/12 justify-center items-center'>
-                                <p className='mx-8 text-center'>{match.homeScore !== null ? match.homeScore : '-'} vs. {match.awayScore !== null ? match.awayScore : '-'}</p>
+                                <p className='mx-8 text-center'>{match.time == 'FT' ? match.homeScore : ''} {match.time != 'FT' ? 'vs.' : '-'} {match.time == 'FT' ? match.awayScore : ''}</p>
                               </div>
                               <div className='flex w-4/12 md:w-5/12 justify-start'><p className='text-white  text-left'>{match.awayTeam}</p></div>                              
                             </div>
@@ -158,11 +158,11 @@ export default function MainContent({  }) {
                             <div className='md:hidden flex flex-col w-full px-2 mx-2 '>
                               <div className='flex w-full justify-between'>
                                 <p className='text-white'>{match.homeTeam}</p>
-                                <p className='text-center'>{match.homeScore !== null ? match.homeScore : '-'}</p>
+                                <p className='text-center'>{match.time == 'FT' ? match.homeScore : ''}</p>
                               </div>
                               <div className='flex w-full justify-between'>
                                 <p className='text-white'>{match.awayTeam}</p>
-                                <p className='text-center'>{match.awayScore !== null ? match.awayScore : '-'}</p>
+                                <p className='text-center'>{match.time == 'FT' ? match.awayScore : ''}</p>
                               </div>
                               
                             </div>

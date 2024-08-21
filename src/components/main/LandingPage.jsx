@@ -27,7 +27,7 @@ export default function LandingPage({  }) {
   
 
   return (
-    <div className='bg-scBackground'>
+    <div className='bg-scBackground  text-sm'>
       <Header />
         <div className='flex'>
           <div className='w-full rounded-lg'>
