@@ -48,14 +48,14 @@ export default function HeaderHead({  }) {
         </div>
       </div>
 
-      <div className='px-8 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-4 flex flex-col md:flex-row items-center justify-between'>
+      <div className='px-8 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-1 flex flex-col md:flex-row items-center justify-between'>
         <div className='flex'>          
-          <div className='flex mr-4 cursor-pointer'><SportsSoccerIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Football</p></div>
-          <div className='flex mr-4 cursor-pointer'><SportsTennisIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Tennis</p></div>
-          <div className='flex mr-4 cursor-pointer'><SportsBasketballIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Basketball</p></div>
-          <div className='flex mr-4 cursor-pointer'><SportsHockeyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Hockey</p></div>
-          <div className='flex mr-4 cursor-pointer'><SportsRugbyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Rugby</p></div>
-          <div className='flex mr-4 cursor-pointer'><SportsCricketIcon  className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Cricket</p></div>
+          <div className='flex mr-4 cursor-pointer items-center'><SportsSoccerIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Football</p></div>
+          <div className='flex mr-4 cursor-pointer items-center'><SportsTennisIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Tennis</p></div>
+          <div className='flex mr-4 cursor-pointer items-center'><SportsBasketballIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Basketball</p></div>
+          <div className='flex mr-4 cursor-pointer items-center'><SportsHockeyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Hockey</p></div>
+          <div className='flex mr-4 cursor-pointer items-center'><SportsRugbyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Rugby</p></div>
+          <div className='flex mr-4 cursor-pointer items-center'><SportsCricketIcon  className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Cricket</p></div>
         </div>
         <div
             className=" flex items-center justify-center"

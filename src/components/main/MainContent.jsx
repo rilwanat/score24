@@ -106,14 +106,15 @@ export default function MainContent({  }) {
 
         <div className='flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
             <div className='bg-scBackground rounded-lg w-full p-4'>
-                <p className='text-xs text-white mb-2 py-1'>Home</p>
+                <div className='cursor-pointer'><p className='text-xs text-white mb-2 py-1'>Home</p></div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
-                <p className='text-xs text-white my-2 py-1'>Live</p>
+                <div className='cursor-pointer'><p className='text-xs text-white my-2 py-1'>Live</p></div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
-                <p className='text-xs text-white mt-2 py-1'>Favourites</p>
+                <div className='cursor-pointer'><p className='text-xs text-white mt-2 py-1'>Favourites</p></div>
             </div>
             <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
-                <p className='text-xs text-white'>Popular</p>
+                <div className='cursor-pointer'><p className='text-xs text-white mb-2 py-1'>Popular</p></div>
+                <hr className="border-1.5 border-gray-900  mt-2" />
             </div>
             <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
                 <p className='text-xs text-white'>All (A-Z)</p>
@@ -122,7 +123,7 @@ export default function MainContent({  }) {
 
         <div className='flex flex-col     w-full'>
             <div className='bg-scBackground rounded-lg w-full p-4 mb-4'>
-                <div className='flex items-center justify-center'><p className='text-xs text-white mr-2'>Wednesday, Aug 21</p><CalendarMonthIcon style={{ width: '18px', height: '18px', color: '#ACBFD5' }}/></div>
+                <div className='flex items-center justify-center'><p className='text-xs text-white mr-2'>{'Wednesday, Aug 21'.toUpperCase()}</p><CalendarMonthIcon style={{ width: '18px', height: '18px', color: '#FFFFFF' }}/></div>
             </div>
             <div className="space-y-4">
                 
