@@ -182,11 +182,11 @@ export default function ComponentFootball({  }) {
                             <div className='md:hidden flex flex-col w-full px-2 mx-2 '>
                               <div className='flex w-full justify-between'>
                                 <p className='text-white'>{match.homeTeam}</p>
-                                <p className='text-center'>{match.time == 'FT' ? match.homeScore : ''}</p>
+                                <p className='text-center text-scGreen'>{match.time == 'FT' ? match.homeScore : ''}</p>
                               </div>
                               <div className='flex w-full justify-between'>
                                 <p className='text-white'>{match.awayTeam}</p>
-                                <p className='text-center'>{match.time == 'FT' ? match.awayScore : ''}</p>
+                                <p className='text-center text-scGreen'>{match.time == 'FT' ? match.awayScore : ''}</p>
                               </div>
                               
                             </div>
