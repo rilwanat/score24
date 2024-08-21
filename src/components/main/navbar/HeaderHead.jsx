@@ -26,7 +26,7 @@ export default function HeaderHead({  }) {
 
   return (
     <>
-      <div className='px-8 lg:px-16 xl:px-24 2xl:px-80 py-4 flex flex-col md:flex-row justify-between items-center'> 
+      <div className='px-8 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-4 flex flex-col md:flex-row justify-between items-center'> 
         <div className="flex items-center">
           <img
             className="block h-10 w-auto max-w-none"
@@ -48,7 +48,7 @@ export default function HeaderHead({  }) {
         </div>
       </div>
 
-      <div className='px-8 lg:px-16 xl:px-24 2xl:px-80 py-4 flex flex-col md:flex-row items-center justify-between'>
+      <div className='px-8 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-4 flex flex-col md:flex-row items-center justify-between'>
         <div className='flex'>          
           <div className='flex mr-4 cursor-pointer'><SportsSoccerIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Football</p></div>
           <div className='flex mr-4 cursor-pointer'><SportsTennisIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Tennis</p></div>

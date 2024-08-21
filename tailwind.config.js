@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         scBackground: '#001E28',
         scMenuText: '#ACBFD5',
+        scHr: '#26313A',
       }
     },
   },
