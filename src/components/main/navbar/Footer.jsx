@@ -13,13 +13,12 @@ function Footer({  }) {
     <div className='px-4 lg:px-16 xl:px-24 2xl:px-80 flex flex-col'>
       <div className='flex flex-col'>
         <p className="text-xs text-white my-2">Live football scores</p>
-        <p className="text-xs font-bold text-white  my-2">Latest football scores, fixtures, results and more</p>
-        <p className="text-xs text-white  my-2">Live football score service on SoccerDesk provides 
-          latest football results and fixtures offering live scores information, match commentary, 
-          goal scorers, yellow and red cards, team formations, lineups and substitutions, match 
-          statistics and other details. Watch live action in matches from all over the world, 
-          including UEFA Champions League, England Premier League, Spanish LaLiga, German Bundesliga, 
-          Italian Serie A and much more.</p>
+        <p className="text-xs font-bold text-white  my-2">Stay updated with the latest football scores, 
+          fixtures, and results on Score24. Our live football score service offers comprehensive match 
+          details including live scores, commentary, goal scorers, yellow and red cards, team formations, 
+          lineups, substitutions, and match statistics. Enjoy live action from top leagues around the world, 
+          such as the UEFA Champions League, English Premier League, Spanish La Liga, German Bundesliga, 
+          Italian Serie A, and more..</p>
 
       </div>
     
