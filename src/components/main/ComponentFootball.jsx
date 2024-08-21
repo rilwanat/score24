@@ -174,7 +174,7 @@ export default function ComponentFootball({  }) {
                             <div className='md:flex w-full justify-center mx-4 hidden'>
                               <div className='flex w-4/12 md:w-5/12 justify-end'><p className='text-white text-right'>{match.homeTeam}</p></div>  
                               <div className='flex w-5/12 md:w-2/12 justify-center items-center'>
-                                <p className='mx-8 text-center'>{match.time == 'FT' ? match.homeScore : ''} {match.time != 'FT' ? 'vs.' : '-'} {match.time == 'FT' ? match.awayScore : ''}</p>
+                                <p className='mx-8 text-center text-scGreen'>{match.time == 'FT' ? match.homeScore : ''} {match.time != 'FT' ? 'vs.' : '-'} {match.time == 'FT' ? match.awayScore : ''}</p>
                               </div>
                               <div className='flex w-4/12 md:w-5/12 justify-start'><p className='text-white  text-left'>{match.awayTeam}</p></div>                              
                             </div>
