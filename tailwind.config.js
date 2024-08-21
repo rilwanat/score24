@@ -9,6 +9,7 @@ module.exports = {
         scBackground: '#001E28',
         scMenuText: '#ACBFD5',
         scHr: '#26313A',
+        scGreen: '#B3E94E',
       }
     },
   },
