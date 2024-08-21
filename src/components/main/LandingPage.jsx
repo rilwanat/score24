@@ -8,7 +8,7 @@ import Footer from './navbar/Footer';
 import MainContent from './MainContent';
 
 
-export default function LandingPage({  }) {
+export default function LandingPage({ setCategory, currentCategory }) {
   const navigate = useNavigate();  
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
@@ -28,11 +28,11 @@ export default function LandingPage({  }) {
 
   return (
     <div className='bg-scBackground  text-sm'>
-      <Header />
+      <Header setCategory={setCategory} currentCategory={currentCategory}/>
         <div className='flex'>
           <div className='w-full rounded-lg'>
 
-            <MainContent /> 
+            <MainContent setCategory={setCategory} currentCategory={currentCategory}/> 
 
           </div>
         </div>      

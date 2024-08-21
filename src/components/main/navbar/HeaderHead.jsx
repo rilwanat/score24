@@ -16,7 +16,7 @@ import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function HeaderHead({  }) {
+export default function HeaderHead({ setCategory, currentCategory }) {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
@@ -50,12 +50,12 @@ export default function HeaderHead({  }) {
 
       <div className='px-8 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-1 flex flex-col md:flex-row items-center justify-between'>
         <div className='flex'>          
-          <div className='flex mr-4 cursor-pointer items-center'><SportsSoccerIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Football</p></div>
-          <div className='flex mr-4 cursor-pointer items-center'><SportsTennisIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Tennis</p></div>
-          <div className='flex mr-4 cursor-pointer items-center'><SportsBasketballIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Basketball</p></div>
-          <div className='flex mr-4 cursor-pointer items-center'><SportsHockeyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Hockey</p></div>
-          <div className='flex mr-4 cursor-pointer items-center'><SportsRugbyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Rugby</p></div>
-          <div className='flex mr-4 cursor-pointer items-center'><SportsCricketIcon  className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Cricket</p></div>
+          <div className={`flex mr-4 cursor-pointer items-center px-2 py-1 ${currentCategory === 'Football' ? 'rounded-lg bg-black ' : ''}`} onClick={() => setCategory("Football")}><SportsSoccerIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Football</p></div>
+          {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Tennis")}><SportsTennisIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Tennis</p></div> */}
+          <div className={`flex mr-4 cursor-pointer items-center  px-2 py-1 ${currentCategory === 'Basketball' ? 'rounded-lg bg-black ' : ''}`} onClick={() => setCategory("Basketball")}><SportsBasketballIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Basketball</p></div>
+          {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Hockey")}><SportsHockeyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Hockey</p></div> */}
+          {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Rugby")}><SportsRugbyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Rugby</p></div> */}
+          {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Cricket")}><SportsCricketIcon  className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Cricket</p></div> */}
         </div>
         <div
             className=" flex items-center justify-center"

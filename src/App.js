@@ -4,10 +4,15 @@ import LandingPage from "./components/main/LandingPage";
 
 function App() {
   // const navigate = useNavigate();
-
+  const [currentCategory, setCurrentCategory] = useState("Football");
+  const setCategory = (cat) => {
+    setCurrentCategory(cat);
+    // alert(cat);
+  }
 
   useEffect(() => {
     // initAuth();
+    // setCategory("Football");
   }, []);
   
   
@@ -20,7 +25,7 @@ function App() {
           <Routes>
 
             <Route path="/*" element={<div>NOT FOUND</div>} />
-            <Route path='/' element={<LandingPage />}/>
+            <Route path='/' element={<LandingPage setCategory={setCategory} currentCategory={currentCategory}/>}/>
 
           </Routes>
           

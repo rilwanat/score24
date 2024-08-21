@@ -8,12 +8,8 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 import competitionImage from '../../assets/svg/1x1.svg';
 
-import ComponentFootball from "./ComponentFootball";
-import ComponentBasketball from "./ComponentBasketball";
 
-
-
-export default function MainContent({ setCategory, currentCategory }) {
+export default function ComponentFootball({  }) {
   const navigate = useNavigate();  
 
 
@@ -151,51 +147,64 @@ export default function MainContent({ setCategory, currentCategory }) {
   const [currentPageName, setCurrentPageName] = useState("Home");
 
 
-
   return (
-    <div className='bg-gray-900 
-    px-4 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-4 
-    flex flex-col md:flex-row '>
+  <>
+  <div className="space-y-4">
+                
+                {Object.keys(matchesGroupedByCompetition).map((competition) => (
+                <div key={competition} className=" w-full py-2 my-4">
+                  <div className='flex justify-between'>
+                    <div className='flex items-center w-full'>
+                      <img src={competitionImage} alt="Competition Image" className="mr-2 w-4" /> 
+                      <p className="text-xs text-white">{competition.toUpperCase()}</p>
+                    </div>
+                    <div className='flex justify-end  mx-3' style={{ width: '60px' }}>
+                      <PushPinOutlinedIcon className="cursor-pointer text-scMenuText" style={{  }}/>
+                    </div>
+                    
+                    </div>
+                    <div className="space-y-2 mt-2 
+                    bg-scBackground rounded-lg p-3
+                    ">
+                    {matchesGroupedByCompetition[competition].map((match, index) => (
+                        <div key={index} className="text-scMenuText mb-2 ">
+                          <div className='flex '>
+                            <p  className="flex items-center justify-start " style={{ width: '60px' }}>{match.time}</p>
 
-        <div className='flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
-            <div className='bg-scBackground rounded-lg w-full '>
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Home")}>
-                  {currentPageName == "Home" ? <div className='bg-white mr-2' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-2'></div>}
-                  <p className='text-xs text-white'>Home</p>
+                            <div className='md:flex w-full justify-center mx-4 hidden'>
+                              <div className='flex w-4/12 md:w-5/12 justify-end'><p className='text-white text-right'>{match.homeTeam}</p></div>  
+                              <div className='flex w-5/12 md:w-2/12 justify-center items-center'>
+                                <p className='mx-8 text-center'>{match.time == 'FT' ? match.homeScore : ''} {match.time != 'FT' ? 'vs.' : '-'} {match.time == 'FT' ? match.awayScore : ''}</p>
+                              </div>
+                              <div className='flex w-4/12 md:w-5/12 justify-start'><p className='text-white  text-left'>{match.awayTeam}</p></div>                              
+                            </div>
+
+                            <div className='md:hidden flex flex-col w-full px-2 mx-2 '>
+                              <div className='flex w-full justify-between'>
+                                <p className='text-white'>{match.homeTeam}</p>
+                                <p className='text-center'>{match.time == 'FT' ? match.homeScore : ''}</p>
+                              </div>
+                              <div className='flex w-full justify-between'>
+                                <p className='text-white'>{match.awayTeam}</p>
+                                <p className='text-center'>{match.time == 'FT' ? match.awayScore : ''}</p>
+                              </div>
+                              
+                            </div>
+
+                            <p  className="cursor-pointer flex  items-center justify-end  " style={{ width: '60px' }}><StarBorderIcon /> </p>
+                          </div>
+
+                          {/* Conditionally render the <hr /> if it's not the last item */}
+                          {index !== matchesGroupedByCompetition[competition].length - 1 && (
+                            <hr className="border-1 border-scHr mt-2" />
+                            )}
+                        </div>
+                    ))}
+                    </div>
                 </div>
-                <hr className="border-1.5 border-gray-900  mt-2" />
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Live")}>
-                  {currentPageName == "Live" ? <div className='bg-white mr-2' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-2'></div>}
-                  <p className='text-xs text-white'>Live</p>
-                </div>
-                <hr className="border-1.5 border-gray-900  mt-2" />
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Favourites")}>
-                  {currentPageName == "Favourites" ? <div className='bg-white mr-2' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-2'></div>}
-                  <p className='text-xs text-white'>Favourites</p>
-                </div>
-            </div>
-            <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
-                <div className='cursor-pointer'><p className='text-xs text-white mb-2 py-1'>Popular</p></div>
-                <hr className="border-1.5 border-gray-900  mt-2" />
-            </div>
-            <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
-                <p className='text-xs text-white'>All (A-Z)</p>
-            </div>
-        </div>
+                ))}
 
-        <div className='flex flex-col     w-full'>
-            <div className='bg-scBackground rounded-lg w-full p-4 mb-4'>
-                <div className='flex items-center justify-center'><p className='text-xs text-white mr-2'>{'Wednesday, Aug 21'.toUpperCase()}</p><CalendarMonthIcon style={{ width: '18px', height: '18px', color: '#FFFFFF' }}/></div>
             </div>
-
-            
-            {
-              currentCategory == 'Football' ?  <ComponentFootball />
-              : currentCategory == 'Basketball' ?  <ComponentBasketball />
-              : <></>
-            }
-
-        </div>
-    </div>
+  </>
   );
 }
