@@ -15,7 +15,6 @@ export default function MainContent({  }) {
 
   const matchData = [
     {
-      
       time: "10:30",
       homeTeam: "O'Connor Knights",
       awayTeam: "Tigers FC",
@@ -87,8 +86,54 @@ export default function MainContent({  }) {
       status: "FT",
       homeScore: "1",
       awayScore: "1",
-    }
+    },
+    {
+      time: "15:00",
+      homeTeam: "FC Porto",
+      awayTeam: "Sporting CP",
+      competition: "Portugal : Primeira Liga",
+      status: "FT",
+      homeScore: "1",
+      awayScore: "1",
+    },
+    {
+      time: "20:00",
+      homeTeam: "Napoli",
+      awayTeam: "AC Milan",
+      competition: "Italy : Serie A",
+      status: "Upcoming",
+      homeScore: null,
+      awayScore: null,
+    },
+    {
+      time: "18:30",
+      homeTeam: "Paris Saint-Germain",
+      awayTeam: "Marseille",
+      competition: "France : Ligue 1",
+      status: "FT",
+      homeScore: "2",
+      awayScore: "0",
+    },
+    {
+      time: "21:00",
+      homeTeam: "Real Madrid",
+      awayTeam: "Atletico Madrid",
+      competition: "Spain : LaLiga",
+      status: "Upcoming",
+      homeScore: null,
+      awayScore: null,
+    },
+    {
+      time: "16:00",
+      homeTeam: "Ajax",
+      awayTeam: "Feyenoord",
+      competition: "Netherlands : Eredivisie",
+      status: "FT",
+      homeScore: "2",
+      awayScore: "2",
+    },
   ];
+  
 
   const matchesGroupedByCompetition = matchData.reduce((acc, match) => {
     if (!acc[match.competition]) {

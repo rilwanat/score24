@@ -21,14 +21,17 @@
   cursor: pointer;
   color: #ACBFD5;
   text-decoration: none;
-  font-size: 14px;
-  /* font-weight: 600; */
-  margin: 8px;
+  /* font-size: 14px; */
+  margin: 4px 8px;
 }
 
 
 .linkText {
   padding-left: 24px;
+}
+
+.linkTextTwo {
+  padding-left: 4px;
 }
 
 .linkTextClosed {

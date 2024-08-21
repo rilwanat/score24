@@ -43,4 +43,31 @@ export const navData = [
         text: "Cricket",
         link: "cricket"
     },
+
+    {
+        id: 7,
+        icon: <SportsCricketIcon className="w-4 h-4 object-scale-down "/>,
+        text: "Home",
+        link: "cricket"
+    },
+    {
+        id: 8,
+        icon: <SportsCricketIcon className="w-4 h-4 object-scale-down "/>,
+        text: "Live (10)",
+        link: "cricket"
+    },
+    {
+        id: 9,
+        icon: <SportsCricketIcon className="w-4 h-4 object-scale-down "/>,
+        text: "Popular",
+        link: "cricket"
+    },
+    {
+        id: 10,
+        icon: <SportsCricketIcon className="w-4 h-4 object-scale-down "/>,
+        text: "All (A-Z)",
+        link: "cricket"
+    }
+
+
 ]

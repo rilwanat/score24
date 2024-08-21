@@ -25,7 +25,7 @@ export default function MobileNavbar({  }) {
   };
 
   return (
-    <div className="px-4" style={{ height: '80px' }}>
+    <div className="px-4 text-sm" style={{ height: '80px' }}>
       <div className="flex justify-between">
         <div className="flex items-center">
           <img
@@ -65,12 +65,12 @@ export default function MobileNavbar({  }) {
           <div className="navbar-backdrop fixed inset-0" onClick={closeMenu}></div>
 
           <nav
-            className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 pr-4 border-r overflow-y-auto bg-scBackground"
+            className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-4 pr-4 border-r overflow-y-auto bg-scBackground"
             style={{}}
           >
             <div className="flex items-center">
               <a className="mr-auto text-3xl font-bold leading-none" href="#">
-                <img className="ml-6 w-36 h-10 object-scale-down" src={logo} alt="" />
+                <img className="ml-4 w-36 h-10 object-scale-down" src={logo} alt="" />
               </a>
 
               <button className="navbar-close" onClick={closeMenu}>
@@ -95,8 +95,10 @@ export default function MobileNavbar({  }) {
             </div>
 
             <div className="mt-8">
+              
+              <p className='font-bold ml-4 my-2 text-scMenuText'>Sports</p>
               {/* <ul> */}
-              {navData.map((item) => (
+              {navData.slice(0,6).map((item) => (
                 <div className={styles.navLinks}>
                   <NavLink
                     key={item.id}
@@ -109,6 +111,21 @@ export default function MobileNavbar({  }) {
                 </div>
               ))}
               {/* </ul> */}
+              <hr className="border-1 border-scHr mt-2" />
+              <p className='font-bold ml-4 my-2 text-scMenuText'>Navigation</p>
+              
+              {navData.slice(6,10).map((item) => (
+                <div className={styles.navLinks}>
+                  <NavLink
+                    key={item.id}
+                    className={styles.sideitem}
+                    to={`/${item.link}`}
+                  >
+                    {/* {item.icon} */}
+                    <span className={styles.linkTextTwo}>{item.text}</span>
+                  </NavLink>
+                </div>
+              ))}
             </div>
 
             <div className="mt-auto">
