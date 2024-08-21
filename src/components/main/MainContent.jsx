@@ -143,7 +143,7 @@ export default function MainContent({  }) {
                     bg-scBackground rounded-lg p-3
                     ">
                     {matchesGroupedByCompetition[competition].map((match, index) => (
-                        <div key={index} className="text-scMenuText mb-2">
+                        <div key={index} className="text-scMenuText mb-2 text-sm ">
                           <div className='flex '>
                             <p  className="flex items-center justify-start " style={{ width: '60px' }}>{match.time}</p>
 
