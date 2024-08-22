@@ -15,6 +15,7 @@ import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 
 import SearchIcon from '@mui/icons-material/Search';
+import TuneIcon from '@mui/icons-material/Tune';
 
 export default function HeaderHead({ setCategory, currentCategory }) {
   const navigate = useNavigate();
@@ -32,8 +33,8 @@ export default function HeaderHead({ setCategory, currentCategory }) {
             className="block h-10 w-auto max-w-none"
             src={logo}
             alt="Logo"
-            // onClick={() => { navigate('/'); }}
-            // style={{ cursor: 'pointer' }}
+            onClick={() => { navigate('/'); }}
+            style={{ cursor: 'pointer' }}
           />
         </div>
 
@@ -57,13 +58,22 @@ export default function HeaderHead({ setCategory, currentCategory }) {
           {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Rugby")}><SportsRugbyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Rugby</p></div> */}
           {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Cricket")}><SportsCricketIcon  className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Cricket</p></div> */}
         </div>
-        <div
-            className=" flex items-center justify-center"
+        <div className='flex'>
+          <div
+            className=" flex items-center justify-center   hover:text-scGreen text-white"
             style={{ height: '40px', width: '40px', borderRadius: '4px' }}
             // onClick={() => { logout(); }}
           >
-            <SearchIcon className="text-white cursor-pointer" />
+            <SearchIcon className=" cursor-pointer " />
           </div>
+          <div
+            className=" flex items-center justify-center   hover:text-scGreen text-white"
+            style={{ height: '40px', width: '40px', borderRadius: '4px' }}
+            // onClick={() => { logout(); }}
+          >
+            <TuneIcon className=" cursor-pointer" />
+          </div>
+        </div>
 
       </div>
     </>

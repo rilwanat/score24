@@ -153,24 +153,24 @@ export default function MainContent({ setCategory, currentCategory }) {
 
 
   return (
-    <div className='bg-gray-900 
+    <div className='bg-gray-900 scDarkBackground
     px-4 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-4 
     flex flex-col md:flex-row '>
 
         <div className='flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
             <div className='bg-scBackground rounded-lg w-full '>
                 <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Home")}>
-                  {currentPageName == "Home" ? <div className='bg-scGreen mr-2' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-2'></div>}
+                  {currentPageName == "Home" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs ${currentPageName === 'Home' ? 'text-scGreen ' : 'text-white'}`}>Home</p>
                 </div>
-                <hr className="border-1.5 border-gray-900  mt-2" />
+                <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
                 <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Live")}>
-                  {currentPageName == "Live" ? <div className='bg-scGreen mr-2' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-2'></div>}
+                  {currentPageName == "Live" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs ${currentPageName === 'Live' ? 'text-scGreen ' : 'text-white'}`}>Live</p>
                 </div>
-                <hr className="border-1.5 border-gray-900  mt-2" />
+                <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
                 <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Favourites")}>
-                  {currentPageName == "Favourites" ? <div className='bg-scGreen mr-2' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-2'></div>}
+                  {currentPageName == "Favourites" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs ${currentPageName === 'Favourites' ? 'text-scGreen ' : 'text-white'}`}>Favourites</p>
                 </div>
             </div>

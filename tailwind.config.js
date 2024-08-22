@@ -10,6 +10,7 @@ module.exports = {
         scMenuText: '#ACBFD5',
         scHr: '#26313A',
         scGreen: '#B3E94E',
+        // scDarkBackground: '#000000',
       }
     },
   },

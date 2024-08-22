@@ -13,7 +13,7 @@ function Footer({  }) {
     <div className='px-4 lg:px-16 xl:px-24 2xl:px-80 flex flex-col'>
       <div className='flex flex-col'>
         <p className="text-xs text-white my-2">Live football scores</p>
-        <p className="text-xs font-bold text-white  my-2">Stay updated with the latest football scores, 
+        <p className="text-xs  text-white  my-2">Stay updated with the latest football scores, 
           fixtures, and results on Score24. Our live football score service offers comprehensive match 
           details including live scores, commentary, goal scorers, yellow and red cards, team formations, 
           lineups, substitutions, and match statistics. Enjoy live action from top leagues around the world, 

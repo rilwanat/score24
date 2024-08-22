@@ -159,7 +159,7 @@ export default function ComponentFootball({  }) {
                       <p className="text-xs text-white">{competition.toUpperCase()}</p>
                     </div>
                     <div className='flex justify-end  mx-3' style={{ width: '60px' }}>
-                      <PushPinOutlinedIcon className="cursor-pointer text-scMenuText" style={{  }}/>
+                      <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen" style={{  }}/>
                     </div>
                     
                     </div>
@@ -191,7 +191,7 @@ export default function ComponentFootball({  }) {
                               
                             </div>
 
-                            <p  className="cursor-pointer flex  items-center justify-end  " style={{ width: '60px' }}><StarBorderIcon /> </p>
+                            <p className="cursor-pointer flex  items-center justify-end" style={{ width: '60px' }}><StarBorderIcon className='hover:text-scGreen'/> </p>
                           </div>
 
                           {/* Conditionally render the <hr /> if it's not the last item */}
