@@ -164,11 +164,11 @@ export default function ComponentFootball({  }) {
                     
                     </div>
                     <div className="space-y-2 mt-2 
-                    bg-scBackground rounded-lg p-3
+                    bg-scBackground rounded-lg p-3  
                     ">
                     {matchesGroupedByCompetition[competition].map((match, index) => (
-                        <div key={index} className="text-scMenuText mb-2 ">
-                          <div className='flex '>
+                        <div key={index} className="text-scMenuText   cursor-pointer">
+                          <div className='flex'>
                             <p  className="flex items-center justify-start " style={{ width: '60px' }}>{match.time}</p>
 
                             <div className='md:flex w-full justify-center mx-4 hidden'>
@@ -191,7 +191,7 @@ export default function ComponentFootball({  }) {
                               
                             </div>
 
-                            <p className="cursor-pointer flex  items-center justify-end" style={{ width: '60px' }}><StarBorderIcon className='hover:text-scGreen'/> </p>
+                            <p className="cursor-pointer flex  items-center justify-end" style={{ width: '60px' }}><StarBorderIcon className='hover:text-scGreen '/> </p>
                           </div>
 
                           {/* Conditionally render the <hr /> if it's not the last item */}

@@ -150,6 +150,58 @@ export default function MainContent({ setCategory, currentCategory }) {
 
   const [currentPageName, setCurrentPageName] = useState("Home");
 
+  //
+  // Function to get an array of dates with today in the middle
+  const getDates = () => {
+    const dates = [];
+    const today = new Date();
+
+    // Get dates for the past 6 days
+    for (let i = 6; i > 0; i--) {
+      const pastDate = new Date(today);
+      pastDate.setDate(today.getDate() - i);
+      dates.push(pastDate);
+    }
+
+    // Add today
+    dates.push(today);
+
+    // Get dates for the next 6 days
+    for (let i = 1; i <= 6; i++) {
+      const futureDate = new Date(today);
+      futureDate.setDate(today.getDate() + i);
+      dates.push(futureDate);
+    }
+
+    return dates;
+  };
+
+  // // Format the dates as 'Day, Month Date' (e.g., 'Wednesday, Aug 21')
+  // const formatDate = (date) => {
+  //   return date.toLocaleDateString('en-US', {
+  //     weekday: 'long',
+  //     month: 'short',
+  //     day: 'numeric',
+  //   }).toUpperCase();
+  // };
+
+  // const dates = getDates();
+  // //
+
+  // Format the dates as 'FRI' (weekday only)
+  const formatDate1 = (date) => {
+    const options = { weekday: 'short' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  // Format the dates as 'Aug 16' (month and day only)
+  const formatDate2 = (date) => {
+    const options = { month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  const dates = getDates();
+
 
 
   return (
@@ -183,9 +235,27 @@ export default function MainContent({ setCategory, currentCategory }) {
             </div>
         </div>
 
-        <div className='flex flex-col     w-full'>
-            <div className='bg-scBackground rounded-lg w-full p-4 mb-4'>
+        <div className='flex flex-col w-full'>
+            <div className='bg-scBackground rounded-lg w-full p-4 mb-4  hover:bg-scBackgroundHover cursor-pointer'>
                 <div className='flex items-center justify-center'><p className='text-xs text-white mr-2'>{'Wednesday, Aug 21'.toUpperCase()}</p><CalendarMonthIcon style={{ width: '18px', height: '18px', color: '#FFFFFF' }}/></div>
+            </div>
+            
+            <div className='flex w-full bg-scBackground'>
+              {dates.map((date, index) => {
+                const isToday = date.toDateString() === new Date().toDateString();
+                
+                return(
+                <div 
+                  key={index}
+                  className='  w-full px-1 py-2  hover:bg-scBackgroundHover cursor-pointer'
+                >
+                  {/* <div className='flex items-center justify-center w-full bg-red-100'> */}
+                    <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-white'} text-center`}>{formatDate1(date)}</p>
+                    <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-white'} text-center`}>{formatDate2(date)}</p>
+                  {/* </div> */}
+                </div>
+              )
+              })}
             </div>
 
             
