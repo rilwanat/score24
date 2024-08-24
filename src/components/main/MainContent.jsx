@@ -205,7 +205,7 @@ export default function MainContent({ setCategory, currentCategory }) {
 
 
   return (
-    <div className='bg-gray-900 scDarkBackground
+    <div className='bg-scDarkerBackground
     px-4 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-4 
     flex flex-col md:flex-row '>
 

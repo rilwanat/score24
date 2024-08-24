@@ -12,6 +12,8 @@ import appStore from '../../../assets/svg/app-store-badge.svg';
 import playStore from '../../../assets/svg/play-store-badge.svg';
 
 import SearchIcon from '@mui/icons-material/Search';
+import TuneIcon from '@mui/icons-material/Tune';
+
 
 export default function MobileNavbar({  }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -46,12 +48,21 @@ export default function MobileNavbar({  }) {
             </div>
           </div>
 
-          <div
-            className=" flex items-center justify-center"
-            style={{ height: '40px', width: '40px', borderRadius: '4px' }}
-            // onClick={() => { logout(); }}
-          >
-            <SearchIcon className="text-white cursor-pointer" />
+          <div className='flex'>
+            <div
+              className=" flex items-center justify-center   hover:text-scGreen text-white"
+              style={{ height: '40px', width: '40px', borderRadius: '4px' }}
+              // onClick={() => { logout(); }}
+              >
+              <SearchIcon className=" cursor-pointer " />
+            </div>
+            <div
+              className=" flex items-center justify-center   hover:text-scGreen text-white"
+              style={{ height: '40px', width: '40px', borderRadius: '4px' }}
+              // onClick={() => { logout(); }}
+            >
+              <TuneIcon className=" cursor-pointer" />
+            </div>
           </div>
 
         </div>

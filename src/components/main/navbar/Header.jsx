@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import HeaderHead from './HeaderHead';
 import MobileNavbar from './MobileNavbar';
 
+import MarqueeTextContainer from "./MarqueeTextContainer";
+
+
 export default function Header({ setCategory, currentCategory }) {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
@@ -21,6 +24,7 @@ export default function Header({ setCategory, currentCategory }) {
 
   return (
     <div>
+      <MarqueeTextContainer />
       <div>
         {isMobile ? <MobileNavbar setCategory={setCategory} currentCategory={currentCategory}/> : <div></div>}
       </div>

@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         scBackground: '#001E28',
+        scDarkerBackground: '#000F16',
         scMenuText: '#ACBFD5',
         scHr: '#26313A',
         scGreen: '#B3E94E',

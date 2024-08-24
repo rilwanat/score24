@@ -1,0 +1,42 @@
+.scroll-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+  }
+  
+  .scroll-text-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .scroll-text {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll-left 15s linear infinite; /* Adjust the duration to control speed */
+  }
+  
+  /* Ensure the animation covers the full width of the container */
+  @keyframes scroll-left {
+    from {
+      transform: translateX(125%); /* Start fully off-screen to the right */
+    }
+    to {
+      transform: translateX(-125%); /* Move completely off-screen to the left */
+    }
+  }
+  
+  /* Adjustments for different screen sizes */
+  @media (max-width: 640px) { /* Mobile screens */
+    .scroll-text {
+      animation: scroll-left 60s linear infinite; /* Faster animation for smaller screens */
+    }
+  }
+  
+  @media (min-width: 1280px) { /* Extra-large screens */
+    .scroll-text {
+      animation: scroll-left 60s linear infinite; /* Slower animation for larger screens */
+    }
+  }
+  
