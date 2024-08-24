@@ -6,6 +6,7 @@ import logo from '../../../assets/images/logo.png';
 import appStore from '../../../assets/svg/app-store-badge.svg';
 import playStore from '../../../assets/svg/play-store-badge.svg';
 
+import ComponentAnimatedSearch from "../ComponentAnimatedSearch";
 
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import SportsTennisIcon from '@mui/icons-material/SportsTennis';
@@ -61,6 +62,7 @@ export default function HeaderHead({ setCategory, currentCategory }) {
           {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Cricket")}><SportsCricketIcon  className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Cricket</p></div> */}
         </div>
         <div className='flex'>
+          {/* <ComponentAnimatedSearch /> */}
           <div
             className=" flex items-center justify-center   hover:text-scGreen text-white"
             style={{ height: '40px', width: '40px', borderRadius: '4px' }}
