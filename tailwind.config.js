@@ -12,6 +12,7 @@ module.exports = {
         scHr: '#26313A',
         scGreen: '#B3E94E',
         scBackgroundHover: '#002831',
+        scYellow: '#FFFF00',
       }
     },
   },

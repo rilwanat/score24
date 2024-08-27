@@ -20,8 +20,8 @@ const ComponentAnimatedSearch = () => {
         
         <input
           type="text"
-          placeholder="Search..."
-          className="px-2 py-1 rounded-xl"
+          placeholder="search..."
+          className="px-2 py-1 rounded-2xl pl-4"
           style={{ transition: 'width 0.3s' }}
         />
 
@@ -29,7 +29,7 @@ const ComponentAnimatedSearch = () => {
       <SearchIcon
         onClick={handleToggle}
         className="cursor-pointer text-blue-500 z-20"
-        style={{ marginLeft: '10px' }}
+        style={{ marginLeft: '200px' }}
       />
     </div>
   );

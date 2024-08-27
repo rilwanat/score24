@@ -6,6 +6,7 @@ import MobileNavbar from './MobileNavbar';
 
 import MarqueeTextContainer from "./MarqueeTextContainer";
 
+import stars from '../../../assets/images/stars.png';
 
 export default function Header({ setCategory, currentCategory }) {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export default function Header({ setCategory, currentCategory }) {
   return (
     <div>
       <MarqueeTextContainer />
+      
       <div>
         {isMobile ? <MobileNavbar setCategory={setCategory} currentCategory={currentCategory}/> : <div></div>}
       </div>

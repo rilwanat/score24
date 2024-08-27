@@ -26,12 +26,12 @@ function Footer({  }) {
       
         <div className="bottom-0 w-full flex justify-between  py-4">
           <div className='flex md:flex-row flex-col'>
-            <a className="text-xs text-white mr-2">Terms and Conditions of Use</a>
-            <a className="text-xs text-white mr-2">Privacy and Cookie Notice</a>
-            <a className="text-xs text-white mr-2">Contact</a>
+            <a className="text-xs text-white mr-2">Terms and Conditions of Use</a><a className="text-xs text-white mr-2">|</a>
+            <a className="text-xs text-white mr-2">Privacy and Cookie Notice</a><a className="text-xs text-white mr-2">|</a>
+            <a className="text-xs text-white mr-2">Contact</a><a className="text-xs text-white mr-2">|</a>
             <a className="text-xs text-white mr-2">Update consent</a>
           </div>
-        <p className="text-xs text-white">Copyright &copy; Score24</p>
+        <p className="text-xs text-white">Copyright &copy; 2024 Score24</p>
       </div>
     </div>
   </div>

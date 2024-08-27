@@ -169,7 +169,7 @@ export default function ComponentFootball({  }) {
                     {matchesGroupedByCompetition[competition].map((match, index) => (
                         <div key={index} className="text-scMenuText   cursor-pointer">
                           <div className='flex'>
-                            <p  className="flex items-center justify-start " style={{ width: '60px' }}>{match.time}</p>
+                            <p  className="flex items-center justify-start text-scGreen" style={{ width: '60px' }}>{match.time}</p>
 
                             <div className='md:flex w-full justify-center mx-4 hidden'>
                               <div className='flex w-4/12 md:w-5/12 justify-end'><p className='text-white text-right'>{match.homeTeam}</p></div>  

@@ -295,7 +295,7 @@ export default function ComponentBasketball() {
               {matchesGroupedByCompetition[competition].map((match, index) => (
                 <div key={index} className="text-scMenuText cursor-pointer">
                   <div className='flex'>
-                    <p className="flex items-center justify-start" style={{ width: '60px' }}>{match.time}</p>
+                    <p className="flex items-center justify-start text-scGreen" style={{ width: '60px' }}>{match.time}</p>
                     <div className='flex flex-col w-full px-2 mx-2'>
                       <div className='flex w-full justify-between'>
                         <p className='text-white'>{match.homeTeam}</p>
