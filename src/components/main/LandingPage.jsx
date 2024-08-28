@@ -5,6 +5,8 @@ import Header from './navbar/Header';
 import Footer from './navbar/Footer';
 import BottomMobileMenu from './navbar/BottomMobileMenu';
 
+import CookieConsent from './navbar/CookieConsent';
+
 import MainContent from './MainContent';
 
 
@@ -48,6 +50,8 @@ export default function LandingPage({ setCategory, currentCategory }) {
           </div>
         </div>      
       <Footer />
+
+      <CookieConsent />
 
       {isMobile && <BottomMobileMenu />} 
 

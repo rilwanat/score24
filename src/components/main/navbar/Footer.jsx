@@ -21,10 +21,12 @@ function Footer({  }) {
           Italian Serie A, and more..</p>
 
       </div>
+
+      <hr className='my-2'/>
     
       <div className="mt-auto flex ">
       
-        <div className="bottom-0 w-full flex md:flex-row flex-col justify-between  py-4 mb-20">
+        <div className="bottom-0 w-full flex md:flex-row flex-col justify-between  pt-2 pb-4 mb-48">
           <div className='flex md:flex-row flex-col'>
             <div className='flex'><a className="text-xs text-white mr-2 cursor-pointer hover:text-scGreen">Terms and Conditions of Use</a><a className="text-xs text-white mr-2">|</a></div>
             <div className='flex'><a className="text-xs text-white mr-2 cursor-pointer hover:text-scGreen">Privacy and Cookie Notice</a><a className="text-xs text-white mr-2">|</a></div>
