@@ -42,8 +42,8 @@ export default function MobileNavbar({ setCategory, currentCategory }) {
   };
 
   return (
-    <div className="px-4 text-sm" style={{ height: '80px' }}>
-      <div className="flex justify-between">
+    <div className="px-4 text-sm" style={{  }}>
+      <div className="flex justify-between py-2">
         
       <div className="flex ">
         <IconButton
@@ -71,7 +71,7 @@ export default function MobileNavbar({ setCategory, currentCategory }) {
         </div>
       </div>
 
-        <div className="flex items-center mr-4" style={{ height: '50px' }}>
+        <div className="flex items-center mr-4 " style={{  }}>
           <div className="mr-4 md:flex justify-end" style={{}}>
             <div className="text-right">
               {/* <p className="text-sm font-bold md:text-white">{storedAdminDetails && storedAdminDetails.Email}</p> */}
@@ -108,11 +108,11 @@ export default function MobileNavbar({ setCategory, currentCategory }) {
 
       </div>
 
-      <div className='flex items-center '>
+      <div className='flex items-center mb-2'>
         <div className='flex'>          
-          <div className={`flex  mr-4 cursor-pointer items-center px-2 py-1 ${currentCategory === 'Football' ? 'rounded-lg bg-scDarkerBackground ' : ''}`} onClick={() => setCategory("Football")}><SportsSoccerIcon className='mr-2' style={{ width: '20px', height: '20px', color: currentCategory === 'Football' ? '#B3E94E' : '#ACBFD5' }}/> <p className={`text-xs ${currentCategory === 'Football' ? 'text-scGreen' : 'text-scMenuText'}`}>Football</p></div>
+          <div className={`flex  mr-4 cursor-pointer items-center px-2 py-1 ${currentCategory === 'Football' ? 'rounded-lg bg-scDarkerBackground ' : ''}`} onClick={() => setCategory("Football")}><SportsSoccerIcon className='mr-2' style={{ width: '20px', height: '20px', color: currentCategory === 'Football' ? '#B3E94E' : '#ACBFD5' }}/> <p className={`text-xs ${currentCategory === 'Football' ? 'text-white' : 'text-scMenuText'}`}>Football</p></div>
           {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Tennis")}><SportsTennisIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Tennis</p></div> */}
-          <div className={`flex mr-4 cursor-pointer items-center  px-2 py-1 ${currentCategory === 'Basketball' ? 'rounded-lg bg-scDarkerBackground ' : ''}`} onClick={() => setCategory("Basketball")}><SportsBasketballIcon className='mr-2' style={{ width: '20px', height: '20px', color: currentCategory === 'Basketball' ? '#B3E94E' : '#ACBFD5' }}/> <p className={`text-xs ${currentCategory === 'Basketball' ? 'text-scGreen' : 'text-scMenuText'}`}>Basketball</p></div>
+          <div className={`flex mr-4 cursor-pointer items-center  px-2 py-1 ${currentCategory === 'Basketball' ? 'rounded-lg bg-scDarkerBackground ' : ''}`} onClick={() => setCategory("Basketball")}><SportsBasketballIcon className='mr-2' style={{ width: '20px', height: '20px', color: currentCategory === 'Basketball' ? '#B3E94E' : '#ACBFD5' }}/> <p className={`text-xs ${currentCategory === 'Basketball' ? 'text-white' : 'text-scMenuText'}`}>Basketball</p></div>
           {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Hockey")}><SportsHockeyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Hockey</p></div> */}
           {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Rugby")}><SportsRugbyIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Rugby</p></div> */}
           {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Cricket")}><SportsCricketIcon  className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Cricket</p></div> */}

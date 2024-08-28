@@ -154,9 +154,9 @@ export default function ComponentFootball({  }) {
                 {Object.keys(matchesGroupedByCompetition).map((competition) => (
                 <div key={competition} className=" w-full py-2 my-4">
                   <div className='flex justify-between'>
-                    <div className='flex items-center w-full'>
+                    <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer '>
                       <img src={competitionImage} alt="Competition Image" className="mr-2 w-4" /> 
-                      <p className="text-xs text-white">{competition.toUpperCase()}</p>
+                      <p className="text-xs text-white hover:text-scGreen">{competition.toUpperCase()}</p>
                     </div>
                     <div className='flex justify-end  mx-3' style={{ width: '60px' }}>
                       <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen" style={{  }}/>
@@ -164,12 +164,13 @@ export default function ComponentFootball({  }) {
                     
                     </div>
                     <div className="space-y-2 mt-2 
-                    bg-scBackground rounded-lg p-3  
+                    bg-scBackground rounded-lg p-3 
                     ">
                     {matchesGroupedByCompetition[competition].map((match, index) => (
                         <div key={index} className="text-scMenuText   cursor-pointer">
-                          <div className='flex'>
-                            <p  className="flex items-center justify-start text-scGreen" style={{ width: '60px' }}>{match.time}</p>
+                          <div className='flex  
+                    '>
+                            <p  className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
 
                             <div className='md:flex w-full justify-center mx-4 hidden'>
                               <div className='flex w-4/12 md:w-5/12 justify-end'><p className='text-white text-right'>{match.homeTeam}</p></div>  

@@ -209,7 +209,7 @@ export default function MainContent({ setCategory, currentCategory }) {
 
   return (
     <div className='bg-scDarkerBackground
-    px-4 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-4 
+     md:px-4 lg:px-16 xl:px-24 2xl:px-80  md:py-4  pb-4 
     flex flex-col md:flex-row '>
 
         <div className='hidden md:flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
@@ -240,7 +240,10 @@ export default function MainContent({ setCategory, currentCategory }) {
 
         <div className='flex flex-col w-full'>
             <div className='hidden md:flex justify-center bg-scBackground rounded-lg w-full p-4 mb-4  hover:bg-scBackgroundHover cursor-pointer'>
-                <div className='flex items-center justify-center'><p className='text-xs text-white mr-2'>{'Wednesday, Aug 21'.toUpperCase()}</p><CalendarMonthIcon style={{ width: '18px', height: '18px', color: '#FFFFFF' }}/></div>
+                <div className='flex items-center justify-center'>
+                  <p className='text-xs text-white mr-2'>{'Wednesday, Aug 21'.toUpperCase()}</p>
+                  <CalendarMonthIcon style={{ width: '18px', height: '18px', color: '#FFFFFF' }}/>
+                </div>
             </div>
             
             <div className='flex w-full bg-scBackground'>

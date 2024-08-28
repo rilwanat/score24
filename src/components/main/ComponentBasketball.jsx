@@ -282,9 +282,9 @@ export default function ComponentBasketball() {
         {Object.keys(matchesGroupedByCompetition).map((competition) => (
           <div key={competition} className="w-full py-2 my-4">
             <div className='flex justify-between'>
-              <div className='flex items-center w-full'>
+              <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
                 <img src={competitionImage} alt="Competition Image" className="mr-2 w-4" /> 
-                <p className="text-xs text-white">{competition.toUpperCase()}</p>
+                <p className="text-xs text-white hover:text-scGreen">{competition.toUpperCase()}</p>
               </div>
               <div className='flex justify-end mx-3' style={{ width: '60px' }}>
                 <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen" />
@@ -295,7 +295,7 @@ export default function ComponentBasketball() {
               {matchesGroupedByCompetition[competition].map((match, index) => (
                 <div key={index} className="text-scMenuText cursor-pointer">
                   <div className='flex'>
-                    <p className="flex items-center justify-start text-scGreen" style={{ width: '60px' }}>{match.time}</p>
+                    <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
                     <div className='flex flex-col w-full px-2 mx-2'>
                       <div className='flex w-full justify-between'>
                         <p className='text-white'>{match.homeTeam}</p>

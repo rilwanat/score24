@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Header from './navbar/Header';
 import Footer from './navbar/Footer';
-
+import BottomMobileMenu from './navbar/BottomMobileMenu';
 
 import MainContent from './MainContent';
 
@@ -48,6 +48,9 @@ export default function LandingPage({ setCategory, currentCategory }) {
           </div>
         </div>      
       <Footer />
+
+      {isMobile && <BottomMobileMenu />} 
+
     </div>
   );
 }

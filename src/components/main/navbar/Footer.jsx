@@ -24,14 +24,14 @@ function Footer({  }) {
     
       <div className="mt-auto flex ">
       
-        <div className="bottom-0 w-full flex justify-between  py-4">
+        <div className="bottom-0 w-full flex md:flex-row flex-col justify-between  py-4 mb-20">
           <div className='flex md:flex-row flex-col'>
-            <a className="text-xs text-white mr-2">Terms and Conditions of Use</a><a className="text-xs text-white mr-2">|</a>
-            <a className="text-xs text-white mr-2">Privacy and Cookie Notice</a><a className="text-xs text-white mr-2">|</a>
-            <a className="text-xs text-white mr-2">Contact</a><a className="text-xs text-white mr-2">|</a>
+            <div className='flex'><a className="text-xs text-white mr-2 cursor-pointer hover:text-scGreen">Terms and Conditions of Use</a><a className="text-xs text-white mr-2">|</a></div>
+            <div className='flex'><a className="text-xs text-white mr-2 cursor-pointer hover:text-scGreen">Privacy and Cookie Notice</a><a className="text-xs text-white mr-2">|</a></div>
+            <div className='flex'><a className="text-xs text-white mr-2 cursor-pointer hover:text-scGreen">Contact</a><a className="text-xs text-white mr-2">|</a></div>            
             <a className="text-xs text-white mr-2">Update consent</a>
           </div>
-        <p className="text-xs text-white">Copyright &copy; 2024 Score24</p>
+        <p className="text-xs text-white md:mt-0 mt-4">Copyright &copy; 2024 Score24</p>
       </div>
     </div>
   </div>
