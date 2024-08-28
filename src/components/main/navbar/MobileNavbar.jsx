@@ -42,7 +42,7 @@ export default function MobileNavbar({ setCategory, currentCategory }) {
   };
 
   return (
-    <div className="px-4 text-sm" style={{  }}>
+    <div className="w-full fixed top-0 bg-scBackground        pl-4 text-sm" style={{  }}>
       <div className="flex justify-between py-2">
         
       <div className="flex ">
@@ -79,9 +79,9 @@ export default function MobileNavbar({ setCategory, currentCategory }) {
             </div>
           </div>
 
-          <div className='flex'>
+          <div className='flex '>
             <div
-              className=" flex items-center justify-center   hover:text-scGreen text-white"
+              className=" flex items-center justify-center   hover:text-scGreen text-white mr-2"
               style={{ height: '40px', width: '40px', borderRadius: '4px' }}
               // onClick={() => { logout(); }}
               >
@@ -125,7 +125,7 @@ export default function MobileNavbar({ setCategory, currentCategory }) {
           <div className="navbar-backdrop fixed inset-0" onClick={closeMenu}></div>
 
           <nav
-            className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-4 pr-4 border-r overflow-y-auto bg-scBackground"
+            className="fixed top-0 left-0 bottom-0 flex flex-col w-full  py-4  border-r overflow-y-auto bg-scBackground"
             style={{}}
           >
             <div className="flex items-center">

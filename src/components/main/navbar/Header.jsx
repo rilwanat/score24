@@ -30,7 +30,7 @@ export default function Header({ setCategory, currentCategory }) {
       <div>
         {isMobile ? <MobileNavbar setCategory={setCategory} currentCategory={currentCategory}/> : <div></div>}
       </div>
-      <div className='flex w-full'>
+      <div className='flex w-full md:mt-0 mt-16'>
         <div className='w-full'>
           {isMobile ? <div></div> : <HeaderHead  setCategory={setCategory} currentCategory={currentCategory}/>}
         </div>
