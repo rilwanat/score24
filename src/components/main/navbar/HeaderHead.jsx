@@ -38,7 +38,7 @@ export default function HeaderHead({ setCategory, currentCategory }) {
         />
       </div> */}
 
-      <div className='px-8 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-4 flex flex-col md:flex-row justify-between items-center'> 
+      <div className='px-8 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-2 flex flex-col md:flex-row justify-between items-center'> 
         <div className="flex items-center">
           <img
             className="block h-10 w-auto max-w-none"
@@ -61,7 +61,7 @@ export default function HeaderHead({ setCategory, currentCategory }) {
         </div>
       </div>
 
-      <div className='px-8 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-1 flex flex-col md:flex-row items-center justify-between'>
+      <div className='px-8 md:px-4 lg:px-16 xl:px-24 2xl:px-80  flex flex-col md:flex-row items-center justify-between'>
         <div className='flex'>          
           <div className={`flex  mr-4 cursor-pointer items-center px-2 py-1 ${currentCategory === 'Football' ? 'rounded-lg bg-scDarkerBackground ' : ''}`} onClick={() => setCategory("Football")}><SportsSoccerIcon className='mr-2' style={{ width: '20px', height: '20px', color: currentCategory === 'Football' ? '#B3E94E' : '#ACBFD5' }}/> <p className={`text-xs ${currentCategory === 'Football' ? 'text-scGreen' : 'text-scMenuText'}`}>Football</p></div>
           {/* <div className='flex mr-4 cursor-pointer items-center' onClick={setCategory("Tennis")}><SportsTennisIcon className='mr-2' style={{ width: '20px', height: '20px', color: '#ACBFD5' }}/> <p className='text-xs text-scMenuText'>Tennis</p></div> */}

@@ -155,26 +155,29 @@ export default function MainContent({ setCategory, currentCategory }) {
   const getDates = () => {
     const dates = [];
     const today = new Date();
-
-    // Get dates for the past 6 days
-    for (let i = 6; i > 0; i--) {
+    const isMobile = window.innerWidth <= 768; // You can adjust this value according to your design breakpoints
+    const daysRange = isMobile ? 3 : 7;
+  
+    // Get dates for the past `daysRange` days
+    for (let i = daysRange; i > 0; i--) {
       const pastDate = new Date(today);
       pastDate.setDate(today.getDate() - i);
       dates.push(pastDate);
     }
-
+  
     // Add today
     dates.push(today);
-
-    // Get dates for the next 6 days
-    for (let i = 1; i <= 6; i++) {
+  
+    // Get dates for the next `daysRange` days
+    for (let i = 1; i <= daysRange; i++) {
       const futureDate = new Date(today);
       futureDate.setDate(today.getDate() + i);
       dates.push(futureDate);
     }
-
+  
     return dates;
   };
+  
 
   // // Format the dates as 'Day, Month Date' (e.g., 'Wednesday, Aug 21')
   // const formatDate = (date) => {
@@ -209,7 +212,7 @@ export default function MainContent({ setCategory, currentCategory }) {
     px-4 md:px-4 lg:px-16 xl:px-24 2xl:px-80 py-4 
     flex flex-col md:flex-row '>
 
-        <div className='flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
+        <div className='hidden md:flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
             <div className='bg-scBackground rounded-lg w-full '>
                 <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Home")}>
                   {currentPageName == "Home" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
@@ -236,7 +239,7 @@ export default function MainContent({ setCategory, currentCategory }) {
         </div>
 
         <div className='flex flex-col w-full'>
-            <div className='bg-scBackground rounded-lg w-full p-4 mb-4  hover:bg-scBackgroundHover cursor-pointer'>
+            <div className='hidden md:flex justify-center bg-scBackground rounded-lg w-full p-4 mb-4  hover:bg-scBackgroundHover cursor-pointer'>
                 <div className='flex items-center justify-center'><p className='text-xs text-white mr-2'>{'Wednesday, Aug 21'.toUpperCase()}</p><CalendarMonthIcon style={{ width: '18px', height: '18px', color: '#FFFFFF' }}/></div>
             </div>
             
@@ -250,13 +253,14 @@ export default function MainContent({ setCategory, currentCategory }) {
                   className='  w-full px-1 py-2  hover:bg-scBackgroundHover cursor-pointer'
                 >
                   {/* <div className='flex items-center justify-center w-full bg-red-100'> */}
-                    <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-white'} text-center`}>{formatDate1(date)}</p>
-                    <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-white'} text-center`}>{formatDate2(date)}</p>
+                    <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate1(date)}</p>
+                    <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate2(date)}</p>
                   {/* </div> */}
                 </div>
               )
               })}
             </div>
+            
 
             
             {
