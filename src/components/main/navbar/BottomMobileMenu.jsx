@@ -18,20 +18,20 @@ function BottomMobileMenu({  }) {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-scBackground z-50 flex justify-around py-2 md:hidden ">
       <div className="flex flex-col items-center cursor-pointer">
-        <HomeIcon className="text-white" />
-        <p className="text-xs text-white">Home</p>
+        <HomeIcon className="text-scTimeText hover:text-scGreen"/>
+        <p className="text-xs text-scTimeText  hover:text-scGreen">Home</p>
       </div>
       <div className="flex flex-col items-center cursor-pointer">
-        <LiveTvIcon className="text-white" />
-        <p className="text-xs text-white">Live</p>
+        <LiveTvIcon className="text-scTimeText hover:text-scGreen"/>
+        <p className="text-xs text-scTimeText  hover:text-scGreen">Live</p>
       </div>
       <div className="flex flex-col items-center cursor-pointer">
-        <FavoriteBorderIcon className="text-white" />
-        <p className="text-xs text-white">Favourites</p>
+        <FavoriteBorderIcon className="text-scTimeText hover:text-scGreen"/>
+        <p className="text-xs text-scTimeText  hover:text-scGreen">Favourites</p>
       </div>
       <div className="flex flex-col items-center cursor-pointer">
-        <MenuIcon className="text-white" />
-        <p className="text-xs text-white">Menu</p>
+        <MenuIcon className="text-scTimeText hover:text-scGreen"/>
+        <p className="text-xs text-scTimeText  hover:text-scGreen">Menu</p>
       </div>
     </div>
   );
