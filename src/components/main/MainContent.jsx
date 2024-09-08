@@ -11,141 +11,204 @@ import competitionImage from '../../assets/svg/1x1.svg';
 import ComponentFootball from "./ComponentFootball";
 import ComponentBasketball from "./ComponentBasketball";
 
+import axios from 'axios';
+// import axiosInstance from '../../axiosConfig';
 
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function MainContent({ setCategory, currentCategory }) {
   const navigate = useNavigate();  
 
 
-  const matchData = [
-    {
-      time: "10:30",
-      homeTeam: "O'Connor Knights",
-      awayTeam: "Tigers FC",
-      matchType: "Result Only",
-      competition: "Bolivia : Primera Division - Clausura",
-      status: "FT",
-      homeScore: "3",
-      awayScore: "0",
-    },
-    {
-      time: "FT",
-      homeTeam: "Independiente Petrolero",
-      awayTeam: "Real Santa Cruz",
-      competition: "Bolivia : Primera Division - Clausura",
-      status: "FT",
-      homeScore: "3",
-      awayScore: "0",
-    },
-    {
-      time: "FT",
-      homeTeam: "Amazonas FC",
-      awayTeam: "Ponte Preta",
-      competition: "Brazil : Serie B",
-      status: "FT",
-      homeScore: "2",
-      awayScore: "1",
-    },
-    {
-      time: "FT",
-      homeTeam: "Operario Ferroviario",
-      awayTeam: "Vila Nova",
-      competition: "Brazil : Serie B",
-      status: "FT",
-      homeScore: "2",
-      awayScore: "3",
-    },
-    {
-      time: "23:00",
-      homeTeam: "Mirassol",
-      awayTeam: "Botafogo SP",
-      competition: "Brazil : Serie B",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "23:00",
-      homeTeam: "America MG",
-      awayTeam: "Chapecoense AF",
-      competition: "Brazil : Serie B",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "23:00",
-      homeTeam: "Guarani",
-      awayTeam: "Santos FC",
-      competition: "Brazil : Serie B",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "FT",
-      homeTeam: "Beijing Guoan",
-      awayTeam: "Shandong Taishan",
-      competition: "China : Cup",
-      status: "FT",
-      homeScore: "1",
-      awayScore: "1",
-    },
-    {
-      time: "15:00",
-      homeTeam: "FC Porto",
-      awayTeam: "Sporting CP",
-      competition: "Portugal : Primeira Liga",
-      status: "FT",
-      homeScore: "1",
-      awayScore: "1",
-    },
-    {
-      time: "20:00",
-      homeTeam: "Napoli",
-      awayTeam: "AC Milan",
-      competition: "Italy : Serie A",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "18:30",
-      homeTeam: "Paris Saint-Germain",
-      awayTeam: "Marseille",
-      competition: "France : Ligue 1",
-      status: "FT",
-      homeScore: "2",
-      awayScore: "0",
-    },
-    {
-      time: "21:00",
-      homeTeam: "Real Madrid",
-      awayTeam: "Atletico Madrid",
-      competition: "Spain : LaLiga",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "16:00",
-      homeTeam: "Ajax",
-      awayTeam: "Feyenoord",
-      competition: "Netherlands : Eredivisie",
-      status: "FT",
-      homeScore: "2",
-      awayScore: "2",
-    },
-  ];
+  const [isDataloading, setIsDataLoading] = useState(true);
+  const [matchData, setMatchDataData] = useState([]);
+  useEffect(() => {
+    handleData();
+  }, []);
+  const handleData = async () => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // Prepare the request body
+      const requestBody = {
+        date: "2024-09-08"
+      };
+
+
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_MATCH_DATA;
+      // alert(endpoint);
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.get(endpoint, requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      // alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+      //   setMatchDataData(response.data.dashboard);
+      //   // alert(response.data.doctors.length);
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+    
+      // Check if the error has a response and if the response has a data object
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data.message;
+        // alert("Error: " + errorMessage);
+        // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      } else {
+        // Handle other types of errors (e.g., network errors)
+        // alert("An unexpected error occurred.");
+        // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
+      }
+    }
+  };
+
+  // const matchData = [
+  //   {
+  //     time: "10:30",
+  //     homeTeam: "O'Connor Knights",
+  //     awayTeam: "Tigers FC",
+  //     matchType: "Result Only",
+  //     competition: "Bolivia : Primera Division - Clausura",
+  //     status: "FT",
+  //     homeScore: "3",
+  //     awayScore: "0",
+  //   },
+  //   {
+  //     time: "FT",
+  //     homeTeam: "Independiente Petrolero",
+  //     awayTeam: "Real Santa Cruz",
+  //     competition: "Bolivia : Primera Division - Clausura",
+  //     status: "FT",
+  //     homeScore: "3",
+  //     awayScore: "0",
+  //   },
+  //   {
+  //     time: "FT",
+  //     homeTeam: "Amazonas FC",
+  //     awayTeam: "Ponte Preta",
+  //     competition: "Brazil : Serie B",
+  //     status: "FT",
+  //     homeScore: "2",
+  //     awayScore: "1",
+  //   },
+  //   {
+  //     time: "FT",
+  //     homeTeam: "Operario Ferroviario",
+  //     awayTeam: "Vila Nova",
+  //     competition: "Brazil : Serie B",
+  //     status: "FT",
+  //     homeScore: "2",
+  //     awayScore: "3",
+  //   },
+  //   {
+  //     time: "23:00",
+  //     homeTeam: "Mirassol",
+  //     awayTeam: "Botafogo SP",
+  //     competition: "Brazil : Serie B",
+  //     status: "Upcoming",
+  //     homeScore: null,
+  //     awayScore: null,
+  //   },
+  //   {
+  //     time: "23:00",
+  //     homeTeam: "America MG",
+  //     awayTeam: "Chapecoense AF",
+  //     competition: "Brazil : Serie B",
+  //     status: "Upcoming",
+  //     homeScore: null,
+  //     awayScore: null,
+  //   },
+  //   {
+  //     time: "23:00",
+  //     homeTeam: "Guarani",
+  //     awayTeam: "Santos FC",
+  //     competition: "Brazil : Serie B",
+  //     status: "Upcoming",
+  //     homeScore: null,
+  //     awayScore: null,
+  //   },
+  //   {
+  //     time: "FT",
+  //     homeTeam: "Beijing Guoan",
+  //     awayTeam: "Shandong Taishan",
+  //     competition: "China : Cup",
+  //     status: "FT",
+  //     homeScore: "1",
+  //     awayScore: "1",
+  //   },
+  //   {
+  //     time: "15:00",
+  //     homeTeam: "FC Porto",
+  //     awayTeam: "Sporting CP",
+  //     competition: "Portugal : Primeira Liga",
+  //     status: "FT",
+  //     homeScore: "1",
+  //     awayScore: "1",
+  //   },
+  //   {
+  //     time: "20:00",
+  //     homeTeam: "Napoli",
+  //     awayTeam: "AC Milan",
+  //     competition: "Italy : Serie A",
+  //     status: "Upcoming",
+  //     homeScore: null,
+  //     awayScore: null,
+  //   },
+  //   {
+  //     time: "18:30",
+  //     homeTeam: "Paris Saint-Germain",
+  //     awayTeam: "Marseille",
+  //     competition: "France : Ligue 1",
+  //     status: "FT",
+  //     homeScore: "2",
+  //     awayScore: "0",
+  //   },
+  //   {
+  //     time: "21:00",
+  //     homeTeam: "Real Madrid",
+  //     awayTeam: "Atletico Madrid",
+  //     competition: "Spain : LaLiga",
+  //     status: "Upcoming",
+  //     homeScore: null,
+  //     awayScore: null,
+  //   },
+  //   {
+  //     time: "16:00",
+  //     homeTeam: "Ajax",
+  //     awayTeam: "Feyenoord",
+  //     competition: "Netherlands : Eredivisie",
+  //     status: "FT",
+  //     homeScore: "2",
+  //     awayScore: "2",
+  //   },
+  // ];
   
 
-  const matchesGroupedByCompetition = matchData.reduce((acc, match) => {
-    if (!acc[match.competition]) {
-      acc[match.competition] = [];
-    }
-    acc[match.competition].push(match);
-    return acc;
-  }, {});
+  // const matchesGroupedByCompetition = matchData.reduce((acc, match) => {
+  //   if (!acc[match.competition]) {
+  //     acc[match.competition] = [];
+  //   }
+  //   acc[match.competition].push(match);
+  //   return acc;
+  // }, {});
   
 
   const [currentPageName, setCurrentPageName] = useState("Home");
@@ -206,6 +269,24 @@ export default function MainContent({ setCategory, currentCategory }) {
   const dates = getDates();
 
 
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 15, // Adjust based on how many dates to show at once
+    slidesToScroll: 1,
+    arrows: false, // Disable the arrows
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 5, // Adjust for mobile view
+          slidesToScroll: 1,
+        }
+      }
+    ]
+  };
+
 
   return (
     <div className='bg-scDarkerBackground
@@ -246,7 +327,7 @@ export default function MainContent({ setCategory, currentCategory }) {
                 </div>
             </div>
             
-            <div className='flex w-full bg-scBackground'>
+            {/* <div className='flex w-full bg-scBackground'>
               {dates.map((date, index) => {
                 const isToday = date.toDateString() === new Date().toDateString();
                 
@@ -255,13 +336,33 @@ export default function MainContent({ setCategory, currentCategory }) {
                   key={index}
                   className='  w-full px-1 py-2  hover:bg-scBackgroundHover cursor-pointer'
                 >
-                  {/* <div className='flex items-center justify-center w-full bg-red-100'> */}
+                  <div className='flex items-center justify-center w-full bg-red-100'>
                     <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate1(date)}</p>
                     <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate2(date)}</p>
-                  {/* </div> */}
+                  </div> 
                 </div>
               )
               })}
+            </div>*/}
+
+            <div className=' w-full bg-scBackground '>
+              <Slider {...settings} className="">
+                {dates.map((date, index) => {
+                  const isToday = date.toDateString() === new Date().toDateString();
+
+                  return(
+                  <div 
+                    key={index} 
+                    className="  w-full px-1 py-2  hover:bg-scBackgroundHover cursor-pointer "
+                  >
+                    <div className="flex flex-col items-center  p-1 bg-scBackgroundHover ">
+                      <span className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate1(date)}</span>
+                      <span className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate2(date)}</span>
+                    </div>
+                  </div>
+                  )
+                  })}
+              </Slider>
             </div>
             
 
