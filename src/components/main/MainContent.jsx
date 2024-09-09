@@ -23,7 +23,7 @@ import Loading from './Loading';
 
 
 
-export default function MainContent({ setCategory, currentCategory }) {
+export default function MainContent({ setCategory, currentCategory, isMobile }) {
   const navigate = useNavigate();
   const [currentPageName, setCurrentPageName] = useState("Home");
 
@@ -311,7 +311,9 @@ export default function MainContent({ setCategory, currentCategory }) {
               )
               })}
             </div>*/}
-
+            
+            {
+              !isMobile ?
             <div className=' w-full bg-scBackground '>
               <Slider {...settings} className="">
                 {dates.map((date, index) => {
@@ -334,6 +336,9 @@ export default function MainContent({ setCategory, currentCategory }) {
                   })}
               </Slider>
             </div>
+            :
+            <></>
+            }
             
 
             

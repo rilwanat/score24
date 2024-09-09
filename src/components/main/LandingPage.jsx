@@ -45,7 +45,7 @@ export default function LandingPage({ setCategory, currentCategory }) {
         <div className='flex'>
           <div className='w-full rounded-lg'>
 
-            <MainContent setCategory={setCategory} currentCategory={currentCategory}/> 
+            <MainContent setCategory={setCategory} currentCategory={currentCategory} isMobile={isMobile}/> 
 
           </div>
         </div>      

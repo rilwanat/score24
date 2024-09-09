@@ -32,7 +32,7 @@ export default function Header({ setCategory, currentCategory }) {
       </div>
       <div className='flex w-full md:mt-0 mt-16'>
         <div className='w-full'>
-          {isMobile ? <div></div> : <HeaderHead  setCategory={setCategory} currentCategory={currentCategory}/>}
+          {isMobile ? <div></div> : <HeaderHead  setCategory={setCategory} currentCategory={currentCategory} />}
         </div>
       </div>
     </div>
