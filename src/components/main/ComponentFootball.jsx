@@ -6,140 +6,100 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
-import competitionImage from '../../assets/svg/1x1.svg';
+import headingImage from '../../assets/svg/1x1.svg';
 
+import axios from 'axios';
+// import axiosInstance from '../../axiosConfig';
 
-export default function ComponentFootball({  }) {
+import parse from 'html-react-parser';
+import Loading from './Loading';
+
+export default function ComponentFootball({ showingForDate }) {
   const navigate = useNavigate();  
 
+  // alert(showingForDate);
 
-  const matchData = [
-    {
-      time: "10:30",
-      homeTeam: "O'Connor Knights",
-      awayTeam: "Tigers FC",
-      matchType: "Result Only",
-      competition: "Bolivia : Primera Division - Clausura",
-      status: "FT",
-      homeScore: "3",
-      awayScore: "0",
-    },
-    {
-      time: "FT",
-      homeTeam: "Independiente Petrolero",
-      awayTeam: "Real Santa Cruz",
-      competition: "Bolivia : Primera Division - Clausura",
-      status: "FT",
-      homeScore: "3",
-      awayScore: "0",
-    },
-    {
-      time: "FT",
-      homeTeam: "Amazonas FC",
-      awayTeam: "Ponte Preta",
-      competition: "Brazil : Serie B",
-      status: "FT",
-      homeScore: "2",
-      awayScore: "1",
-    },
-    {
-      time: "FT",
-      homeTeam: "Operario Ferroviario",
-      awayTeam: "Vila Nova",
-      competition: "Brazil : Serie B",
-      status: "FT",
-      homeScore: "2",
-      awayScore: "3",
-    },
-    {
-      time: "23:00",
-      homeTeam: "Mirassol",
-      awayTeam: "Botafogo SP",
-      competition: "Brazil : Serie B",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "23:00",
-      homeTeam: "America MG",
-      awayTeam: "Chapecoense AF",
-      competition: "Brazil : Serie B",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "23:00",
-      homeTeam: "Guarani",
-      awayTeam: "Santos FC",
-      competition: "Brazil : Serie B",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "FT",
-      homeTeam: "Beijing Guoan",
-      awayTeam: "Shandong Taishan",
-      competition: "China : Cup",
-      status: "FT",
-      homeScore: "1",
-      awayScore: "1",
-    },
-    {
-      time: "15:00",
-      homeTeam: "FC Porto",
-      awayTeam: "Sporting CP",
-      competition: "Portugal : Primeira Liga",
-      status: "FT",
-      homeScore: "1",
-      awayScore: "1",
-    },
-    {
-      time: "20:00",
-      homeTeam: "Napoli",
-      awayTeam: "AC Milan",
-      competition: "Italy : Serie A",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "18:30",
-      homeTeam: "Paris Saint-Germain",
-      awayTeam: "Marseille",
-      competition: "France : Ligue 1",
-      status: "FT",
-      homeScore: "2",
-      awayScore: "0",
-    },
-    {
-      time: "21:00",
-      homeTeam: "Real Madrid",
-      awayTeam: "Atletico Madrid",
-      competition: "Spain : LaLiga",
-      status: "Upcoming",
-      homeScore: null,
-      awayScore: null,
-    },
-    {
-      time: "16:00",
-      homeTeam: "Ajax",
-      awayTeam: "Feyenoord",
-      competition: "Netherlands : Eredivisie",
-      status: "FT",
-      homeScore: "2",
-      awayScore: "2",
-    },
-  ];
-  
+  const [isDataloading, setIsDataLoading] = useState(true);
+  const [matchData, setMatchDataData] = useState([]);
+  useEffect(() => {
+    handleData(showingForDate);
+  }, [showingForDate]);
+  const handleData = async (showingForDate) => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // Prepare the request body
+      const requestBody = {
+        date: showingForDate
+      };
 
-  const matchesGroupedByCompetition = matchData.reduce((acc, match) => {
-    if (!acc[match.competition]) {
-      acc[match.competition] = [];
+
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_MATCH_DATA;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.post(endpoint, requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      // alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+         setMatchDataData(response.data);
+         console.log(response.data);
+      //   // alert(response.data.doctors.length);
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+
+      alert(error);
+    
+      // // Check if the error has a response and if the response has a data object
+      // if (error.response && error.response.data) {
+      //   const errorMessage = error.response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // } else {
+      //   // Handle other types of errors (e.g., network errors)
+      //   alert("An unexpected error occurred.");
+      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
+      // }
     }
-    acc[match.competition].push(match);
+  };
+
+
+
+  // const matchesGroupedByHeading = matchData.reduce((acc, match) => {
+  //   if (!acc[match.heading]) {
+  //     acc[match.heading] = [];
+  //   }
+  //   acc[match.heading].push(match);
+  //   return acc;
+  // }, {});
+
+  const matchesGroupedByHeading = matchData.reduce((acc, match) => {
+    if (!acc[match.heading]) {
+      acc[match.heading] = {
+        "heading image": match['heading image'],  // Add the heading image
+        fixtures: []  // Initialize an empty array for fixtures
+      };
+    }
+    // Add the fixtures array directly
+    acc[match.heading].fixtures.push(...match.fixtures);
+    // alert(JSON.stringify(acc), null, 2);
     return acc;
   }, {});
   
@@ -147,65 +107,128 @@ export default function ComponentFootball({  }) {
   const [currentPageName, setCurrentPageName] = useState("Home");
 
 
+   //
+  // Function to get an array of dates with today in the middle
+  const getDates = () => {
+    const dates = [];
+    const today = new Date();
+    const isMobile = window.innerWidth <= 768; // You can adjust this value according to your design breakpoints
+    const daysRange = isMobile ? 3 : 7;
+  
+    // Get dates for the past `daysRange` days
+    for (let i = daysRange; i > 0; i--) {
+      const pastDate = new Date(today);
+      pastDate.setDate(today.getDate() - i);
+      dates.push(pastDate);
+    }
+  
+    // Add today
+    dates.push(today);
+  
+    // Get dates for the next `daysRange` days
+    for (let i = 1; i <= daysRange; i++) {
+      const futureDate = new Date(today);
+      futureDate.setDate(today.getDate() + i);
+      dates.push(futureDate);
+    }
+  
+    return dates;
+  };
+  
+
+  // // Format the dates as 'Day, Month Date' (e.g., 'Wednesday, Aug 21')
+  // const formatDate = (date) => {
+  //   return date.toLocaleDateString('en-US', {
+  //     weekday: 'long',
+  //     month: 'short',
+  //     day: 'numeric',
+  //   }).toUpperCase();
+  // };
+
+  // const dates = getDates();
+  // //
+
+  // Format the dates as 'FRI' (weekday only)
+  const formatDate1 = (date) => {
+    const options = { weekday: 'short' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  // Format the dates as 'Aug 16' (month and day only)
+  const formatDate2 = (date) => {
+    const options = { month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  const dates = getDates();
+
+
   return (
-  <>
-  <div className="space-y-4">
-                
-                {Object.keys(matchesGroupedByCompetition).map((competition) => (
-                <div key={competition} className=" w-full py-2 my-4">
-                  <div className='flex justify-between'>
-                    <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer '>
-                      <img src={competitionImage} alt="Competition Image" className="mr-2 w-4" /> 
-                      <p className="text-xs text-white hover:text-scGreen">{competition.toUpperCase()}</p>
-                    </div>
-                    <div className='flex justify-end  mx-3' style={{ width: '60px' }}>
-                      <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen" style={{  }}/>
-                    </div>
-                    
-                    </div>
-                    <div className="space-y-2 mt-2 
-                    bg-scBackground rounded-lg p-3 
-                    ">
-                    {matchesGroupedByCompetition[competition].map((match, index) => (
-                        <div key={index} className="text-scMenuText   cursor-pointer">
-                          <div className='flex  
-                    '>
-                            <p  className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
-
-                            <div className='md:flex w-full justify-center mx-4 hidden'>
-                              <div className='flex w-4/12 md:w-5/12 justify-end'><p className='text-white text-right'>{match.homeTeam}</p></div>  
-                              <div className='flex w-5/12 md:w-2/12 justify-center items-center'>
-                                <p className='mx-8 text-center text-scGreen'>{match.time == 'FT' ? match.homeScore : ''} {match.time != 'FT' ? 'vs.' : '-'} {match.time == 'FT' ? match.awayScore : ''}</p>
-                              </div>
-                              <div className='flex w-4/12 md:w-5/12 justify-start'><p className='text-white  text-left'>{match.awayTeam}</p></div>                              
-                            </div>
-
-                            <div className='md:hidden flex flex-col w-full px-2 mx-2 '>
-                              <div className='flex w-full justify-between'>
-                                <p className='text-white'>{match.homeTeam}</p>
-                                <p className='text-center text-scGreen'>{match.time == 'FT' ? match.homeScore : ''}</p>
-                              </div>
-                              <div className='flex w-full justify-between'>
-                                <p className='text-white'>{match.awayTeam}</p>
-                                <p className='text-center text-scGreen'>{match.time == 'FT' ? match.awayScore : ''}</p>
-                              </div>
-                              
-                            </div>
-
-                            <p className="cursor-pointer flex  items-center justify-end" style={{ width: '60px' }}><StarBorderIcon className='hover:text-scGreen '/> </p>
-                          </div>
-
-                          {/* Conditionally render the <hr /> if it's not the last item */}
-                          {index !== matchesGroupedByCompetition[competition].length - 1 && (
-                            <hr className="border-1 border-scHr mt-2" />
-                            )}
-                        </div>
-                    ))}
-                    </div>
+    <>
+    {
+    isDataloading ? <Loading /> :
+      <div className="space-y-4">
+        {Object.keys(matchesGroupedByHeading).map((heading) => {
+          const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
+          
+          return (
+            <div key={heading} className="w-full py-2 my-4">              
+              <div className='flex justify-between'>
+                <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
+                  <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
+                  <p className="text-xs text-white hover:text-scGreen">
+                    {parse(heading)}
+                  </p>
                 </div>
+                <div className='flex justify-end mx-3' style={{ width: '60px' }}>
+                  <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen" />
+                </div>
+              </div>              
+              <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
+                {fixtures.map((match, index) => (
+                  <div key={index} className="text-scMenuText cursor-pointer">
+                    <div className='flex'>
+                      <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
+                      <div className='md:flex w-full justify-center mx-4 hidden '>
+                        <div className='flex w-4/12 md:w-5/12 justify-end'>
+                          <p className='text-white text-right'>{match.homeTeam}</p>
+                        </div>
+                        <div className='flex w-5/12 md:w-2/12 justify-center items-center '>
+                          <p className='mx-8 text-center text-scGreen'>
+                            {/* {match.time === 'FT' ? match.home_score : ''} {match.time !== 'FT' ? 'vs.' : '-'} {match.time === 'FT' ? match.away_score : ''} */}
+                            {match.status === 'FT' ? match.home_score : ''} {match.status !== 'FT' ? 'vs.' : '-'} {match.status === 'FT' ? match.away_score : ''}                            
+                          </p>
+                        </div>
+                        <div className='flex w-4/12 md:w-5/12 justify-start'>
+                          <p className='text-white text-left'>{match.awayTeam}</p>
+                        </div>
+                      </div>
+                      <div className='md:hidden flex flex-col w-full px-2 mx-2'>
+                        <div className='flex w-full justify-between'>
+                          <p className='text-white'>{match.homeTeam}</p>
+                          <p className='text-center text-scGreen'>{match.status === 'FT' ? match.home_score : ''}</p>
+                        </div>
+                        <div className='flex w-full justify-between'>
+                          <p className='text-white'>{match.awayTeam}</p>
+                          <p className='text-center text-scGreen'>{match.status === 'FT' ? match.away_score : ''}</p>
+                        </div>
+                      </div>
+                      <p className="cursor-pointer flex items-center justify-end" style={{ width: '60px' }}>
+                        <StarBorderIcon className='hover:text-scGreen' />
+                      </p>
+                    </div>
+                    {index !== fixtures.length - 1 && (
+                      <hr className="border-1 border-scHr mt-2" />
+                    )}
+                  </div>
                 ))}
-
+              </div>
             </div>
-  </>
+          );
+        })}
+      </div>
+      }
+    </>
   );
+  
 }
