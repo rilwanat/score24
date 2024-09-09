@@ -39,7 +39,7 @@ export default function MainContent({ setCategory, currentCategory }) {
 
 
       var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_MATCH_DATA;
-      // alert(endpoint);
+      alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
       // const response = await axiosInstance.get(endpoint, { //requestBody, {
         const response = await axios.get(endpoint, requestBody, {
           //params: { uid: uid },
@@ -66,17 +66,19 @@ export default function MainContent({ setCategory, currentCategory }) {
 
     } catch (error) {
       setIsDataLoading(false);
+
+      alert(error);
     
-      // Check if the error has a response and if the response has a data object
-      if (error.response && error.response.data) {
-        const errorMessage = error.response.data.message;
-        // alert("Error: " + errorMessage);
-        // openNotificationModal(false, currentPageName + " Error", errorMessage);
-      } else {
-        // Handle other types of errors (e.g., network errors)
-        // alert("An unexpected error occurred.");
-        // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
-      }
+      // // Check if the error has a response and if the response has a data object
+      // if (error.response && error.response.data) {
+      //   const errorMessage = error.response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // } else {
+      //   // Handle other types of errors (e.g., network errors)
+      //   alert("An unexpected error occurred.");
+      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
+      // }
     }
   };
 
