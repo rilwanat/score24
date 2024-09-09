@@ -51,7 +51,7 @@ export default function LandingPage({ setCategory, currentCategory }) {
         </div>      
       <Footer />
 
-      <CookieConsent />
+      {/* <CookieConsent /> */}
 
       {isMobile && <BottomMobileMenu />} 
 

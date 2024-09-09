@@ -25,7 +25,7 @@ function Loading({  }) {
       <div className="flex justify-center my-2">
         <ClipLoader size={40} color={"#B3E94E"} loading={true} /> 
       </div>
-      <div className="flex justify-center text-xs text-scGreen">loading ...</div>
+      <div className="flex justify-center text-xs text-scGreen">loading...</div>
     </div>
     <div className="flex flex-col items-center justify-center min-h-screen z-50">
 

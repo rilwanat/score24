@@ -52,7 +52,7 @@ export default function ComponentFootball({ showingForDate }) {
       // if (response.data.status) {
         
          setMatchDataData(response.data);
-         console.log(response.data);
+        //  console.log(response.data);
       //   // alert(response.data.doctors.length);
 
 
@@ -65,7 +65,7 @@ export default function ComponentFootball({ showingForDate }) {
     } catch (error) {
       setIsDataLoading(false);
 
-      alert(error);
+      // alert(error);
     
       // // Check if the error has a response and if the response has a data object
       // if (error.response && error.response.data) {

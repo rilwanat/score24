@@ -18,6 +18,11 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import parse from 'html-react-parser';
+import Loading from './Loading';
+
+
+
 export default function MainContent({ setCategory, currentCategory }) {
   const navigate = useNavigate();
   const [currentPageName, setCurrentPageName] = useState("Home");
@@ -93,6 +98,11 @@ export default function MainContent({ setCategory, currentCategory }) {
 
   // const dates = getDates();
   // //
+  // Wednesday, Aug 21
+  const formatDate0 = (date) => {
+    const options = { weekday: 'long', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
 
   // Format the dates as 'FRI' (weekday only)
   const formatDate1 = (date) => {
@@ -105,6 +115,7 @@ export default function MainContent({ setCategory, currentCategory }) {
     const options = { month: 'short', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
   };
+
 
   const dates = getDates();
 
@@ -126,6 +137,95 @@ export default function MainContent({ setCategory, currentCategory }) {
       }
     ]
   };
+
+
+
+
+  
+
+  const [isDataloading, setIsDataLoading] = useState(true);
+  const [matchData, setMatchDataData] = useState([]);
+  // order in ascending
+  const matchesGroupedByHeading = matchData.reduce((acc, match) => {
+    if (!acc[match.heading]) {
+      acc[match.heading] = {
+        "heading image": match['heading image'], // Add the heading image
+        fixtures: [] // Initialize an empty array for fixtures
+      };
+    }
+    // Add the fixtures array directly
+    acc[match.heading].fixtures.push(...match.fixtures);
+    return acc;
+  }, {});
+  
+  // Sort the grouped data by heading in ascending order
+  const sortedMatchesGroupedByHeading = Object.keys(matchesGroupedByHeading)
+    .sort((a, b) => a.localeCompare(b))  // Sort the headings in ascending order
+    .reduce((sortedAcc, heading) => {
+      sortedAcc[heading] = matchesGroupedByHeading[heading]; // Rebuild the sorted object
+      return sortedAcc;
+    }, {});
+  
+  
+  useEffect(() => {
+    handleData(showingForDate);
+  }, [showingForDate]);
+  const handleData = async (showingForDate) => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // Prepare the request body
+      const requestBody = {
+        date: showingForDate
+      };
+
+
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_MATCH_DATA;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.post(endpoint, requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      // alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+         setMatchDataData(response.data);
+        //  console.log(response.data);
+      //   // alert(response.data.doctors.length);
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+
+      // alert(error);
+    
+      // // Check if the error has a response and if the response has a data object
+      // if (error.response && error.response.data) {
+      //   const errorMessage = error.response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // } else {
+      //   // Handle other types of errors (e.g., network errors)
+      //   alert("An unexpected error occurred.");
+      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
+      // }
+    }
+  };
+
 
 
 
@@ -157,13 +257,39 @@ export default function MainContent({ setCategory, currentCategory }) {
             </div>
             <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
                 <p className='text-xs text-white'>All (A-Z)</p>
+                {
+    isDataloading ? 
+    // <Loading /> 
+    <></>
+    :
+      // <div className="space-y-4">
+      //   {Object.keys(matchesGroupedByHeading).map((heading) => {
+      //     const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
+          
+      //     return (
+      //       <div key={heading} className="w-full py-2 my-4">              
+      //         <div className='flex '>
+      //           <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
+      //             <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
+      //             <p className="text-xs text-white hover:text-scGreen">
+      //               {parse(heading)}
+      //             </p>
+      //           </div>
+      //         </div> 
+      //       </div>
+      //     );
+      //   })}
+      // </div>
+      <></>
+      }
             </div>
         </div>
 
         <div className='flex flex-col w-full'>
             <div className='hidden md:flex justify-center bg-scBackground rounded-lg w-full p-4 mb-4  hover:bg-scBackgroundHover cursor-pointer'>
                 <div className='flex items-center justify-center'>
-                  <p className='text-xs text-white mr-2'>{'Wednesday, Aug 21'.toUpperCase()}</p>
+                  {/* <p className='text-xs text-white mr-2'>{formatDate0(new Date()).toUpperCase()}</p> */}
+                  <p className='text-xs text-white mr-2'>{formatDate0(new Date()).toUpperCase()}</p>
                   <CalendarMonthIcon style={{ width: '18px', height: '18px', color: '#FFFFFF' }}/>
                 </div>
             </div>
