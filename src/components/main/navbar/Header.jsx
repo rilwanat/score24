@@ -8,31 +8,35 @@ import MarqueeTextContainer from "./MarqueeTextContainer";
 
 import stars from '../../../assets/images/stars.png';
 
-export default function Header({ setCategory, currentCategory }) {
+export default function Header({ setCategory, currentCategory, isMobile, isMenuOpen, toggleMenu, closeMenu}) {
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+  // const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
   
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('resize', handleResize);
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
 
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= 500);
-  };
+  // const handleResize = () => {
+  //   setIsMobile(window.innerWidth <= 500);
+  // };
 
   return (
     <div>
       <MarqueeTextContainer />
       
       <div>
-        {isMobile ? <MobileNavbar setCategory={setCategory} currentCategory={currentCategory}/> : <div></div>}
+        {isMobile ? <MobileNavbar setCategory={setCategory} currentCategory={currentCategory} 
+        isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+        /> : <div></div>}
       </div>
       <div className='flex w-full md:mt-0 mt-16'>
         <div className='w-full'>
-          {isMobile ? <div></div> : <HeaderHead  setCategory={setCategory} currentCategory={currentCategory} />}
+          {isMobile ? <div></div> : <HeaderHead  setCategory={setCategory} currentCategory={currentCategory} 
+          isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+          />}
         </div>
       </div>
     </div>

@@ -15,19 +15,26 @@ import stars from '../../assets/images/stars.png';
 
 export default function LandingPage({ setCategory, currentCategory }) {
   const navigate = useNavigate();  
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
-
   useEffect(() => {
-
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 500);
     };
-    
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
 
   
 
@@ -41,11 +48,15 @@ export default function LandingPage({ setCategory, currentCategory }) {
         />
       </div> */}
 
-      <Header setCategory={setCategory} currentCategory={currentCategory}/>
+      <Header setCategory={setCategory} currentCategory={currentCategory} isMobile={isMobile}  
+      isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+      />
         <div className='flex'>
           <div className='w-full rounded-lg'>
 
-            <MainContent setCategory={setCategory} currentCategory={currentCategory} isMobile={isMobile}/> 
+            <MainContent setCategory={setCategory} currentCategory={currentCategory} isMobile={isMobile} 
+            isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+            /> 
 
           </div>
         </div>      
@@ -53,7 +64,9 @@ export default function LandingPage({ setCategory, currentCategory }) {
 
       {/* <CookieConsent /> */}
 
-      {isMobile && <BottomMobileMenu />} 
+      {isMobile && <BottomMobileMenu setCategory={setCategory} currentCategory={currentCategory} isMobile={isMobile}
+      isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+      />} 
 
     </div>
   );

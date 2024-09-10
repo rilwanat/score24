@@ -313,7 +313,7 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
             </div>*/}
             
             {
-              !isMobile ?
+              !false ? 
             <div className=' w-full bg-scBackground '>
               <Slider {...settings} className="">
                 {dates.map((date, index) => {

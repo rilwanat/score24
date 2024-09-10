@@ -18,18 +18,18 @@ import styles from './MobileNavbarBottom.module.css';
 import { NavLink } from 'react-router-dom';
 import { navData } from './NavData';
 
-function BottomMobileMenu({  }) {
+function BottomMobileMenu({ setCategory, currentCategory, isMenuOpen, toggleMenu, closeMenu }) {
   const navigate = useNavigate();
 
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  // const [isMenuOpen, setMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen);
-  };
+  // const toggleMenu = () => {
+  //   setMenuOpen(!isMenuOpen);
+  // };
 
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
+  // const closeMenu = () => {
+  //   setMenuOpen(false);
+  // };
 
 
 
