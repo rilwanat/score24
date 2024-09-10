@@ -7,7 +7,7 @@ import appStore from '../../../assets/svg/app-store-badge.svg';
 import playStore from '../../../assets/svg/play-store-badge.svg';
 
 
-import styles from './MobileNavbarBottom.module.css';
+import styles from './MobileNavbar.module.css';
 import { NavLink } from 'react-router-dom';
 import { navData } from './NavData';
 

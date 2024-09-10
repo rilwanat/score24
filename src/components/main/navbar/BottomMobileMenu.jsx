@@ -14,7 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import logo from '../../../assets/images/logo.png';
 import MobileMenu from './MobileMenu';
 
-import styles from './MobileNavbarBottom.module.css';
+import styles from './MobileNavbar.module.css';
 import { NavLink } from 'react-router-dom';
 import { navData } from './NavData';
 

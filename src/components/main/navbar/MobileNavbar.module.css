@@ -40,9 +40,9 @@
 }
 
 .sideitem:hover {
-  background-color: #E5F1FD;
-  color: #000000;
-  border-radius: 8px;
+  /* background-color: #E5F1FD; */
+  color: #B3E94E;
+  /* border-radius: 8px; */
 }
 
 .menuBtn {
