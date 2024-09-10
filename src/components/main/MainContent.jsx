@@ -259,28 +259,28 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
                 <p className='text-xs text-white'>All (A-Z)</p>
                 {
     isDataloading ? 
-    // <Loading /> 
-    <></>
+    <Loading /> 
+    // <></>
     :
-      // <div className="space-y-4">
-      //   {Object.keys(matchesGroupedByHeading).map((heading) => {
-      //     const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
+      <div className="space-y-4">
+        {Object.keys(matchesGroupedByHeading).map((heading) => {
+          const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
           
-      //     return (
-      //       <div key={heading} className="w-full py-2 my-4">              
-      //         <div className='flex '>
-      //           <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
-      //             <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
-      //             <p className="text-xs text-white hover:text-scGreen">
-      //               {parse(heading)}
-      //             </p>
-      //           </div>
-      //         </div> 
-      //       </div>
-      //     );
-      //   })}
-      // </div>
-      <></>
+          return (
+            <div key={heading} className="w-full py-2 my-4">              
+              <div className='flex '>
+                <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
+                  <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
+                  <p className="text-xs text-white hover:text-scGreen">
+                    {parse(heading)}
+                  </p>
+                </div>
+              </div> 
+            </div>
+          );
+        })}
+      </div>
+      // <></>
       }
             </div>
         </div>
