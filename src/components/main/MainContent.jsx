@@ -11,6 +11,10 @@ import competitionImage from '../../assets/svg/1x1.svg';
 import ComponentFootball from "./ComponentFootball";
 import ComponentBasketball from "./ComponentBasketball";
 
+import ComponentFootballLive from "./ComponentFootballLive";
+// import ComponentFootballFavourites from "./ComponentFootballFavourites";
+
+
 import axios from 'axios';
 // import axiosInstance from '../../axiosConfig';
 
@@ -144,7 +148,11 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
   
 
   const [isDataloading, setIsDataLoading] = useState(true);
-  const [matchData, setMatchDataData] = useState([]);
+  const [matchData, setMatchData] = useState([]);
+  const [matchLive, setMatchLive] = useState([]);
+
+
+
   // order in ascending
   const matchesGroupedByHeading = matchData.reduce((acc, match) => {
     if (!acc[match.heading]) {
@@ -169,6 +177,7 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
   
   useEffect(() => {
     handleData(showingForDate);
+    handleLive();
   }, [showingForDate]);
   const handleData = async (showingForDate) => {    
     
@@ -197,7 +206,63 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
 
       // if (response.data.status) {
         
-         setMatchDataData(response.data);
+      setMatchData(response.data);
+        //  console.log(response.data);
+      //   // alert(response.data.doctors.length);
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+
+      // alert(error);
+    
+      // // Check if the error has a response and if the response has a data object
+      // if (error.response && error.response.data) {
+      //   const errorMessage = error.response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // } else {
+      //   // Handle other types of errors (e.g., network errors)
+      //   alert("An unexpected error occurred.");
+      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
+      // }
+    }
+  };
+
+  const handleLive = async () => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // Prepare the request body
+      const requestBody = {
+        date: showingForDate
+      };
+
+
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_LIVE;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.post(endpoint, { //requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      // alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+      setMatchLive(response.data);
         //  console.log(response.data);
       //   // alert(response.data.doctors.length);
 
@@ -238,17 +303,18 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
             <div className='bg-scBackground rounded-lg w-full '>
                 <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Home")}>
                   {currentPageName == "Home" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
-                  <p className={`text-xs ${currentPageName === 'Home' ? 'text-scGreen ' : 'text-white'}`}>Home</p>
+                  <p className={`text-xs hover:text-scGreen ${currentPageName === 'Home' ? 'text-scGreen' : 'text-white'}`}>Home</p>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
                 <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Live")}>
                   {currentPageName == "Live" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
-                  <p className={`text-xs ${currentPageName === 'Live' ? 'text-scGreen ' : 'text-white'}`}>Live</p>
+                  <p className={`text-xs hover:text-scGreen ${currentPageName === 'Live' ? 'text-scGreen ' : 'text-white'}`}>Live {' (' + (matchLive?.liveMatchCount || '-') + ')'}
+                  </p>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
                 <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Favourites")}>
                   {currentPageName == "Favourites" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
-                  <p className={`text-xs ${currentPageName === 'Favourites' ? 'text-scGreen ' : 'text-white'}`}>Favourites</p>
+                  <p className={`text-xs hover:text-scGreen ${currentPageName === 'Favourites' ? 'text-scGreen ' : 'text-white'}`}>Favourites</p>
                 </div>
             </div>
             <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
@@ -313,7 +379,8 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
             </div>*/}
             
             {
-              !false ? 
+              // !false ? 
+              currentPageName === "Home" ?
             <div className=' w-full bg-scBackground '>
               <Slider {...settings} className="">
                 {dates.map((date, index) => {
@@ -343,7 +410,12 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
 
             
             {
-              currentCategory == 'Football' ?  <ComponentFootball showingForDate={showingForDate} />
+              (currentCategory == 'Football') ?  
+              (currentPageName === 'Home' ? <ComponentFootball showingForDate={showingForDate} /> :
+               currentPageName === 'Live' ? <ComponentFootballLive showingForDate={showingForDate} /> :
+                // <ComponentFootballFavourites showingForDate={showingForDate} />
+                <></>
+              )
               : currentCategory == 'Basketball' ?  <ComponentBasketball />
               : <></>
             }
