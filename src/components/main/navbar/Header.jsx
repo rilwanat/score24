@@ -6,8 +6,6 @@ import MobileNavbar from './MobileNavbar';
 
 import MarqueeTextContainer from "./MarqueeTextContainer";
 
-import stars from '../../../assets/images/stars.png';
-
 export default function Header({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
 
   return (
@@ -16,17 +14,17 @@ export default function Header({ isMobile, isMenuOpen, toggleMenu, closeMenu, se
       
       <div>
         {isMobile ? <MobileNavbar 
-        setPageName={setPageName} currentPageName={currentPageName} 
-        setCategory={setCategory} currentCategory={currentCategory} 
-        isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+          setPageName={setPageName} currentPageName={currentPageName} 
+          setCategory={setCategory} currentCategory={currentCategory} 
+          isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
         /> : <div></div>}
       </div>
       <div className='flex w-full md:mt-0 mt-16'>
         <div className='w-full'>
           {isMobile ? <div></div> : <HeaderHead 
-          setPageName={setPageName} currentPageName={currentPageName} 
-          setCategory={setCategory} currentCategory={currentCategory} 
-          isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+            setPageName={setPageName} currentPageName={currentPageName} 
+            setCategory={setCategory} currentCategory={currentCategory} 
+            isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
           />}
         </div>
       </div>

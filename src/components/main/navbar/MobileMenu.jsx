@@ -132,9 +132,10 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                   <NavLink
                     key={item.id}
                     className={styles.sideitem}
-                    onClick={() => {                    
+                    onClick={() => {                               
                       setCategory(`${item.link}`);
-                      // setCurrentPageName(`${item.link}`);
+                      return;
+                      
                       closeMenu();
                     }}
                     // to={`/${item.link}`}
@@ -153,9 +154,10 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                   <div
                     key={item.id}
                     className={styles.sideitem}
-                    onClick={() => {            
-                      // setCategory(`${item.link}`);          
-                      setPageName(`${item.text}`);
+                    onClick={() => {                      
+                      setPageName(item.text);
+                      return; 
+
                       closeMenu();
                     }}
                     // to={`/${item.link}`}

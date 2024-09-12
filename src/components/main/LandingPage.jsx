@@ -10,12 +10,8 @@ import CookieConsent from './navbar/CookieConsent';
 import MainContent from './MainContent';
 
 
-import stars from '../../assets/images/stars.png';
-
-
 export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
-  // isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
-   
+
   return (
     <div className='bg-scBackground  text-sm'>
       {/* <div className="absolute inset-0 ">

@@ -7,13 +7,14 @@ function App() {
   const [currentPageName, setCurrentPageName] = useState("Home");
   const setPageName = (pgName) => {
     setCurrentPageName(pgName);
-    alert(pgName);
+    alert("pgName: " + pgName);
   }
 
 
   const [currentCategory, setCurrentCategory] = useState("Football");
   const setCategory = (cat) => {
     setCurrentCategory(cat);
+    alert("cat: " + cat);
   }
 
 
@@ -52,7 +53,6 @@ function App() {
     <Router>
       <div>
         <div>
-          
 
           <Routes>
 
@@ -64,7 +64,6 @@ function App() {
             />}/>
 
           </Routes>
-          
 
         </div>
       </div>
