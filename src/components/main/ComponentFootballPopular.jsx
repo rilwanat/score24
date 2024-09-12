@@ -37,7 +37,9 @@ export default function ComponentFootballPopular({ showingForDate }) {
       });
   
       setIsDataLoading(false);
-      alert(JSON.stringify(response, null, 2));
+      alert("ok");
+      // alert(JSON.stringify(response.brazil, null, 2));
+      // alert(response.brazil);
       // if (response.data) {
       //   // Ensure response.data has the structure you expect
       //   setMatchPopular(response.data);
