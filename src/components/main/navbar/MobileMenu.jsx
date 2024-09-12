@@ -186,6 +186,11 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   };
 
 
+  const extractHref = (htmlString) => {
+    const match = htmlString.match(/href="([^"]*)"/);
+    return match ? match[1] : '#'; // Return a default '#' if no href is found
+  };
+
 
 
   return (
@@ -275,14 +280,20 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
     <div className={styles.navLinks}>
       {Object.keys(matchesGroupedByHeading).map((heading) => {
         const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
+
+        const href = extractHref(heading);
         
         return (
           <div key={heading} className={styles.sideitem}>
             <div className=''>
-              <div className='flex  cursor-pointer'>
+              <div className='flex  cursor-pointer' 
+                onClick={() => alert(process.env.REACT_APP_API_URL + href)}
+              >
                 <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
                 <p className="text-xs text-white hover:text-scGreen">
-                  {parse(heading)}
+                  {/* {parse(heading)} */}
+                  {/* {heading} */}
+                  {heading.replace(/<\/?[^>]+(>|$)/g, "")}
                 </p>
               </div>
             </div>
