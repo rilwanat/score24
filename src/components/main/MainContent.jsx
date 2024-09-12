@@ -28,12 +28,8 @@ import Loading from './Loading';
 
 
 
-export default function MainContent({ setCategory, currentCategory, isMobile }) {
-  const navigate = useNavigate();
-  const [currentPageName, setCurrentPageName] = useState("Home");
+export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
 
-
-  
   // Format the dates as 'YYYY-MM-DD'
   const formatDateAsISO = (date) => {
     const year = date.getFullYear();
@@ -251,10 +247,10 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
     // setCurrentPage(1);
     setIsDataLoading(true);
     try {
-      // Prepare the request body
-      const requestBody = {
-        date: showingForDate
-      };
+      // // Prepare the request body
+      // const requestBody = {
+      //   date: showingForDate
+      // };
 
 
       var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_LIVE;
@@ -367,24 +363,24 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
 
         <div className='hidden md:flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
             <div className='bg-scBackground rounded-lg w-full '>
-                <div className='cursor-pointer flex items-center mb-2  pt-3 pb-1' onClick={() => setCurrentPageName("Home")}>
+                <div className='cursor-pointer flex items-center mb-2  pt-3 pb-1' onClick={() => setPageName("Home")}>
                   {currentPageName == "Home" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Home' ? 'text-scGreen' : 'text-white'}`}>Home</p>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Live")}>
+                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setPageName("Live")}>
                   {currentPageName == "Live" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Live' ? 'text-scGreen ' : 'text-white'}`}>Live {' (' + (matchLive?.liveMatchCount || '-') + ')'}
                   </p>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Favourites")}>
+                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setPageName("Favourites")}>
                   {currentPageName == "Favourites" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Favourites' ? 'text-scGreen ' : 'text-white'}`}>Favourites</p>
                 </div>
             </div>
             <div className='bg-scBackground rounded-lg w-full pt-2 my-4 '>
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Popular")}>
+                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setPageName("Popular")}>
                   {currentPageName == "Popular" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Popular' ? 'text-scGreen ' : 'text-white'}`}>Popular</p>
                 </div>
@@ -477,10 +473,10 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
             <></>
             }
             
-
+{<h2 className='text-white'>{currentPageName}</h2>}
             
             {
-              (currentCategory == 'Football') ?  
+              (currentCategory === 'Football') ?  
               (currentPageName === 'Home' ? <ComponentFootball showingForDate={showingForDate} /> :
                currentPageName === 'Live' ? <ComponentFootballLive showingForDate={showingForDate} /> :
                currentPageName === 'Favourites' ? <ComponentFootballFavourites showingForDate={showingForDate} /> :
@@ -488,7 +484,7 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
                 // <ComponentFootballFavourites showingForDate={showingForDate} />
                 <></>
               )
-              : currentCategory == 'Basketball' ?  <ComponentBasketball />
+              : currentCategory === 'Basketball' ?  <ComponentBasketball />
               : <></>
             }
 

@@ -14,12 +14,78 @@ import { navData } from './NavData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function MobileMenu({ setCategory, currentCategory, closeMenu }) {
-  const navigate = useNavigate();
-  // const [currentPageName, setCurrentPageName] = useState("Home");
+
+import axios from 'axios';
+// import axiosInstance from '../../axiosConfig';
+
+function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
+
+  const [isDataloading, setIsDataLoading] = useState(true);
+  const [matchData, setMatchData] = useState([]);
+  const [matchLive, setMatchLive] = useState([]);
+  const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
+
+  useEffect(() => {
+    // handleData(showingForDate);
+    handleLive();
+    // handleSortByAlphabet();
+  }, []);
+
+  const handleLive = async () => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // // Prepare the request body
+      // const requestBody = {
+      //   date: showingForDate
+      // };
 
 
-  useEffect(() => {}, []);
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_LIVE;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.post(endpoint, { //requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      // alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+      setMatchLive(response.data);
+        //  console.log(response.data);
+      //   // alert(response.data.doctors.length);
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+
+      // alert(error);
+    
+      // // Check if the error has a response and if the response has a data object
+      // if (error.response && error.response.data) {
+      //   const errorMessage = error.response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // } else {
+      //   // Handle other types of errors (e.g., network errors)
+      //   alert("An unexpected error occurred.");
+      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
+      // }
+    }
+  };
 
   return (
     
@@ -84,19 +150,19 @@ function MobileMenu({ setCategory, currentCategory, closeMenu }) {
               
               {navData.slice(1,5).map((item) => (
                 <div className={styles.navLinks}>
-                  <NavLink
+                  <div
                     key={item.id}
                     className={styles.sideitem}
                     onClick={() => {            
-                      setCategory(`${item.link}`);          
-                      // setCurrentPageName(`${item.link}`);
+                      // setCategory(`${item.link}`);          
+                      setPageName(`${item.text}`);
                       closeMenu();
                     }}
                     // to={`/${item.link}`}
                   >
                     {/* {item.icon} */}
-                    <span className={styles.linkTextTwo}>{item.text}</span>
-                  </NavLink>
+                    <span className={styles.linkTextTwo}>{item.text} {item.text === "Live" ?  ' (' + (matchLive?.liveMatchCount || '-') + ')' : ''}</span>
+                  </div>
                 </div>
               ))}
             </div>

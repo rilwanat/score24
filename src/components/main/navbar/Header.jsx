@@ -8,33 +8,24 @@ import MarqueeTextContainer from "./MarqueeTextContainer";
 
 import stars from '../../../assets/images/stars.png';
 
-export default function Header({ setCategory, currentCategory, isMobile, isMenuOpen, toggleMenu, closeMenu}) {
-  const navigate = useNavigate();
-  // const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
-  
-  // useEffect(() => {
-  //   window.addEventListener('resize', handleResize);
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
-
-  // const handleResize = () => {
-  //   setIsMobile(window.innerWidth <= 500);
-  // };
+export default function Header({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
 
   return (
     <div>
       <MarqueeTextContainer />
       
       <div>
-        {isMobile ? <MobileNavbar setCategory={setCategory} currentCategory={currentCategory} 
+        {isMobile ? <MobileNavbar 
+        setPageName={setPageName} currentPageName={currentPageName} 
+        setCategory={setCategory} currentCategory={currentCategory} 
         isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
         /> : <div></div>}
       </div>
       <div className='flex w-full md:mt-0 mt-16'>
         <div className='w-full'>
-          {isMobile ? <div></div> : <HeaderHead  setCategory={setCategory} currentCategory={currentCategory} 
+          {isMobile ? <div></div> : <HeaderHead 
+          setPageName={setPageName} currentPageName={currentPageName} 
+          setCategory={setCategory} currentCategory={currentCategory} 
           isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
           />}
         </div>

@@ -13,31 +13,9 @@ import MainContent from './MainContent';
 import stars from '../../assets/images/stars.png';
 
 
-export default function LandingPage({ setCategory, currentCategory }) {
-  const navigate = useNavigate();  
-
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 500);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-
-  const [isMenuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen);
-  };
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  
-
+export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
+  // isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+   
   return (
     <div className='bg-scBackground  text-sm'>
       {/* <div className="absolute inset-0 ">
@@ -48,14 +26,18 @@ export default function LandingPage({ setCategory, currentCategory }) {
         />
       </div> */}
 
-      <Header setCategory={setCategory} currentCategory={currentCategory} isMobile={isMobile}  
-      isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+      <Header 
+      setPageName={setPageName} currentPageName={currentPageName} 
+      setCategory={setCategory} currentCategory={currentCategory} 
+      isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
       />
         <div className='flex'>
           <div className='w-full rounded-lg'>
 
-            <MainContent setCategory={setCategory} currentCategory={currentCategory} isMobile={isMobile} 
-            isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+            <MainContent 
+            setPageName={setPageName} currentPageName={currentPageName} 
+            setCategory={setCategory} currentCategory={currentCategory} 
+            isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
             /> 
 
           </div>

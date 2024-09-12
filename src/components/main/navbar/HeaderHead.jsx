@@ -20,9 +20,8 @@ import TuneIcon from '@mui/icons-material/Tune';
 
 import stars from '../../../assets/images/stars.png';
 
-export default function HeaderHead({ setCategory, currentCategory }) {
+export default function HeaderHead({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
   useEffect(() => {
   }, []);

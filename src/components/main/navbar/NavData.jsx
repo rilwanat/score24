@@ -11,7 +11,7 @@ export const navData = [
         id: 1,
         icon: <SportsSoccerIcon className="w-4 h-4 object-scale-down " style={{ height: '19px', width: '18px' }}/>,
         text: "Football",
-        link: "football"
+        // link: "football"
     },
     // {
     //     id: 2,
@@ -48,25 +48,25 @@ export const navData = [
         id: 7,
         icon: <SportsCricketIcon className="w-4 h-4 object-scale-down "/>,
         text: "Home",
-        link: "home"
+        // link: "home"
     },
     {
         id: 8,
         icon: <SportsCricketIcon className="w-4 h-4 object-scale-down "/>,
-        text: "Live (10)",
-        link: "live"
+        text: "Live",
+        // link: "live"
     },
     {
         id: 9,
         icon: <SportsCricketIcon className="w-4 h-4 object-scale-down "/>,
         text: "Popular",
-        link: "popular"
+        // link: "popular"
     },
     {
         id: 10,
         icon: <SportsCricketIcon className="w-4 h-4 object-scale-down "/>,
         text: "All (A-Z)",
-        link: "all"
+        // link: "all"
     }
 
 

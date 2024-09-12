@@ -274,7 +274,7 @@ export default function ComponentBasketball() {
     return acc;
   }, {});
 
-  const [currentPageName, setCurrentPageName] = useState("Home");
+  // const [currentPageName, setCurrentPageName] = useState("Home");
 
   return (
     <>

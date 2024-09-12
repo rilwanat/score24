@@ -32,16 +32,7 @@ import stars from '../../../assets/images/stars.png';
 
 import MobileMenu from './MobileMenu';
 
-export default function MobileNavbar({ setCategory, currentCategory, isMenuOpen, toggleMenu, closeMenu }) {
-  // const [isMenuOpen, setMenuOpen] = useState(false);
-
-  // const toggleMenu = () => {
-  //   setMenuOpen(!isMenuOpen);
-  // };
-
-  // const closeMenu = () => {
-  //   setMenuOpen(false);
-  // };
+export default function MobileNavbar({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
 
   return (
     <div className="w-full fixed top-0 bg-scBackground        pl-4 text-sm" style={{  }}>
@@ -124,8 +115,10 @@ export default function MobileNavbar({ setCategory, currentCategory, isMenuOpen,
       {/* Mobile menu */}
       {isMenuOpen && (
         <MobileMenu 
-        setCategory={setCategory} currentCategory={currentCategory} 
-        isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} />
+          setPageName={setPageName} currentPageName={currentPageName} 
+          setCategory={setCategory} currentCategory={currentCategory} 
+          isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+        />
       )}
     </div>
   );
