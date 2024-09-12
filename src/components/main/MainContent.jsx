@@ -147,12 +147,13 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchData, setMatchData] = useState([]);
   const [matchLive, setMatchLive] = useState([]);
-  const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
-
+  // const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
+  const [matchSortByCountry, setMatchSortByCountry] = useState([]);
 
 
   //
-  const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
+  // const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
+    const matchesGroupedByHeading = matchSortByCountry.reduce((acc, match) => {
     if (!acc[match.heading]) {
       acc[match.heading] = {
         "heading image": match['heading image'], // Add the heading image
@@ -184,7 +185,8 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
   useEffect(() => {
     handleData(showingForDate);
     handleLive();
-    handleSortByAlphabet();
+    // handleSortByAlphabet();
+    handleSortByCountryAlphabet();
   }, [showingForDate]);
   const handleData = async (showingForDate) => {    
     
@@ -215,7 +217,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
         
       setMatchData(response.data);
         //  console.log(response.data);
-      //   // alert(response.data.doctors.length);
+
 
 
       // } else {
@@ -226,19 +228,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
 
     } catch (error) {
       setIsDataLoading(false);
-
-      // alert(error);
-    
-      // // Check if the error has a response and if the response has a data object
-      // if (error.response && error.response.data) {
-      //   const errorMessage = error.response.data.message;
-      //   alert("Error: " + errorMessage);
-      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-      // } else {
-      //   // Handle other types of errors (e.g., network errors)
-      //   alert("An unexpected error occurred.");
-      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
-      // }
+      alert("An unexpected error occurred. " + error);
     }
   };
 
@@ -271,7 +261,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
         
       setMatchLive(response.data);
         //  console.log(response.data);
-      //   // alert(response.data.doctors.length);
+
 
 
       // } else {
@@ -282,23 +272,55 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
 
     } catch (error) {
       setIsDataLoading(false);
-
-      // alert(error);
-    
-      // // Check if the error has a response and if the response has a data object
-      // if (error.response && error.response.data) {
-      //   const errorMessage = error.response.data.message;
-      //   alert("Error: " + errorMessage);
-      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-      // } else {
-      //   // Handle other types of errors (e.g., network errors)
-      //   alert("An unexpected error occurred.");
-      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
-      // }
+      alert("An unexpected error occurred. " + error);
     }
   };
 
-  const handleSortByAlphabet = async () => {    
+  // const handleSortByAlphabet = async () => {    
+    
+  //   // setCurrentPage(1);
+  //   setIsDataLoading(true);
+  //   try {
+  //     // // Prepare the request body
+  //     // const requestBody = {
+  //     //   date: showingForDate
+  //     // };
+
+
+  //     var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_ALPHABET;
+  //     // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+  //     // const response = await axiosInstance.get(endpoint, { //requestBody, {
+  //       const response = await axios.post(endpoint, { //requestBody, {
+  //         //params: { uid: uid },
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           //Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+
+  //     setIsDataLoading(false);
+  //     // alert(JSON.stringify(response, null, 2));
+
+  //     // if (response.data.status) {
+        
+  //     setMatchSortByAlphabet(response.data);
+  //       //  console.log(response.data);
+
+
+
+  //     // } else {
+  //     //   const errorMessage = response.data.message;
+  //     //   alert("Error: " + errorMessage);
+  //     //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+  //     // }
+
+  //   } catch (error) {
+  //     setIsDataLoading(false);
+  //     alert("An unexpected error occurred. " + error);
+  //   }
+  // };
+
+  const handleSortByCountryAlphabet = async () => {    
     
     // setCurrentPage(1);
     setIsDataLoading(true);
@@ -309,7 +331,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
       // };
 
 
-      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_ALPHABET;
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_COUNTRY_ALPHABET;
       // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
       // const response = await axiosInstance.get(endpoint, { //requestBody, {
         const response = await axios.post(endpoint, { //requestBody, {
@@ -325,9 +347,9 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
 
       // if (response.data.status) {
         
-      setMatchSortByAlphabet(response.data);
+      setMatchSortByCountry(response.data);
         //  console.log(response.data);
-      //   // alert(response.data.doctors.length);
+
 
 
       // } else {
@@ -338,19 +360,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
 
     } catch (error) {
       setIsDataLoading(false);
-
-      // alert(error);
-    
-      // // Check if the error has a response and if the response has a data object
-      // if (error.response && error.response.data) {
-      //   const errorMessage = error.response.data.message;
-      //   alert("Error: " + errorMessage);
-      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-      // } else {
-      //   // Handle other types of errors (e.g., network errors)
-      //   alert("An unexpected error occurred.");
-      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
-      // }
+      alert("An unexpected error occurred. " + error);
     }
   };
 
@@ -388,6 +398,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
             </div>
             <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
                 <p className='text-xs text-white'>All (A-Z)</p>
+                <div className='text-white text-lg'>#1</div>
                 {
     isDataloading ? 
     <Loading /> 
@@ -479,7 +490,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
               (currentCategory === 'Football') ?  
               (currentPageName === 'Home' ? <ComponentFootball showingForDate={showingForDate} /> :
                currentPageName === 'Live' ? <ComponentFootballLive showingForDate={showingForDate} /> :
-               currentPageName === 'Favourites' ? <ComponentFootballFavourites showingForDate={showingForDate} /> :
+               currentPageName === 'Favourites' ? <></> : //<ComponentFootballFavourites showingForDate={showingForDate} /> :
                currentPageName === 'Popular' ? <ComponentFootballPopular showingForDate={showingForDate} /> :
                 // <ComponentFootballFavourites showingForDate={showingForDate} />
                 <></>

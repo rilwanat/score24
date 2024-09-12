@@ -29,7 +29,7 @@ export default function ComponentFootballPopular({ showingForDate }) {
       // };
   
       const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR;
-      alert(endpoint);
+      // alert(endpoint);
       const response = await axios.get(endpoint, {
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export default function ComponentFootballPopular({ showingForDate }) {
       });
   
       setIsDataLoading(false);
-      alert("ok");
+      // alert("ok");
       // alert(JSON.stringify(response.brazil, null, 2));
       // alert(response.brazil);
       // if (response.data) {

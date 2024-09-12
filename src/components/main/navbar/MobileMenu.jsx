@@ -27,11 +27,13 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchData, setMatchData] = useState([]);
   const [matchLive, setMatchLive] = useState([]);
-  const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
+  // const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
+  const [matchSortByCountry, setMatchSortByCountry] = useState([]);
 
   
   
-  const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
+  // const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
+    const matchesGroupedByHeading = matchSortByCountry.reduce((acc, match) => {
     if (!acc[match.heading]) {
       acc[match.heading] = {
         "heading image": match['heading image'], // Add the heading image
@@ -47,7 +49,8 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   useEffect(() => {
     // handleData(showingForDate);
     handleLive();
-    handleSortByAlphabet();
+    // handleSortByAlphabet();
+    handleSortByCountryAlphabet();
   }, []);
 
   const handleLive = async () => {    
@@ -79,7 +82,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
         
       setMatchLive(response.data);
         //  console.log(response.data);
-      //   // alert(response.data.doctors.length);
+
 
 
       // } else {
@@ -90,23 +93,55 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
     } catch (error) {
       setIsDataLoading(false);
-
-      // alert(error);
-    
-      // // Check if the error has a response and if the response has a data object
-      // if (error.response && error.response.data) {
-      //   const errorMessage = error.response.data.message;
-      //   alert("Error: " + errorMessage);
-      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-      // } else {
-      //   // Handle other types of errors (e.g., network errors)
-      //   alert("An unexpected error occurred.");
-      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
-      // }
+      alert("An unexpected error occurred. " + error);
     }
   };
 
-  const handleSortByAlphabet = async () => {    
+  // const handleSortByAlphabet = async () => {    
+    
+  //   // setCurrentPage(1);
+  //   setIsDataLoading(true);
+  //   try {
+  //     // // Prepare the request body
+  //     // const requestBody = {
+  //     //   date: showingForDate
+  //     // };
+
+
+  //     var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_ALPHABET;
+  //     // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+  //     // const response = await axiosInstance.get(endpoint, { //requestBody, {
+  //       const response = await axios.post(endpoint, { //requestBody, {
+  //         //params: { uid: uid },
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           //Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+
+  //     setIsDataLoading(false);
+  //     // alert(JSON.stringify(response, null, 2));
+
+  //     // if (response.data.status) {
+        
+  //     setMatchSortByAlphabet(response.data);
+  //       //  console.log(response.data);
+
+
+
+  //     // } else {
+  //     //   const errorMessage = response.data.message;
+  //     //   alert("Error: " + errorMessage);
+  //     //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+  //     // }
+
+  //   } catch (error) {
+  //     setIsDataLoading(false);
+  //     alert("An unexpected error occurred. " + error);
+  //   }
+  // };
+
+  const handleSortByCountryAlphabet = async () => {    
     
     // setCurrentPage(1);
     setIsDataLoading(true);
@@ -117,7 +152,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
       // };
 
 
-      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_ALPHABET;
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_COUNTRY_ALPHABET;
       // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
       // const response = await axiosInstance.get(endpoint, { //requestBody, {
         const response = await axios.post(endpoint, { //requestBody, {
@@ -133,9 +168,9 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
       // if (response.data.status) {
         
-      setMatchSortByAlphabet(response.data);
+      setMatchSortByCountry(response.data);
         //  console.log(response.data);
-      //   // alert(response.data.doctors.length);
+
 
 
       // } else {
@@ -146,24 +181,14 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
     } catch (error) {
       setIsDataLoading(false);
-
-      // alert(error);
-    
-      // // Check if the error has a response and if the response has a data object
-      // if (error.response && error.response.data) {
-      //   const errorMessage = error.response.data.message;
-      //   alert("Error: " + errorMessage);
-      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-      // } else {
-      //   // Handle other types of errors (e.g., network errors)
-      //   alert("An unexpected error occurred.");
-      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
-      // }
+      alert("An unexpected error occurred. " + error);
     }
   };
 
+
+
+
   return (
-    
 
 <div className="navbar-menu relative z-50">
           <div className="navbar-backdrop fixed inset-0" onClick={closeMenu}></div>
@@ -242,7 +267,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
               ))}
 
 
-
+<div className='text-white text-lg'>#2</div>
 <div className='' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
   {isDataloading ? (
     <Loading />
