@@ -14,9 +14,9 @@ import { navData } from './NavData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function MobileMenu({ closeMenu }) {
+function MobileMenu({ setCategory, currentCategory, closeMenu }) {
   const navigate = useNavigate();
-  const [currentPageName, setCurrentPageName] = useState("Home");
+  // const [currentPageName, setCurrentPageName] = useState("Home");
 
 
   useEffect(() => {}, []);
@@ -66,7 +66,12 @@ function MobileMenu({ closeMenu }) {
                   <NavLink
                     key={item.id}
                     className={styles.sideitem}
-                    to={`/${item.link}`}
+                    onClick={() => {                    
+                      setCategory(`${item.link}`);
+                      // setCurrentPageName(`${item.link}`);
+                      closeMenu();
+                    }}
+                    // to={`/${item.link}`}
                   >
                     {item.icon}
                     <span className={styles.linkText}>{item.text}</span>
@@ -82,12 +87,11 @@ function MobileMenu({ closeMenu }) {
                   <NavLink
                     key={item.id}
                     className={styles.sideitem}
-                    onClick={() => {
-                      
-                      setCurrentPageName(`${item.link}`);
+                    onClick={() => {            
+                      setCategory(`${item.link}`);          
+                      // setCurrentPageName(`${item.link}`);
                       closeMenu();
-                    }
-                    }
+                    }}
                     // to={`/${item.link}`}
                   >
                     {/* {item.icon} */}

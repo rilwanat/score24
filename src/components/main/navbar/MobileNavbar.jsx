@@ -123,7 +123,9 @@ export default function MobileNavbar({ setCategory, currentCategory, isMenuOpen,
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <MobileMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} />
+        <MobileMenu 
+        setCategory={setCategory} currentCategory={currentCategory} 
+        isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} />
       )}
     </div>
   );
