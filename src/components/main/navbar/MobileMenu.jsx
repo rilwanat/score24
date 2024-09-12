@@ -16,6 +16,8 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function MobileMenu({ closeMenu }) {
   const navigate = useNavigate();
+  const [currentPageName, setCurrentPageName] = useState("Home");
+
 
   useEffect(() => {}, []);
 
@@ -80,7 +82,13 @@ function MobileMenu({ closeMenu }) {
                   <NavLink
                     key={item.id}
                     className={styles.sideitem}
-                    to={`/${item.link}`}
+                    onClick={() => {
+                      
+                      setCurrentPageName(`${item.link}`);
+                      closeMenu();
+                    }
+                    }
+                    // to={`/${item.link}`}
                   >
                     {/* {item.icon} */}
                     <span className={styles.linkTextTwo}>{item.text}</span>
