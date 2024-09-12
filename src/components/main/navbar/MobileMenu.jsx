@@ -18,6 +18,10 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 // import axiosInstance from '../../axiosConfig';
 
+
+import parse from 'html-react-parser';
+import Loading from '../Loading';
+
 function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
 
   const [isDataloading, setIsDataLoading] = useState(true);
@@ -25,10 +29,25 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   const [matchLive, setMatchLive] = useState([]);
   const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
 
+  
+  
+  const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
+    if (!acc[match.heading]) {
+      acc[match.heading] = {
+        "heading image": match['heading image'], // Add the heading image
+        fixtures: [] // Initialize an empty array for fixtures
+      };
+    }
+    // Add the fixtures array directly
+    acc[match.heading].fixtures.push(...match.fixtures);
+    return acc;
+  }, {});
+
+
   useEffect(() => {
     // handleData(showingForDate);
     handleLive();
-    // handleSortByAlphabet();
+    handleSortByAlphabet();
   }, []);
 
   const handleLive = async () => {    
@@ -59,6 +78,62 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
       // if (response.data.status) {
         
       setMatchLive(response.data);
+        //  console.log(response.data);
+      //   // alert(response.data.doctors.length);
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+
+      // alert(error);
+    
+      // // Check if the error has a response and if the response has a data object
+      // if (error.response && error.response.data) {
+      //   const errorMessage = error.response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // } else {
+      //   // Handle other types of errors (e.g., network errors)
+      //   alert("An unexpected error occurred.");
+      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
+      // }
+    }
+  };
+
+  const handleSortByAlphabet = async () => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // // Prepare the request body
+      // const requestBody = {
+      //   date: showingForDate
+      // };
+
+
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_ALPHABET;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.post(endpoint, { //requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      // alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+      setMatchSortByAlphabet(response.data);
         //  console.log(response.data);
       //   // alert(response.data.doctors.length);
 
@@ -158,13 +233,44 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                       setPageName(item.text);
                       closeMenu();
                     }}
-                    to={`/${item.link}`}
+                    // to={`/${item.link}`}
                   >
                     {/* {item.icon} */}
                     <span className={styles.linkTextTwo}>{item.text} {item.text === "Live" ?  ' (' + (matchLive?.liveMatchCount || '-') + ')' : ''}</span>
                   </div>
                 </div>
               ))}
+
+
+
+<div className='' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+  {isDataloading ? (
+    <Loading />
+  ) : (
+    <div className={styles.navLinks}>
+      {Object.keys(matchesGroupedByHeading).map((heading) => {
+        const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
+        
+        return (
+          <div key={heading} className={styles.sideitem}>
+            <div className=''>
+              <div className='flex  cursor-pointer'>
+                <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
+                <p className="text-xs text-white hover:text-scGreen">
+                  {parse(heading)}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  )}
+</div>
+
+
+
+
             </div>
             
             <div 
