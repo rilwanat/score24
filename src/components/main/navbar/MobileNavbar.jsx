@@ -113,13 +113,13 @@ export default function MobileNavbar({ isMobile, isMenuOpen, toggleMenu, closeMe
       </div>
 
       {/* Mobile menu */}
-      {isMenuOpen && (
+      {/* {isMenuOpen && (
         <MobileMenu 
           setPageName={setPageName} currentPageName={currentPageName} 
           setCategory={setCategory} currentCategory={currentCategory} 
           isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
         />
-      )}
+      )} */}
     </div>
   );
 }

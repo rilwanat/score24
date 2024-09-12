@@ -473,7 +473,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
             <></>
             }
             
-{<h2 className='text-white'>{currentPageName}</h2>}
+{/* {<h2 className='text-white'>{currentPageName}</h2>} */}
             
             {
               (currentCategory === 'Football') ?  
