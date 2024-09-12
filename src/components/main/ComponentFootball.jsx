@@ -14,13 +14,15 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
-export default function ComponentFootball({ showingForDate }) {
+export default function ComponentFootball({ setPageName, showingForDate }) {
   const navigate = useNavigate();  
 
   // alert(showingForDate);
+  
 
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchData, setMatchDataData] = useState([]);
+  const [matchSpecificLeague, setSpecificLeague] = useState([]);
   useEffect(() => {
     handleData(showingForDate);
   }, [showingForDate]);
@@ -164,6 +166,63 @@ export default function ComponentFootball({ showingForDate }) {
   const dates = getDates();
 
 
+
+  const handleSpecificLeague = async (leagueEndpoint) => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // // Prepare the request body
+      // const requestBody = {
+      //   date: showingForDate
+      // };
+
+
+      var endpoint = process.env.REACT_APP_API_URL + leagueEndpoint;
+      // alert(endpoint);
+      // return;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.get(endpoint, { //requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+      setSpecificLeague(response.data);
+        //  console.log(response.data);
+
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+      alert("League: An unexpected error occurred. " + error);
+    }
+  };
+
+
+  const extractHref = (htmlString) => {
+    const match = htmlString.match(/href="([^"]*)"/);
+    return match ? match[1] : '#'; // Return a default '#' if no href is found
+  };
+
+
+
+
+
   return (
     <>
     {
@@ -171,14 +230,25 @@ export default function ComponentFootball({ showingForDate }) {
       <div className="space-y-4">
         {Object.keys(matchesGroupedByHeading).map((heading) => {
           const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
+
+          const href = extractHref(heading);
           
           return (
             <div key={heading} className="w-full py-2 my-4">              
               <div className='flex justify-between'>
-                <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
+                <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer' 
+                  onClick={() =>
+                    {                
+                      setPageName("All");  
+                      handleSpecificLeague(href);
+                    }
+                  }
+                >
                   <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
                   <p className="text-xs text-white hover:text-scGreen">
-                    {parse(heading)}
+                    {/* {parse(heading)} */}
+                    {/* {heading} */}
+                    {heading.replace(/<\/?[^>]+(>|$)/g, "")}
                   </p>
                 </div>
                 <div className='flex justify-end mx-3' style={{ width: '60px' }}>

@@ -551,10 +551,10 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
             
             {
               (currentCategory === 'Football') ?  
-              (currentPageName === 'Home' ? <ComponentFootball showingForDate={showingForDate} /> :
-               currentPageName === 'Live' ? <ComponentFootballLive showingForDate={showingForDate} /> :
+              (currentPageName === 'Home' ? <ComponentFootball setPageName={setPageName} showingForDate={showingForDate} /> :
+               currentPageName === 'Live' ? <ComponentFootballLive setPageName={setPageName} showingForDate={showingForDate} /> :
                currentPageName === 'Favourites' ? <></> : //<ComponentFootballFavourites showingForDate={showingForDate} /> :
-               currentPageName === 'Popular' ? <ComponentFootballPopular showingForDate={showingForDate} /> :
+               currentPageName === 'Popular' ? <ComponentFootballPopular setPageName={setPageName} showingForDate={showingForDate} /> :
                 // <ComponentFootballFavourites showingForDate={showingForDate} />
                 <></>
               )
