@@ -65,6 +65,8 @@ export default function ComponentFootball({ showingForDate }) {
     } catch (error) {
       setIsDataLoading(false);
 
+      setMatchDataData([]);
+
       // alert(error);
     
       // // Check if the error has a response and if the response has a data object
@@ -104,7 +106,6 @@ export default function ComponentFootball({ showingForDate }) {
   }, {});
   
 
-  const [currentPageName, setCurrentPageName] = useState("Home");
 
 
    //

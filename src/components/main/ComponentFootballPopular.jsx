@@ -14,7 +14,7 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
-export default function ComponentFootballLive({ showingForDate }) {
+export default function ComponentFootballPopular({ showingForDate }) {
   const navigate = useNavigate();  
 
   // alert(showingForDate);

@@ -12,7 +12,8 @@ import ComponentFootball from "./ComponentFootball";
 import ComponentBasketball from "./ComponentBasketball";
 
 import ComponentFootballLive from "./ComponentFootballLive";
-// import ComponentFootballFavourites from "./ComponentFootballFavourites";
+import ComponentFootballFavourites from "./ComponentFootballFavourites";
+import ComponentFootballPopular from "./ComponentFootballPopular";
 
 
 import axios from 'axios';
@@ -150,11 +151,12 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchData, setMatchData] = useState([]);
   const [matchLive, setMatchLive] = useState([]);
+  const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
 
 
 
-  // order in ascending
-  const matchesGroupedByHeading = matchData.reduce((acc, match) => {
+  //
+  const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
     if (!acc[match.heading]) {
       acc[match.heading] = {
         "heading image": match['heading image'], // Add the heading image
@@ -166,18 +168,27 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
     return acc;
   }, {});
   
-  // Sort the grouped data by heading in ascending order
-  const sortedMatchesGroupedByHeading = Object.keys(matchesGroupedByHeading)
-    .sort((a, b) => a.localeCompare(b))  // Sort the headings in ascending order
-    .reduce((sortedAcc, heading) => {
-      sortedAcc[heading] = matchesGroupedByHeading[heading]; // Rebuild the sorted object
-      return sortedAcc;
-    }, {});
+  // // Sort the grouped data by heading in ascending order
+  // const sortedMatchesGroupedByHeading = Object.keys(matchesGroupedByHeadingSortByAlphabet)
+  //   .sort((a, b) => a.localeCompare(b))  // Sort the headings in ascending order
+  //   .reduce((sortedAcc, heading) => {
+  //     sortedAcc[heading] = matchesGroupedByHeadingSortByAlphabet[heading]; // Rebuild the sorted object
+  //     return sortedAcc;
+  //   }, {});
+
+  //   // // Return data by heading as is
+  // const unsortedMatchesGroupedByHeading = Object.keys(matchesGroupedByHeadingSortByAlphabet)
+  // .reduce((sortedAcc, heading) => {
+  //   sortedAcc[heading] = matchesGroupedByHeadingSortByAlphabet[heading]; // Rebuild the object without sorting
+  //   return sortedAcc;
+  // }, {});
+
   
   
   useEffect(() => {
     handleData(showingForDate);
     handleLive();
+    handleSortByAlphabet();
   }, [showingForDate]);
   const handleData = async (showingForDate) => {    
     
@@ -291,6 +302,61 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
     }
   };
 
+  const handleSortByAlphabet = async () => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // // Prepare the request body
+      // const requestBody = {
+      //   date: showingForDate
+      // };
+
+
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_ALPHABET;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.post(endpoint, { //requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      // alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+      setMatchSortByAlphabet(response.data);
+        //  console.log(response.data);
+      //   // alert(response.data.doctors.length);
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+
+      // alert(error);
+    
+      // // Check if the error has a response and if the response has a data object
+      // if (error.response && error.response.data) {
+      //   const errorMessage = error.response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // } else {
+      //   // Handle other types of errors (e.g., network errors)
+      //   alert("An unexpected error occurred.");
+      //   // openNotificationModal(false, currentPageName + " Error", "An unexpected error occurred.");
+      // }
+    }
+  };
 
 
 
@@ -301,7 +367,7 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
 
         <div className='hidden md:flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
             <div className='bg-scBackground rounded-lg w-full '>
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Home")}>
+                <div className='cursor-pointer flex items-center mb-2  pt-3 pb-1' onClick={() => setCurrentPageName("Home")}>
                   {currentPageName == "Home" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Home' ? 'text-scGreen' : 'text-white'}`}>Home</p>
                 </div>
@@ -317,8 +383,11 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Favourites' ? 'text-scGreen ' : 'text-white'}`}>Favourites</p>
                 </div>
             </div>
-            <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
-                <div className='cursor-pointer'><p className='text-xs text-white mb-2 py-1'>Popular</p></div>
+            <div className='bg-scBackground rounded-lg w-full pt-2 my-4 '>
+                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setCurrentPageName("Popular")}>
+                  {currentPageName == "Popular" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
+                  <p className={`text-xs hover:text-scGreen ${currentPageName === 'Popular' ? 'text-scGreen ' : 'text-white'}`}>Popular</p>
+                </div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
             </div>
             <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
@@ -330,6 +399,7 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
     :
       <div className="space-y-4">
         {Object.keys(matchesGroupedByHeading).map((heading) => {
+        {/* {Object.keys(matchSortByAlphabet).map((heading) => { */}
           const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
           
           return (
@@ -413,6 +483,8 @@ export default function MainContent({ setCategory, currentCategory, isMobile }) 
               (currentCategory == 'Football') ?  
               (currentPageName === 'Home' ? <ComponentFootball showingForDate={showingForDate} /> :
                currentPageName === 'Live' ? <ComponentFootballLive showingForDate={showingForDate} /> :
+               currentPageName === 'Favourites' ? <ComponentFootballFavourites showingForDate={showingForDate} /> :
+               currentPageName === 'Popular' ? <ComponentFootballPopular showingForDate={showingForDate} /> :
                 // <ComponentFootballFavourites showingForDate={showingForDate} />
                 <></>
               )
