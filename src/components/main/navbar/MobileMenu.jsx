@@ -29,7 +29,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   const [matchLive, setMatchLive] = useState([]);
   // const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
   const [matchSortByCountry, setMatchSortByCountry] = useState([]);
-
+  const [matchSpecificLeague, setSpecificLeague] = useState([]);
   
   
   // const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
@@ -93,7 +93,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
     } catch (error) {
       setIsDataLoading(false);
-      alert("An unexpected error occurred. " + error);
+      alert("Live: An unexpected error occurred. " + error);
     }
   };
 
@@ -181,7 +181,53 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
     } catch (error) {
       setIsDataLoading(false);
-      alert("An unexpected error occurred. " + error);
+      alert("Country: An unexpected error occurred. " + error);
+    }
+  };
+
+  const handleSpecificLeague = async (leagueEndpoint) => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // // Prepare the request body
+      // const requestBody = {
+      //   date: showingForDate
+      // };
+
+
+      var endpoint = process.env.REACT_APP_API_URL + leagueEndpoint;
+      // alert(endpoint);
+      // return;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.get(endpoint, { //requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+      setSpecificLeague(response.data);
+        //  console.log(response.data);
+
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+      alert("League: An unexpected error occurred. " + error);
     }
   };
 
@@ -272,7 +318,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
               ))}
 
 
-<div className='text-white text-lg'>#2</div>
+<div className='text-white text-lg'>***#2#{currentPageName}</div>
 <div className='' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
   {isDataloading ? (
     <Loading />
@@ -287,7 +333,12 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
           <div key={heading} className={styles.sideitem}>
             <div className=''>
               <div className='flex  cursor-pointer' 
-                onClick={() => alert(process.env.REACT_APP_API_URL + href)}
+                onClick={() =>
+                  {                
+                    setPageName("All");  
+                    handleSpecificLeague(href);
+                  }
+                }
               >
                 <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
                 <p className="text-xs text-white hover:text-scGreen">

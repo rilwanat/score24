@@ -149,6 +149,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
   const [matchLive, setMatchLive] = useState([]);
   // const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
   const [matchSortByCountry, setMatchSortByCountry] = useState([]);
+  const [matchSpecificLeague, setSpecificLeague] = useState([]);
 
 
   //
@@ -272,7 +273,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
 
     } catch (error) {
       setIsDataLoading(false);
-      alert("An unexpected error occurred. " + error);
+      alert("Live: An unexpected error occurred. " + error);
     }
   };
 
@@ -360,10 +361,55 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
 
     } catch (error) {
       setIsDataLoading(false);
-      alert("An unexpected error occurred. " + error);
+      alert("Country: An unexpected error occurred. " + error);
     }
   };
 
+  const handleSpecificLeague = async (leagueEndpoint) => {    
+    
+    // setCurrentPage(1);
+    setIsDataLoading(true);
+    try {
+      // // Prepare the request body
+      // const requestBody = {
+      //   date: showingForDate
+      // };
+
+
+      var endpoint = process.env.REACT_APP_API_URL + leagueEndpoint;
+      // alert(endpoint);
+      // return;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.get(endpoint, { //requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+      setIsDataLoading(false);
+      alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+      setSpecificLeague(response.data);
+        //  console.log(response.data);
+
+
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsDataLoading(false);
+      alert("League: An unexpected error occurred. " + error);
+    }
+  };
 
 
   const extractHref = (htmlString) => {
@@ -404,7 +450,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
             </div>
             <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
                 <p className='text-xs text-white'>All (A-Z)</p>
-                <div className='text-white text-lg'>#1</div>
+                <div className='text-white text-lg'>***#1#{currentPageName}</div>
                 {
     isDataloading ? 
     <Loading /> 
@@ -421,7 +467,12 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
             <div key={heading} className="w-full py-2 my-4">              
               <div className='flex '>
                 <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer' 
-                  onClick={() => alert(process.env.REACT_APP_API_URL + href)}
+                  onClick={() => 
+                    {          
+                      setPageName("All");
+                      handleSpecificLeague(href);
+                    }
+                  }
                 >
                   <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
                   <p className="text-xs text-white hover:text-scGreen">
