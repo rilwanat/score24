@@ -15,42 +15,40 @@ import parse from 'html-react-parser';
 import Loading from './Loading';
 
 export default function ComponentFootballPopular({ showingForDate }) {
-  const navigate = useNavigate();  
-
-  // alert(showingForDate);
-
+  
   const [isDataloading, setIsDataLoading] = useState(true);
-  const [matchLive, setMatchLive] = useState([]);
+  const [matchPopular, setMatchPopular] = useState([]);
   useEffect(() => {
-    handleLive();
+    handlePopular();
   }, []);
-  const handleLive = async () => {
+  const handlePopular = async () => {
     setIsDataLoading(true);
     try {
-      const requestBody = {
-        date: showingForDate,
-      };
+      // const requestBody = {
+      //   date: showingForDate,
+      // };
   
-      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_LIVE;
-      const response = await axios.post(endpoint, {
+      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR;
+      alert(endpoint);
+      const response = await axios.get(endpoint, {
         headers: {
           "Content-Type": "application/json",
         },
       });
   
       setIsDataLoading(false);
-      // alert(JSON.stringify(response, null, 2));
-      if (response.data) {
-        // Ensure response.data has the structure you expect
-        setMatchLive(response.data);
-      } else {
-        alert("Unexpected response structure.");
-      }
+      alert(JSON.stringify(response, null, 2));
+      // if (response.data) {
+      //   // Ensure response.data has the structure you expect
+      //   setMatchPopular(response.data);
+      // } else {
+      //   alert("Unexpected response structure.");
+      // }
   
     } catch (error) {
       // setMatchDataData([]); set live to globally
       setIsDataLoading(false);
-      alert("An unexpected error occurred.");
+      alert("An unexpected error occurred. " + error);
     }
   };
   
@@ -68,7 +66,7 @@ export default function ComponentFootballPopular({ showingForDate }) {
 
 
   // Group matches by league
-  const matchesGroupedByLeague = matchLive?.data?.reduce((acc, match) => {
+  const matchesGroupedByLeague = matchPopular?.data?.reduce((acc, match) => {
     if (!match) return acc;
     const leagueName = match.league;
     if (!acc[leagueName]) {
