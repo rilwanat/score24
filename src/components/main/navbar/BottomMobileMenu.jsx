@@ -18,20 +18,7 @@ import styles from './MobileNavbar.module.css';
 import { NavLink } from 'react-router-dom';
 import { navData } from './NavData';
 
-function BottomMobileMenu({ setCategory, currentCategory, isMenuOpen, toggleMenu, closeMenu }) {
-  const navigate = useNavigate();
-
-  // const [isMenuOpen, setMenuOpen] = useState(false);
-
-  // const toggleMenu = () => {
-  //   setMenuOpen(!isMenuOpen);
-  // };
-
-  // const closeMenu = () => {
-  //   setMenuOpen(false);
-  // };
-
-
+function BottomMobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
 
   useEffect(() => {}, []);
 
@@ -41,15 +28,15 @@ function BottomMobileMenu({ setCategory, currentCategory, isMenuOpen, toggleMenu
       <HomeIcon className="text-scTimeText hover:text-scGreen"/>
     </div> */}
     <div className="fixed bottom-0 left-0 right-0 bg-scBackground z-50 flex justify-around py-2 md:hidden ">
-      <div className="flex flex-col items-center cursor-pointer">
+      <div className="flex flex-col items-center cursor-pointer"  onClick={() => setPageName("Home")}>
         <HomeIcon className="text-scTimeText hover:text-scGreen"/>
         <p className="text-xs text-scTimeText  hover:text-scGreen">Home</p>
       </div>
-      <div className="flex flex-col items-center cursor-pointer">
+      <div className="flex flex-col items-center cursor-pointer"  onClick={() => setPageName("Live")}>
         <LiveTvIcon className="text-scTimeText hover:text-scGreen"/>
         <p className="text-xs text-scTimeText  hover:text-scGreen">Live</p>
       </div>
-      <div className="flex flex-col items-center cursor-pointer">
+      <div className="flex flex-col items-center cursor-pointer"  onClick={() => setPageName("Favourites")}>
         <FavoriteBorderIcon className="text-scTimeText hover:text-scGreen"/>
         <p className="text-xs text-scTimeText  hover:text-scGreen">Favourites</p>
       </div>
@@ -61,7 +48,11 @@ function BottomMobileMenu({ setCategory, currentCategory, isMenuOpen, toggleMenu
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <MobileMenu closeMenu={closeMenu} />
+        <MobileMenu 
+          setPageName={setPageName} currentPageName={currentPageName} 
+          setCategory={setCategory} currentCategory={currentCategory} 
+          isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+        />
       )}
     </div>
     </>

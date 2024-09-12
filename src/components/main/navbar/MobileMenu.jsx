@@ -135,7 +135,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                     onClick={() => {                               
                       setCategory(`${item.link}`);
                       return;
-                      
+
                       closeMenu();
                     }}
                     // to={`/${item.link}`}
@@ -153,14 +153,12 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                 <div className={styles.navLinks}>
                   <div
                     key={item.id}
-                    className={styles.sideitem}
+                    className={styles.sideitem}                    
                     onClick={() => {                      
                       setPageName(item.text);
-                      return; 
-
                       closeMenu();
                     }}
-                    // to={`/${item.link}`}
+                    to={`/${item.link}`}
                   >
                     {/* {item.icon} */}
                     <span className={styles.linkTextTwo}>{item.text} {item.text === "Live" ?  ' (' + (matchLive?.liveMatchCount || '-') + ')' : ''}</span>

@@ -7,14 +7,14 @@ function App() {
   const [currentPageName, setCurrentPageName] = useState("Home");
   const setPageName = (pgName) => {
     setCurrentPageName(pgName);
-    alert("pgName: " + pgName);
+    // alert("pgName: " + pgName);
   }
 
 
   const [currentCategory, setCurrentCategory] = useState("Football");
   const setCategory = (cat) => {
     setCurrentCategory(cat);
-    alert("cat: " + cat);
+    // alert("cat: " + cat);
   }
 
 
@@ -58,9 +58,9 @@ function App() {
 
             <Route path="/*" element={<div>NOT FOUND</div>} />
             <Route path='/' element={<LandingPage 
-            setPageName={setPageName} currentPageName={currentPageName} 
-            setCategory={setCategory} currentCategory={currentCategory} 
-            isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+              setPageName={setPageName} currentPageName={currentPageName} 
+              setCategory={setCategory} currentCategory={currentCategory} 
+              isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
             />}/>
 
           </Routes>

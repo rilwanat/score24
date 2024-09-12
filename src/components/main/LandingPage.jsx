@@ -23,17 +23,17 @@ export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMen
       </div> */}
 
       <Header 
-      setPageName={setPageName} currentPageName={currentPageName} 
-      setCategory={setCategory} currentCategory={currentCategory} 
-      isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+        setPageName={setPageName} currentPageName={currentPageName} 
+        setCategory={setCategory} currentCategory={currentCategory} 
+        isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
       />
         <div className='flex'>
           <div className='w-full rounded-lg'>
 
             <MainContent 
-            setPageName={setPageName} currentPageName={currentPageName} 
-            setCategory={setCategory} currentCategory={currentCategory} 
-            isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+              setPageName={setPageName} currentPageName={currentPageName} 
+              setCategory={setCategory} currentCategory={currentCategory} 
+              isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
             /> 
 
           </div>
@@ -42,8 +42,10 @@ export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMen
 
       {/* <CookieConsent /> */}
 
-      {isMobile && <BottomMobileMenu setCategory={setCategory} currentCategory={currentCategory} isMobile={isMobile}
-      isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+      {isMobile && <BottomMobileMenu 
+        setPageName={setPageName} currentPageName={currentPageName} 
+        setCategory={setCategory} currentCategory={currentCategory} 
+        isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
       />} 
 
     </div>
