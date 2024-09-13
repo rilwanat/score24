@@ -39,6 +39,12 @@ function App() {
   };
 
 
+  
+  const [specificLeague, setSpecificLeague] = useState("");
+  const setSpecific = (spe) => {
+    setSpecificLeague(spe);
+    // alert("spe: " + spe);
+  }
 
 
 
@@ -61,6 +67,7 @@ function App() {
               setPageName={setPageName} currentPageName={currentPageName} 
               setCategory={setCategory} currentCategory={currentCategory} 
               isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+              specificLeague={specificLeague} setSpecific={setSpecific}
             />}/>
 
           </Routes>

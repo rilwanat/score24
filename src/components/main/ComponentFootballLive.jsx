@@ -6,7 +6,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
-import headingImage from '../../assets/svg/1x1.svg';
+// import headingImage from '../../assets/svg/1x1.svg';
 
 import axios from 'axios';
 // import axiosInstance from '../../axiosConfig';
@@ -14,14 +14,14 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
-export default function ComponentFootballLive({ setPageName, showingForDate }) {
+export default function ComponentFootballLive({ currentPageName, setPageName, showingForDate,
+  setSpecific }) {
   const navigate = useNavigate();  
 
   // alert(showingForDate);
 
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchLive, setMatchLive] = useState([]);
-  const [matchSpecificLeague, setSpecificLeague] = useState([]);
   useEffect(() => {
     handleLive();
   }, []);
@@ -119,52 +119,6 @@ export default function ComponentFootballLive({ setPageName, showingForDate }) {
   
 
 
-  const handleSpecificLeague = async (leagueEndpoint) => {    
-    
-    // setCurrentPage(1);
-    setIsDataLoading(true);
-    try {
-      // // Prepare the request body
-      // const requestBody = {
-      //   date: showingForDate
-      // };
-
-
-      var endpoint = process.env.REACT_APP_API_URL + leagueEndpoint;
-      // alert(endpoint);
-      // return;
-      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
-      // const response = await axiosInstance.get(endpoint, { //requestBody, {
-        const response = await axios.get(endpoint, { //requestBody, {
-          //params: { uid: uid },
-          headers: {
-            "Content-Type": "application/json",
-            //Authorization: `Bearer ${token}`,
-          },
-        });
-
-      setIsDataLoading(false);
-      alert(JSON.stringify(response, null, 2));
-
-      // if (response.data.status) {
-        
-      setSpecificLeague(response.data);
-        //  console.log(response.data);
-
-
-
-      // } else {
-      //   const errorMessage = response.data.message;
-      //   alert("Error: " + errorMessage);
-      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-      // }
-
-    } catch (error) {
-      setIsDataLoading(false);
-      alert("League: An unexpected error occurred. " + error);
-    }
-  };
-
 
   const extractHref = (htmlString) => {
     const match = htmlString.match(/href="([^"]*)"/);
@@ -190,8 +144,8 @@ export default function ComponentFootballLive({ setPageName, showingForDate }) {
                 <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer' 
                   onClick={() =>
                     {                
-                      setPageName("All");  
-                      handleSpecificLeague(href);
+                      setPageName("Specific");  
+                      setSpecific(href);
                     }
                   }
                 >

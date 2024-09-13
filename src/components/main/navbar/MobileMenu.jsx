@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import logo from '../../../assets/images/logo.png';
@@ -18,11 +18,59 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 // import axiosInstance from '../../axiosConfig';
 
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'; // Import arrow icons
+
 
 import parse from 'html-react-parser';
 import Loading from '../Loading';
 
 function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
+
+
+  
+  // Format the dates as 'YYYY-MM-DD'
+  const formatDateAsISO = (date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  const [showingForDate, setShowingForDate] = useState(formatDateAsISO(new Date()));
+
+  
+
+  // Debounced date setter to improve performance
+  const debouncedSetShowingForDate = useCallback(
+    (date) => {
+      const formattedDate = formatDateAsISO(date);
+      setShowingForDate(formattedDate);
+    },
+    [formatDateAsISO]
+  );
+
+  const setTheDateToShow = (date) => {
+    debouncedSetShowingForDate(date);
+  };
+
+
+
+  
+  // State to track which league dropdown and country dropdown is open
+  const [openLeague, setOpenLeague] = useState(null);
+  const [openCountry, setOpenCountry] = useState(null);
+
+  const toggleLeagueDropdown = (leagueTitle) => {
+    setOpenLeague(openLeague === leagueTitle ? null : leagueTitle); // Toggle league dropdown
+  };
+
+  const toggleCountryDropdown = (country) => {
+    setOpenCountry(openCountry === country ? null : country); // Toggle country dropdown
+  };
+
+
+
+
 
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchData, setMatchData] = useState([]);
@@ -32,26 +80,26 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   const [matchSpecificLeague, setSpecificLeague] = useState([]);
   
   
-  // const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
-    const matchesGroupedByHeading = matchSortByCountry.reduce((acc, match) => {
-    if (!acc[match.heading]) {
-      acc[match.heading] = {
-        "heading image": match['heading image'], // Add the heading image
-        fixtures: [] // Initialize an empty array for fixtures
-      };
-    }
-    // Add the fixtures array directly
-    acc[match.heading].fixtures.push(...match.fixtures);
-    return acc;
-  }, {});
+  // // const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
+  //   const matchesGroupedByHeading = matchSortByCountry.reduce((acc, match) => {
+  //   if (!acc[match.heading]) {
+  //     acc[match.heading] = {
+  //       "heading image": match['heading image'], // Add the heading image
+  //       fixtures: [] // Initialize an empty array for fixtures
+  //     };
+  //   }
+  //   // Add the fixtures array directly
+  //   acc[match.heading].fixtures.push(...match.fixtures);
+  //   return acc;
+  // }, {});
 
 
   useEffect(() => {
     // handleData(showingForDate);
     handleLive();
     // handleSortByAlphabet();
-    handleSortByCountryAlphabet();
-  }, []);
+    handleSortByCountryAlphabet(showingForDate);
+  }, [showingForDate]);
 
   const handleLive = async () => {    
     
@@ -97,65 +145,22 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
     }
   };
 
-  // const handleSortByAlphabet = async () => {    
+  const handleSortByCountryAlphabet = async (showingForDate) => {    
     
-  //   // setCurrentPage(1);
-  //   setIsDataLoading(true);
-  //   try {
-  //     // // Prepare the request body
-  //     // const requestBody = {
-  //     //   date: showingForDate
-  //     // };
 
-
-  //     var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_ALPHABET;
-  //     // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
-  //     // const response = await axiosInstance.get(endpoint, { //requestBody, {
-  //       const response = await axios.post(endpoint, { //requestBody, {
-  //         //params: { uid: uid },
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           //Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-
-  //     setIsDataLoading(false);
-  //     // alert(JSON.stringify(response, null, 2));
-
-  //     // if (response.data.status) {
-        
-  //     setMatchSortByAlphabet(response.data);
-  //       //  console.log(response.data);
-
-
-
-  //     // } else {
-  //     //   const errorMessage = response.data.message;
-  //     //   alert("Error: " + errorMessage);
-  //     //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-  //     // }
-
-  //   } catch (error) {
-  //     setIsDataLoading(false);
-  //     alert("An unexpected error occurred. " + error);
-  //   }
-  // };
-
-  const handleSortByCountryAlphabet = async () => {    
-    
     // setCurrentPage(1);
     setIsDataLoading(true);
     try {
-      // // Prepare the request body
-      // const requestBody = {
-      //   date: showingForDate
-      // };
+      // Prepare the request body
+      const requestBody = {
+        date: showingForDate
+      };
 
 
       var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_COUNTRY_ALPHABET;
       // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
       // const response = await axiosInstance.get(endpoint, { //requestBody, {
-        const response = await axios.post(endpoint, { //requestBody, {
+        const response = await axios.post(endpoint, requestBody, {
           //params: { uid: uid },
           headers: {
             "Content-Type": "application/json",
@@ -164,7 +169,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
         });
 
       setIsDataLoading(false);
-      // alert(JSON.stringify(response, null, 2));
+      //  alert(JSON.stringify(response, null, 2));
 
       // if (response.data.status) {
         
@@ -318,42 +323,78 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
               ))}
 
 
-<div className='text-white text-lg'>***#2#{currentPageName}</div>
-<div className='' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+<div className='mx-3  mb-4' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
   {isDataloading ? (
     <Loading />
   ) : (
-    <div className={styles.navLinks}>
-      {Object.keys(matchesGroupedByHeading).map((heading) => {
-        const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
+    <div className=" mx-4 my-2 text-scMenuText ">
+      {matchSortByCountry.map((countryData) => {
+        const { country, leagues } = countryData;
+        const isCountryOpen = openCountry === country; // Check if country dropdown is open
 
-        const href = extractHref(heading);
-        
         return (
-          <div key={heading} className={styles.sideitem}>
-            <div className=''>
-              <div className='flex  cursor-pointer' 
-                onClick={() =>
-                  {                
-                    setPageName("All");  
-                    handleSpecificLeague(href);
-                  }
-                }
-              >
-                <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
-                <p className="text-xs text-white hover:text-scGreen">
-                  {/* {parse(heading)} */}
-                  {/* {heading} */}
-                  {heading.replace(/<\/?[^>]+(>|$)/g, "")}
-                </p>
-              </div>
+          <div key={country} className=" ">
+            {/* Dropdown for Country */}
+            <div
+              className="flex items-center justify-between mt-2 cursor-pointer "
+              onClick={() => toggleCountryDropdown(country)} // Toggle on click
+            >
+              {/* <label className=" text-white hover:text-scGreen cursor-pointer py-1">{country}</label> */}
+              <span className=" text-white hover:text-scGreen cursor-pointer py-1">{country}</span>
+              {isCountryOpen ? (
+                <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Up arrow when open
+              ) : (
+                <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Down arrow when closed
+              )}
             </div>
+
+            {/* Show leagues if country is open */}
+            {isCountryOpen && leagues.map((league) => {
+              const { title, fixtures } = league;
+              const href = extractHref(title);
+              const isLeagueOpen = openLeague === title; // Check if league dropdown is open
+
+              return (
+                <div key={title} className="">
+                  {/* Dropdown for Leagues */}
+                  <div
+                    className="flex items-center justify-between w-full mx-4 pr-8 cursor-pointer  pt-1"
+                    onClick={() => toggleLeagueDropdown(title)} // Toggle on click
+                  >
+                    <p className=" text-white hover:text-scGreen">
+                      {title.replace(/<\/?[^>]+(>|$)/g, "")}
+                    </p>
+                    {isLeagueOpen ? (
+                      <KeyboardArrowUpIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }} /> // Up arrow when open
+                    ) : (
+                      <KeyboardArrowDownIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }}/> // Down arrow when closed
+                    )}
+                  </div>
+
+                  {/* Dropdown content - Fixtures within the League */}
+                  {isLeagueOpen && fixtures && fixtures.length > 0 ? (
+                    <ul className=" mx-8  text-white ">
+                      {fixtures.map((fixture, index) => (
+                        <li key={index} className="hover:text-scGreen cursor-pointer my-1">
+                          {fixture.homeTeam} vs {fixture.awayTeam} - {fixture.date} {fixture.time}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : isLeagueOpen ? (
+                    <p className=" text-gray-400 ml-2">No fixtures available</p>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         );
       })}
     </div>
   )}
 </div>
+
+
+
 
 
 

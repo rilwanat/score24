@@ -10,7 +10,9 @@ import CookieConsent from './navbar/CookieConsent';
 import MainContent from './MainContent';
 
 
-export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
+export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
+  specificLeague, setSpecific
+ }) {
 
   return (
     <div className='bg-scBackground  text-sm'>
@@ -26,6 +28,7 @@ export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMen
         setPageName={setPageName} currentPageName={currentPageName} 
         setCategory={setCategory} currentCategory={currentCategory} 
         isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+        specificLeague={specificLeague} setSpecific={setSpecific}
       />
         <div className='flex'>
           <div className='w-full rounded-lg'>
@@ -34,6 +37,7 @@ export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMen
               setPageName={setPageName} currentPageName={currentPageName} 
               setCategory={setCategory} currentCategory={currentCategory} 
               isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+              specificLeague={specificLeague} setSpecific={setSpecific}
             /> 
 
           </div>
@@ -46,6 +50,7 @@ export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMen
         setPageName={setPageName} currentPageName={currentPageName} 
         setCategory={setCategory} currentCategory={currentCategory} 
         isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
+        specificLeague={specificLeague} setSpecific={setSpecific}
       />} 
 
     </div>

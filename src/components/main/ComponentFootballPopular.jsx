@@ -6,7 +6,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
-import headingImage from '../../assets/svg/1x1.svg';
+// import headingImage from '../../assets/svg/1x1.svg';
 
 import axios from 'axios';
 // import axiosInstance from '../../axiosConfig';

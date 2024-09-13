@@ -14,6 +14,11 @@ import ComponentBasketball from "./ComponentBasketball";
 import ComponentFootballLive from "./ComponentFootballLive";
 import ComponentFootballFavourites from "./ComponentFootballFavourites";
 import ComponentFootballPopular from "./ComponentFootballPopular";
+import ComponentFootballSpecific from "./ComponentFootballSpecific";
+
+
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'; // Import arrow icons
 
 
 import axios from 'axios';
@@ -28,7 +33,9 @@ import Loading from './Loading';
 
 
 
-export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
+export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
+  specificLeague, setSpecific
+ }) {
 
   // Format the dates as 'YYYY-MM-DD'
   const formatDateAsISO = (date) => {
@@ -54,6 +61,20 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
     debouncedSetShowingForDate(date);
   };
 
+
+
+
+  // State to track which league dropdown and country dropdown is open
+  const [openLeague, setOpenLeague] = useState(null);
+  const [openCountry, setOpenCountry] = useState(null);
+
+  const toggleLeagueDropdown = (leagueTitle) => {
+    setOpenLeague(openLeague === leagueTitle ? null : leagueTitle); // Toggle league dropdown
+  };
+
+  const toggleCountryDropdown = (country) => {
+    setOpenCountry(openCountry === country ? null : country); // Toggle country dropdown
+  };
 
 
 
@@ -149,22 +170,22 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
   const [matchLive, setMatchLive] = useState([]);
   // const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
   const [matchSortByCountry, setMatchSortByCountry] = useState([]);
-  const [matchSpecificLeague, setSpecificLeague] = useState([]);
+  const [matchSpecificLeague, setMatchSpecificLeague] = useState([]);
 
 
   //
   // const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
-    const matchesGroupedByHeading = matchSortByCountry.reduce((acc, match) => {
-    if (!acc[match.heading]) {
-      acc[match.heading] = {
-        "heading image": match['heading image'], // Add the heading image
-        fixtures: [] // Initialize an empty array for fixtures
-      };
-    }
-    // Add the fixtures array directly
-    acc[match.heading].fixtures.push(...match.fixtures);
-    return acc;
-  }, {});
+  //   const matchesGroupedByHeading = matchSortByCountry.reduce((acc, match) => {
+  //   if (!acc[match.heading]) {
+  //     acc[match.heading] = {
+  //       "heading image": match['heading image'], // Add the heading image
+  //       fixtures: [] // Initialize an empty array for fixtures
+  //     };
+  //   }
+  //   // Add the fixtures array directly
+  //   acc[match.heading].fixtures.push(...match.fixtures);
+  //   return acc;
+  // }, {});
   
   // // Sort the grouped data by heading in ascending order
   // const sortedMatchesGroupedByHeading = Object.keys(matchesGroupedByHeadingSortByAlphabet)
@@ -187,7 +208,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
     handleData(showingForDate);
     handleLive();
     // handleSortByAlphabet();
-    handleSortByCountryAlphabet();
+    handleSortByCountryAlphabet(showingForDate);
   }, [showingForDate]);
   const handleData = async (showingForDate) => {    
     
@@ -277,65 +298,23 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
     }
   };
 
-  // const handleSortByAlphabet = async () => {    
+
+  const handleSortByCountryAlphabet = async (showingForDate) => {    
     
-  //   // setCurrentPage(1);
-  //   setIsDataLoading(true);
-  //   try {
-  //     // // Prepare the request body
-  //     // const requestBody = {
-  //     //   date: showingForDate
-  //     // };
 
-
-  //     var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_ALPHABET;
-  //     // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
-  //     // const response = await axiosInstance.get(endpoint, { //requestBody, {
-  //       const response = await axios.post(endpoint, { //requestBody, {
-  //         //params: { uid: uid },
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           //Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-
-  //     setIsDataLoading(false);
-  //     // alert(JSON.stringify(response, null, 2));
-
-  //     // if (response.data.status) {
-        
-  //     setMatchSortByAlphabet(response.data);
-  //       //  console.log(response.data);
-
-
-
-  //     // } else {
-  //     //   const errorMessage = response.data.message;
-  //     //   alert("Error: " + errorMessage);
-  //     //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-  //     // }
-
-  //   } catch (error) {
-  //     setIsDataLoading(false);
-  //     alert("An unexpected error occurred. " + error);
-  //   }
-  // };
-
-  const handleSortByCountryAlphabet = async () => {    
-    
     // setCurrentPage(1);
     setIsDataLoading(true);
     try {
-      // // Prepare the request body
-      // const requestBody = {
-      //   date: showingForDate
-      // };
+      // Prepare the request body
+      const requestBody = {
+        date: showingForDate
+      };
 
 
       var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_COUNTRY_ALPHABET;
       // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
       // const response = await axiosInstance.get(endpoint, { //requestBody, {
-        const response = await axios.post(endpoint, { //requestBody, {
+        const response = await axios.post(endpoint, requestBody, {
           //params: { uid: uid },
           headers: {
             "Content-Type": "application/json",
@@ -344,7 +323,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
         });
 
       setIsDataLoading(false);
-      // alert(JSON.stringify(response, null, 2));
+      //  alert(JSON.stringify(response, null, 2));
 
       // if (response.data.status) {
         
@@ -394,7 +373,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
 
       // if (response.data.status) {
         
-      setSpecificLeague(response.data);
+      setMatchSpecificLeague(response.data);
         //  console.log(response.data);
 
 
@@ -448,44 +427,75 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
             </div>
-            <div className='bg-scBackground rounded-lg w-full p-4 my-4 '>
+            <div className='bg-scBackground rounded-lg w-full py-4 pl-4 pr-2 my-4 '>
                 <p className='text-xs text-white'>All (A-Z)</p>
-                <div className='text-white text-lg'>***#1#{currentPageName}</div>
                 {
     isDataloading ? 
     <Loading /> 
     // <></>
     :
-      <div className="space-y-4">
-        {Object.keys(matchesGroupedByHeading).map((heading) => {
-        {/* {Object.keys(matchSortByAlphabet).map((heading) => { */}
-          const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
-          
-          const href = extractHref(heading);
+    <div className=" ">
+      {matchSortByCountry.map((countryData) => {
+        const { country, leagues } = countryData;
+        const isCountryOpen = openCountry === country; // Check if country dropdown is open
 
-          return (
-            <div key={heading} className="w-full py-2 my-4">              
-              <div className='flex '>
-                <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer' 
-                  onClick={() => 
-                    {          
-                      setPageName("All");
-                      handleSpecificLeague(href);
-                    }
-                  }
-                >
-                  <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
-                  <p className="text-xs text-white hover:text-scGreen">
-                    {/* {parse(heading)} */}
-                    {/* {heading} */}
-                    {heading.replace(/<\/?[^>]+(>|$)/g, "")}                    
-                  </p>
-                </div>
-              </div> 
+        return (
+          <div key={country} className="w-full ">
+            {/* Dropdown for Country */}
+            <div
+              className="flex items-center justify-between mt-2 cursor-pointer "
+              onClick={() => toggleCountryDropdown(country)} // Toggle on click
+            >
+              <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{country}</label>
+              {isCountryOpen ? (
+                <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Up arrow when open
+              ) : (
+                <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Down arrow when closed
+              )}
             </div>
-          );
-        })}
-      </div>
+
+            {/* Show leagues if country is open */}
+            {isCountryOpen && leagues.map((league) => {
+              const { title, fixtures } = league;
+              const href = extractHref(title);
+              const isLeagueOpen = openLeague === title; // Check if league dropdown is open
+
+              return (
+                <div key={title} className="ml-2">
+                  {/* Dropdown for Leagues */}
+                  <div
+                    className="flex items-center justify-between w-full ml-4 md:ml-0 cursor-pointer  py-1"
+                    onClick={() => toggleLeagueDropdown(title)} // Toggle on click
+                  >
+                    <p className="text-xs text-white hover:text-scGreen">
+                      {title.replace(/<\/?[^>]+(>|$)/g, "")}
+                    </p>
+                    {isLeagueOpen ? (
+                      <KeyboardArrowUpIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }} /> // Up arrow when open
+                    ) : (
+                      <KeyboardArrowDownIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }}/> // Down arrow when closed
+                    )}
+                  </div>
+
+                  {/* Dropdown content - Fixtures within the League */}
+                  {isLeagueOpen && fixtures && fixtures.length > 0 ? (
+                    <ul className=" ml-2  text-white ">
+                      {fixtures.map((fixture, index) => (
+                        <li key={index} className="text-xs hover:text-scGreen cursor-pointer my-1">
+                          {fixture.homeTeam} vs {fixture.awayTeam} - {fixture.date} {fixture.time}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : isLeagueOpen ? (
+                    <p className="text-xs text-gray-400 ml-2">No fixtures available</p>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
       // <></>
       }
             </div>
@@ -551,10 +561,11 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
             
             {
               (currentCategory === 'Football') ?  
-              (currentPageName === 'Home' ? <ComponentFootball setPageName={setPageName} showingForDate={showingForDate} /> :
-               currentPageName === 'Live' ? <ComponentFootballLive setPageName={setPageName} showingForDate={showingForDate} /> :
+              (currentPageName === 'Home' ? <ComponentFootball setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
+               currentPageName === 'Live' ? <ComponentFootballLive setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
                currentPageName === 'Favourites' ? <></> : //<ComponentFootballFavourites showingForDate={showingForDate} /> :
-               currentPageName === 'Popular' ? <ComponentFootballPopular setPageName={setPageName} showingForDate={showingForDate} /> :
+               currentPageName === 'Popular' ? <ComponentFootballPopular setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
+               currentPageName === 'Specific' ? <ComponentFootballSpecific setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
                 // <ComponentFootballFavourites showingForDate={showingForDate} />
                 <></>
               )
