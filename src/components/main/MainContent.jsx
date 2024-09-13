@@ -481,7 +481,16 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
                   {isLeagueOpen && fixtures && fixtures.length > 0 ? (
                     <ul className=" ml-2  text-white ">
                       {fixtures.map((fixture, index) => (
-                        <li key={index} className="text-xs hover:text-scGreen cursor-pointer my-1">
+                        <li key={index} className="text-xs hover:text-scGreen cursor-pointer my-1"
+                          onClick={() =>
+                            {                
+                              setPageName("Specific");  
+                              setSpecific(href);
+                              // alert(JSON.stringify(fixtures), null, 2);
+                              // alert(JSON.stringify(league), null, 2);
+                            }
+                          }
+                        >
                           {fixture.homeTeam} vs {fixture.awayTeam} - {fixture.date} {fixture.time}
                         </li>
                       ))}

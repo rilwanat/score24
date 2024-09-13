@@ -25,7 +25,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'; // Import
 import parse from 'html-react-parser';
 import Loading from '../Loading';
 
-function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
+function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
+  specificLeague, setSpecific
+ }) {
 
 
   
@@ -375,7 +377,16 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                   {isLeagueOpen && fixtures && fixtures.length > 0 ? (
                     <ul className=" mx-8  text-white ">
                       {fixtures.map((fixture, index) => (
-                        <li key={index} className="hover:text-scGreen cursor-pointer my-1">
+                        <li key={index} className="hover:text-scGreen cursor-pointer my-1"
+                          onClick={() =>
+                            {                
+                              setPageName("Specific");  
+                              setSpecific(href);
+                              // alert(JSON.stringify(fixtures), null, 2);
+                              // alert(JSON.stringify(league), null, 2);
+                            }
+                          }
+                        >
                           {fixture.homeTeam} vs {fixture.awayTeam} - {fixture.date} {fixture.time}
                         </li>
                       ))}
