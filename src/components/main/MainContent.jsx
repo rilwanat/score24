@@ -447,8 +447,8 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
                         {
                           setPopularLeagueId(id);
                           setPopularLeagueName(league);
-                          alert(league + " " + id);
-                          // setPageName("Popular");
+                          // alert(league + " " + id);
+                          setPageName("Popular");
                         }
                           }
                       >
