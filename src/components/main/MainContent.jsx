@@ -32,10 +32,17 @@ import parse from 'html-react-parser';
 import Loading from './Loading';
 
 
+import popularLeagues from './data/popularLeagues';
 
 export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
   specificLeague, setSpecific
  }) {
+
+  const [isAZOpen, setIsAZOpen] = useState(true);
+  const toggleAzDropdown = () => {
+    alert("");
+    // setIsAZOpen(!isAZOpen); // Toggle country dropdown
+  };
 
   // Format the dates as 'YYYY-MM-DD'
   const formatDateAsISO = (date) => {
@@ -63,6 +70,9 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
 
 
 
+  const [popularLeagueId, setPopularLeagueId] = useState("");
+  const [popularLeagueName, setPopularLeagueName] = useState(""); 
+
 
   // State to track which league dropdown and country dropdown is open
   const [openLeague, setOpenLeague] = useState(null);
@@ -74,7 +84,7 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
 
   const toggleCountryDropdown = (country) => {
     setOpenCountry(openCountry === country ? null : country); // Toggle country dropdown
-  };
+  };  
 
 
 
@@ -421,20 +431,50 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
                 </div>
             </div>
             <div className='bg-scBackground rounded-lg w-full pt-2 my-4 '>
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setPageName("Popular")}>
+                <div className='cursor-arrow flex items-center mb-2 py-1' 
+                // onClick={() => setPageName("Popular")}
+                >
                   {currentPageName == "Popular" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Popular' ? 'text-scGreen ' : 'text-white'}`}>Popular</p>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
+                <div className='ml-4 mb-4'>
+                  <ul >
+                  {Object.entries(popularLeagues).map(([league, id]) => (
+                    <div className="flex items-center justify-between mt-2 cursor-pointer ">
+                      <li key={id} className="text-xs text-white hover:text-scGreen cursor-pointer py-1"
+                        onClick={() => 
+                        {
+                          setPopularLeagueId(id);
+                          setPopularLeagueName(league);
+                          alert(league + " " + id);
+                          // setPageName("Popular");
+                        }
+                          }
+                      >
+                        {league.replace(/([A-Z])/g, ' $1').trim()}
+                      </li>
+                    </div>                    
+                  ))}
+                  </ul>
+                </div>
+                
             </div>
             <div className='bg-scBackground rounded-lg w-full py-4 pl-4 pr-2 my-4 '>
-                <p className='text-xs text-white'>All (A-Z)</p>
+                <div className='flex justify-between  cursor-pointer'>
+                  <p className='text-xs text-white' onClick={() => toggleAzDropdown()}>All (A-Z)</p>
+                  {!isAZOpen ? (
+                    <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                    ) : (
+                    <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                    )}
+                </div>
                 {
     isDataloading ? 
     <Loading /> 
     // <></>
     :
-    <div className=" ">
+    <div className="mt-1 ">
       {matchSortByCountry.map((countryData) => {
         const { country, leagues } = countryData;
         const isCountryOpen = openCountry === country; // Check if country dropdown is open
@@ -444,14 +484,14 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
             {/* Dropdown for Country */}
             <div
               className="flex items-center justify-between mt-2 cursor-pointer "
-              onClick={() => toggleCountryDropdown(country)} // Toggle on click
+              // onClick={() => toggleCountryDropdown(country)} // Toggle on click
             >
               <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{country}</label>
-              {isCountryOpen ? (
+              {/* {isCountryOpen ? (
                 <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Up arrow when open
               ) : (
                 <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Down arrow when closed
-              )}
+              )} */}
             </div>
 
             {/* Show leagues if country is open */}
@@ -465,16 +505,16 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
                   {/* Dropdown for Leagues */}
                   <div
                     className="flex items-center justify-between w-full ml-4 md:ml-0 cursor-pointer  py-1"
-                    onClick={() => toggleLeagueDropdown(title)} // Toggle on click
+                    // onClick={() => toggleLeagueDropdown(title)} // Toggle on click
                   >
                     <p className="text-xs text-white hover:text-scGreen">
                       {title.replace(/<\/?[^>]+(>|$)/g, "")}
                     </p>
-                    {isLeagueOpen ? (
+                    {/* {isLeagueOpen ? (
                       <KeyboardArrowUpIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }} /> // Up arrow when open
                     ) : (
                       <KeyboardArrowDownIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }}/> // Down arrow when closed
-                    )}
+                    )} */}
                   </div>
 
                   {/* Dropdown content - Fixtures within the League */}
@@ -573,7 +613,9 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
               (currentPageName === 'Home' ? <ComponentFootball setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
                currentPageName === 'Live' ? <ComponentFootballLive setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
                currentPageName === 'Favourites' ? <></> : //<ComponentFootballFavourites showingForDate={showingForDate} /> :
-               currentPageName === 'Popular' ? <ComponentFootballPopular setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
+               currentPageName === 'Popular' ? <ComponentFootballPopular setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific} 
+               popularLeagueId={popularLeagueId} popularLeagueName={popularLeagueName} 
+               /> :
                currentPageName === 'Specific' ? <ComponentFootballSpecific setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
                 // <ComponentFootballFavourites showingForDate={showingForDate} />
                 <></>

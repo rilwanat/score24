@@ -14,23 +14,24 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
-export default function ComponentFootballPopular({ showingForDate }) {
+export default function ComponentFootballPopular({ showingForDate, popularLeagueId, popularLeagueName }) {
   
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchPopular, setMatchPopular] = useState([]);
   useEffect(() => {
     handlePopular();
-  }, []);
+  }, [popularLeagueId]);
   const handlePopular = async () => {
     setIsDataLoading(true);
     try {
-      // const requestBody = {
-      //   date: showingForDate,
-      // };
+       const requestBody = {
+        "leagueId": popularLeagueId,
+        "leagueTitle": popularLeagueName
+       };
   
-      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR;
+      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR_LEAGUES;
       // alert(endpoint);
-      const response = await axios.get(endpoint, {
+      const response = await axios.post(endpoint, requestBody, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -38,11 +39,11 @@ export default function ComponentFootballPopular({ showingForDate }) {
   
       setIsDataLoading(false);
       // alert("ok");
-      // alert(JSON.stringify(response.brazil, null, 2));
-      // alert(response.brazil);
+      // alert(JSON.stringify(response.data, null, 2));
+      // alert(response.data[0].length);
       // if (response.data) {
       //   // Ensure response.data has the structure you expect
-      //   setMatchPopular(response.data);
+        setMatchPopular(response.data);
       // } else {
       //   alert("Unexpected response structure.");
       // }
@@ -56,68 +57,34 @@ export default function ComponentFootballPopular({ showingForDate }) {
   
 
 
-
-  // const matchesGroupedByHeading = matchData.reduce((acc, match) => {
-  //   if (!acc[match.heading]) {
-  //     acc[match.heading] = [];
-  //   }
-  //   acc[match.heading].push(match);
-  //   return acc;
-  // }, {});
-
-
-
-  // Group matches by league
-  const matchesGroupedByLeague = matchPopular?.data?.reduce((acc, match) => {
-    if (!match) return acc;
-    const leagueName = match.league;
-    if (!acc[leagueName]) {
-      acc[leagueName] = {
-        logo: match.logo,
-        fixtures: []
-      };
-    }
-    acc[leagueName].fixtures.push(...match.fixtures);
-    return acc;
-  }, {}) || {}; // Fallback to an empty object if matchLive.data is undefined
-  
-  
-
-
-
-  // const [currentPageName, setCurrentPageName] = useState("Live");
-
-
-   //
-  // Function to get an array of dates with today in the middle
-  const getDates = () => {
-    const dates = [];
-    const today = new Date();
-    const isMobile = window.innerWidth <= 768; // You can adjust this value according to your design breakpoints
-    const daysRange = isMobile ? 3 : 7;
-  
-    // Get dates for the past `daysRange` days
-    for (let i = daysRange; i > 0; i--) {
-      const pastDate = new Date(today);
-      pastDate.setDate(today.getDate() - i);
-      dates.push(pastDate);
-    }
-  
-    // Add today
-    dates.push(today);
-  
-    // Get dates for the next `daysRange` days
-    for (let i = 1; i <= daysRange; i++) {
-      const futureDate = new Date(today);
-      futureDate.setDate(today.getDate() + i);
-      dates.push(futureDate);
-    }
-  
-    return dates;
-  };
-  
-
-
+    const groupFixturesByDate = () => {
+      if (!matchPopular) return {};
+    
+      return matchPopular.reduce((acc, league) => {
+        league.fixtures.forEach(fixture => {
+          const date = fixture.fixture_date;
+    
+          if (!acc[date]) {
+            acc[date] = [];
+          }
+    
+          acc[date].push({
+            heading: league.heading,
+            logo: league["heading image"],
+            fixture_time: fixture.fixture_time,
+            home_team: fixture.home_team,
+            away_team: fixture.away_team,
+            home_score: fixture.home_score,
+            away_score: fixture.away_score,
+            status: fixture.status,
+            league_name: fixture.league_name
+          });
+        });
+    
+        return acc;
+      }, {});
+    };
+    
 
 
   return (
@@ -125,24 +92,33 @@ export default function ComponentFootballPopular({ showingForDate }) {
     {
     isDataloading ? <Loading /> :
       <div className="space-y-4">
-        {Object.keys(matchesGroupedByLeague).map((heading) => {
-          const { "logo": leagueImage, fixtures } = matchesGroupedByLeague[heading];
+        {groupFixturesByDate && Object.keys(groupFixturesByDate).map((date) => {
+          const fixtures = groupFixturesByDate[date];
           
           return (
-            <div key={heading} className="w-full py-2 mb-4">              
-              <div className='flex justify-between'>
-                <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
-                  <img src={leagueImage} alt="Competition Image" className="mr-2 h-3" />
-                  <p className="text-xs text-white hover:text-scGreen">
-                    {parse(heading)}
-                  </p>
+            <div key={date} className="w-full py-2 mb-4"> 
+              <h2 className="text-lg text-white">{date}</h2>
+
+
+              {
+              fixtures.map((fixture, index) => (
+                
+                <>
+                <div key={index} className='flex justify-between mt-4'>
+                  <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
+                    {/*<img src={league.logo} alt="Competition Image" className="mr-2 h-3" />*/} 
+                    <p className="text-xs text-white hover:text-scGreen">
+                      {/* {parse(league.heading)} */}
+                      {/* {fixture.home_team}  */}
+                      whgy is this not displaying
+                    </p>
+                  </div>
+                  <div className='flex justify-end mx-3' style={{ width: '60px' }}>
+                    <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen" />
+                  </div>
                 </div>
-                <div className='flex justify-end mx-3' style={{ width: '60px' }}>
-                  <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen" />
-                </div>
-              </div>              
-              <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
-                {fixtures.map((match, index) => (
+                {/* <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
+                {league.fixtures.map((match, index) => (
                   <div key={index} className="text-scMenuText cursor-pointer">
                     <div className='flex'>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
@@ -152,7 +128,6 @@ export default function ComponentFootballPopular({ showingForDate }) {
                         </div>
                         <div className='flex w-5/12 md:w-2/12 justify-center items-center '>
                           <p className='mx-8 text-center text-scGreen'>
-                            {/* {match.time === 'FT' ? match.home_score : ''} {match.time !== 'FT' ? 'vs.' : '-'} {match.time === 'FT' ? match.away_score : ''} */}
                             {match.status}                            
                           </p>
                         </div>
@@ -163,23 +138,29 @@ export default function ComponentFootballPopular({ showingForDate }) {
                       <div className='md:hidden flex flex-col w-full px-2 mx-2'>
                         <div className='flex w-full justify-between'>
                           <p className='text-white'>{match.homeTeam}</p>
-                          {/* <p className='text-center text-scGreen'>{match.status === 'FT' ? match.home_score : ''}</p> */}
                         </div>
                         <div className='flex w-full justify-between'>
                           <p className='text-white'>{match.awayTeam}</p>
-                          {/* <p className='text-center text-scGreen'>{match.status === 'FT' ? match.away_score : ''}</p> */}
                         </div>
                       </div>
                       <p className="cursor-pointer flex items-center justify-end" style={{ width: '60px' }}>
                         <StarBorderIcon className='hover:text-scGreen' />
                       </p>
                     </div>
-                    {index !== fixtures.length - 1 && (
+                    {index !== league.fixtures.length - 1 && (
                       <hr className="border-1 border-scHr mt-2" />
                     )}
                   </div>
                 ))}
-              </div>
+                </div> */}
+              </>
+                
+              ))
+              }
+
+
+                          
+              {/*  */}
             </div>
           );
         })}

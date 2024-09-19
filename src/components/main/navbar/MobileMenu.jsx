@@ -30,6 +30,11 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
  }) {
 
 
+  const [isAZOpen, setIsAZOpen] = useState(true);
+  const toggleAzDropdown = () => {
+    setIsAZOpen(!isAZOpen); // Toggle country dropdown
+  };
+
   
   // Format the dates as 'YYYY-MM-DD'
   const formatDateAsISO = (date) => {
@@ -56,6 +61,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   };
 
 
+ 
 
   
   // State to track which league dropdown and country dropdown is open
@@ -314,12 +320,25 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                     className={styles.sideitem}                    
                     onClick={() => {                      
                       setPageName(item.text);
-                      closeMenu();
+                      if (item.text !== "All (A-Z)") closeMenu();
                     }}
                     // to={`/${item.link}`}
                   >
                     {/* {item.icon} */}
-                    <span className={styles.linkTextTwo}>{item.text} {item.text === "Live" ?  ' (' + (matchLive?.liveMatchCount || '-') + ')' : ''}</span>
+                    <div className='flex justify-between w-full cursor-pointer'>
+                      <span className={styles.linkTextTwo}  onClick={() => item.text === "All (A-Z)" ? toggleAzDropdown() : null}
+                      
+                      >{item.text} {item.text === "Live" ?  ' (' + (matchLive?.liveMatchCount || '-') + ')' : ''}</span>
+
+                      <div>
+                        {item.text === "All (A-Z)" ? !isAZOpen ? (
+                        <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        ) : (
+                        <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        ) : null}
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               ))}
@@ -329,7 +348,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   {isDataloading ? (
     <Loading />
   ) : (
-    <div className=" mx-4 my-2 text-scMenuText ">
+    !isAZOpen && <div className="mt-1 mx-4 my-2 text-scMenuText ">
       {matchSortByCountry.map((countryData) => {
         const { country, leagues } = countryData;
         const isCountryOpen = openCountry === country; // Check if country dropdown is open
@@ -339,15 +358,15 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
             {/* Dropdown for Country */}
             <div
               className="flex items-center justify-between mt-2 cursor-pointer "
-              onClick={() => toggleCountryDropdown(country)} // Toggle on click
+              // onClick={() => toggleCountryDropdown(country)} // Toggle on click
             >
               {/* <label className=" text-white hover:text-scGreen cursor-pointer py-1">{country}</label> */}
               <span className=" text-white hover:text-scGreen cursor-pointer py-1">{country}</span>
-              {isCountryOpen ? (
-                <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Up arrow when open
+              {/* {isCountryOpen ? (
+                <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
               ) : (
-                <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Down arrow when closed
-              )}
+                <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+              )} */}
             </div>
 
             {/* Show leagues if country is open */}
@@ -361,16 +380,16 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                   {/* Dropdown for Leagues */}
                   <div
                     className="flex items-center justify-between w-full mx-4 pr-8 cursor-pointer  pt-1"
-                    onClick={() => toggleLeagueDropdown(title)} // Toggle on click
+                    // onClick={() => toggleLeagueDropdown(title)} // Toggle on click
                   >
                     <p className=" text-white hover:text-scGreen">
                       {title.replace(/<\/?[^>]+(>|$)/g, "")}
                     </p>
-                    {isLeagueOpen ? (
+                    {/* {isLeagueOpen ? (
                       <KeyboardArrowUpIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }} /> // Up arrow when open
                     ) : (
                       <KeyboardArrowDownIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }}/> // Down arrow when closed
-                    )}
+                    )} */}
                   </div>
 
                   {/* Dropdown content - Fixtures within the League */}
