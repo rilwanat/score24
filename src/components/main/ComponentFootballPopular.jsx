@@ -39,7 +39,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   
       setIsDataLoading(false);
       // alert("ok");
-      alert(JSON.stringify(response.data, null, 2));
+      // alert(JSON.stringify(response.data, null, 2));
       // alert(response.data[0].length);
       // if (response.data) {
       //   // Ensure response.data has the structure you expect
