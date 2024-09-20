@@ -373,7 +373,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
 
 
-
+{/* <hr className="border-1 border-scHr mt-2" /> */}
 {/* popular */}
 <div className={styles.navLinks}>
                   <div
@@ -402,14 +402,14 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                    
 
                   </div>
-                  <div className='mx-4 mb-4' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+                  <div className='mx-4 ' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
   {!isPopularOpen && (
     <div className="mt-1 mx-4 my-2 text-scMenuText">
       {Object.entries(popularLeagues).map(([league, id]) => (
         <div key={id} className="w-full">
           <div className="flex items-center justify-between mt-2 cursor-pointer">
             <label
-              className="text-xs text-white hover:text-scGreen cursor-pointer py-1"
+              className="text-xs text-white hover:text-scGreen cursor-pointer pb-1"
               onClick={() => {
                 setCurrentPopularLeagueId(id);
                 setCurrentPopularLeagueName(league);
@@ -431,7 +431,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
 
 
-
+{/* <hr className="border-1 border-scHr mt-2" /> */}
 {/* All (A-Z) */}
 <div className={styles.navLinks}>
                   <div
@@ -461,7 +461,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
                   </div>
                   
-                    <div className='mx-4  mb-4' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+                    <div className='mx-4 ' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
                     {!isAZOpen && <div className="mt-1 mx-4 my-2 text-scMenuText ">
       {countriesAZ.map((countryData) => {
 
@@ -470,7 +470,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
             <div
               className="flex items-center justify-between mt-2 cursor-pointer "
             >
-              <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{countryData}</label> 
+              <label className="text-xs text-white hover:text-scGreen cursor-pointer pb-1">{countryData}</label> 
             </div>
           </div>);
 

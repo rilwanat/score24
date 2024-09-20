@@ -93,6 +93,11 @@ const [isAZOpen, setIsAZOpen] = useState(true);
 
 
 
+  const [isPopularOpen, setIsPopularOpen] = useState(true);
+  const togglePopular = () => {
+    setIsPopularOpen(!isPopularOpen); // Toggle popular dropdown
+  };
+
 
   //
   // Function to get an array of dates with today in the middle
@@ -435,14 +440,23 @@ const [isAZOpen, setIsAZOpen] = useState(true);
                 </div>
             </div>
             <div className='bg-scBackground rounded-lg w-full pt-2 my-4 '>
-                <div className='cursor-arrow flex items-center mb-2 py-1' 
-                // onClick={() => setPageName("Popular")}
+                <div className='cursor-pointer flex items-center mb-2 py-1' 
+                onClick={() => togglePopular()}
                 >
-                  {currentPageName == "Popular" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
-                  <p className={`text-xs hover:text-scGreen ${currentPageName === 'Popular' ? 'text-scGreen ' : 'text-white'}`}>Popular</p>
+                  {currentPageName == "Popular" ? <div className='bg-scGreen' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
+                  <div className='flex w-full justify-between items-center mr-2'>
+                    <p className={`text-xs hover:text-scGreen ${currentPageName === 'Popular' ? 'text-scGreen ' : 'text-white'}`}>Popular</p>
+                    <div className='cursor-pointer'>
+                        {!isPopularOpen ? (
+                        <KeyboardArrowUpIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        ) : (
+                        <KeyboardArrowDownIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        )}
+                    </div> 
+                  </div>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
-                <div className='mb-4'>
+                {!isPopularOpen &&  (<div className='mb-4'>
                   <ul >
                   {Object.entries(popularLeagues).map(([league, id]) => (
                     <div className="flex items-center mt-2 cursor-pointer ">
@@ -464,14 +478,25 @@ const [isAZOpen, setIsAZOpen] = useState(true);
                   ))}
                   </ul>
                 </div>
+                )}
                 
             </div>
-            <div className='bg-scBackground rounded-lg w-full py-4 pl-4 pr-2 my-4 '>
-              <div className='cursor-arrow flex items-center mb-2 py-1' 
-                // onClick={() => setPageName("Popular")}
+            <div className='bg-white rounded-lg w-full py-4 pl-4 pr-2 my-4 '>
+              <div className='cursor-pointer flex items-center mb-2 py-1  bg-red-900' 
+                onClick={() => toggleAzDropdown()}
                 >
                   {/* {currentPageName == "Popular" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>} */}
-                  <p className={'text-xs hover:text-scGreen text-white'}>All (A-Z)</p>
+                  
+                  <div className='flex w-full justify-between items-center mr-2'>
+                    <p className={'text-xs hover:text-scGreen text-white'}>AllX (A-Z)</p>
+                    <div className='cursor-pointer'>
+                        {!isPopularOpen ? (
+                        <KeyboardArrowUpIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        ) : (
+                        <KeyboardArrowDownIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        )}
+                    </div> 
+                  </div>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
                 {/* <div className='flex justify-between  cursor-pointer'>
