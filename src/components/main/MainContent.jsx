@@ -441,22 +441,23 @@ const [isAZOpen, setIsAZOpen] = useState(true);
             </div>
             <div className='bg-scBackground rounded-lg w-full pt-2 my-4 '>
                 <div className='cursor-pointer flex items-center mb-2 py-1' 
-                onClick={() => togglePopular()}
+                // onClick={() => togglePopular()}
                 >
                   {currentPageName == "Popular" ? <div className='bg-scGreen' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
-                  <div className='flex w-full justify-between items-center mr-2'>
-                    <p className={`text-xs hover:text-scGreen ${currentPageName === 'Popular' ? 'text-scGreen ' : 'text-white'}`}>Popular</p>
-                    <div className='cursor-pointer'>
+                  <div className='flex w-full justify-start items-center mr-2'>
+                    <p className={`text-xs hover:text-scGreen ml-4 ${currentPageName === 'Popular' ? 'text-scGreen ' : 'text-white'}`}>Popular</p>
+                    {/* <div className='cursor-pointer'>
                         {!isPopularOpen ? (
                         <KeyboardArrowUpIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
                         ) : (
                         <KeyboardArrowDownIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
                         )}
-                    </div> 
+                    </div>  */}
                   </div>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
-                {!isPopularOpen &&  (<div className='mb-4'>
+                {/* {!isPopularOpen &&  ( */}
+                  <div className='mb-4'>
                   <ul >
                   {Object.entries(popularLeagues).map(([league, id]) => (
                     <div className="flex items-center mt-2 cursor-pointer ">
@@ -478,24 +479,24 @@ const [isAZOpen, setIsAZOpen] = useState(true);
                   ))}
                   </ul>
                 </div>
-                )}
+                {/*} )} */}
                 
             </div>
-            <div className='bg-  bg-blue-900 rounded-lg w-full py-4 pl-4 pr-2 my-4 '>
-              <div className='cursor-pointer flex items-center mb-2 py-1  bg-red-900' 
-                onClick={() => toggleAzDropdown()}
+            <div className='bg-scBackground  rounded-lg w-full py-2 pl-4 pr-2 my-4 '>
+              <div className='cursor-pointer flex items-center mb-2 py-1' 
+                // onClick={() => toggleAzDropdown()}
                 >
                   {/* {currentPageName == "Popular" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>} */}
                   
-                  <div className='flex w-full justify-between items-center mr-2'>
+                  <div className='flex w-full justify-start items-center '>
                     <p className={'text-xs hover:text-scGreen text-white'}>All (A-Z)</p>
-                    <div className='cursor-pointer'>
+                    {/* <div className='cursor-pointer'>
                         {!isPopularOpen ? (
                         <KeyboardArrowUpIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
                         ) : (
                         <KeyboardArrowDownIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
                         )}
-                    </div> 
+                    </div>  */}
                   </div>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
@@ -507,11 +508,9 @@ const [isAZOpen, setIsAZOpen] = useState(true);
                     <KeyboardArrowDownIcon onClick={() => toggleAzDropdown()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
                     )}
                 </div> */}
-                {
-    isDataloading ? 
-    <Loading /> 
-    // <></>
-    :
+                
+
+                {/* {!isAZOpen &&  ( */}
     <div className="mt-1 ">
       {countriesAZ.map((countryData) => {
         // const { country, leagues } = countryData;
@@ -594,8 +593,11 @@ const [isAZOpen, setIsAZOpen] = useState(true);
         // );
       })}
     </div>
-      // <></>
-      }
+  {/* )} */}
+    
+
+
+
             </div>
         </div>
 
