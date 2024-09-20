@@ -481,14 +481,14 @@ const [isAZOpen, setIsAZOpen] = useState(true);
                 )}
                 
             </div>
-            <div className='bg-white rounded-lg w-full py-4 pl-4 pr-2 my-4 '>
+            <div className='bg-  bg-blue-900 rounded-lg w-full py-4 pl-4 pr-2 my-4 '>
               <div className='cursor-pointer flex items-center mb-2 py-1  bg-red-900' 
                 onClick={() => toggleAzDropdown()}
                 >
                   {/* {currentPageName == "Popular" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>} */}
                   
                   <div className='flex w-full justify-between items-center mr-2'>
-                    <p className={'text-xs hover:text-scGreen text-white'}>AllX (A-Z)</p>
+                    <p className={'text-xs hover:text-scGreen text-white'}>All (A-Z)</p>
                     <div className='cursor-pointer'>
                         {!isPopularOpen ? (
                         <KeyboardArrowUpIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
