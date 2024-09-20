@@ -416,6 +416,8 @@ const [isAZOpen, setIsAZOpen] = useState(true);
   };
 
 
+
+
   return (
     <div className='bg-scDarkerBackground
      md:px-4 lg:px-16 xl:px-24 2xl:px-80  md:py-4  pb-4 
@@ -423,18 +425,31 @@ const [isAZOpen, setIsAZOpen] = useState(true);
 
         <div className='hidden md:flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
             <div className='bg-scBackground rounded-lg w-full '>
-                <div className='cursor-pointer flex items-center mb-2  pt-3 pb-1' onClick={() => setPageName("Home")}>
+                <div className='cursor-pointer flex items-center mb-2  pt-3 pb-1' onClick={() => {
+                    setCurrentPopularLeagueId("");
+                    setCurrentPopularLeagueName("");
+setPageName("Home");
+                  
+                }}>
                   {currentPageName == "Home" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Home' ? 'text-scGreen' : 'text-white'}`}>Home</p>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setPageName("Live")}>
+                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => {
+                    setCurrentPopularLeagueId("");
+                    setCurrentPopularLeagueName("");
+setPageName("Live");
+                }}>
                   {currentPageName == "Live" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Live' ? 'text-scGreen ' : 'text-white'}`}>Live {' (' + (matchLive?.liveMatchCount || '-') + ')'}
                   </p>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
-                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => setPageName("Favourites")}>
+                <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => {
+                    setCurrentPopularLeagueId("");
+                    setCurrentPopularLeagueName("");
+setPageName("Favourites");
+                }}>
                   {currentPageName == "Favourites" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <p className={`text-xs hover:text-scGreen ${currentPageName === 'Favourites' ? 'text-scGreen ' : 'text-white'}`}>Favourites</p>
                 </div>
@@ -445,7 +460,7 @@ const [isAZOpen, setIsAZOpen] = useState(true);
                 >
                   {currentPageName == "Popular" ? <div className='bg-scGreen' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <div className='flex w-full justify-start items-center mr-2'>
-                    <p className={`text-xs hover:text-scGreen ml-4 ${currentPageName === 'Popular' ? 'text-scGreen ' : 'text-white'}`}>Popular</p>
+                    <p className={`text-xs hover:text-scGreen ${currentPageName === 'Popular' ? 'text-scGreen  ml-4' : 'text-white'}`}>Popular</p>
                     {/* <div className='cursor-pointer'>
                         {!isPopularOpen ? (
                         <KeyboardArrowUpIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
