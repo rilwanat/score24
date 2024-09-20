@@ -25,14 +25,25 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'; // Import
 import parse from 'html-react-parser';
 import Loading from '../Loading';
 
+import popularLeagues from '../data/popularLeagues';
+import countriesAZ from '../data/countriesAZ';
+
+
 function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
-  specificLeague, setSpecific
+  specificLeague, setSpecific,
+  setCurrentPopularLeagueId, setCurrentPopularLeagueName,
+  popularLeagueId, popularLeagueName
  }) {
 
 
   const [isAZOpen, setIsAZOpen] = useState(true);
   const toggleAzDropdown = () => {
     setIsAZOpen(!isAZOpen); // Toggle country dropdown
+  };
+
+  const [isPopularOpen, setIsPopularOpen] = useState(true);
+  const togglePopular = () => {
+    setIsPopularOpen(!isPopularOpen); // Toggle popular dropdown
   };
 
   
@@ -78,6 +89,9 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
 
 
+  // const [popularLeagueId, setPopularLeagueId] = useState("");
+  // const [popularLeagueName, setPopularLeagueName] = useState(""); 
+
 
 
   const [isDataloading, setIsDataLoading] = useState(true);
@@ -106,7 +120,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
     // handleData(showingForDate);
     handleLive();
     // handleSortByAlphabet();
-    handleSortByCountryAlphabet(showingForDate);
+    // handleSortByCountryAlphabet(showingForDate);
   }, [showingForDate]);
 
   const handleLive = async () => {    
@@ -313,114 +327,174 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
               <hr className="border-1 border-scHr mt-2" />
               <p className='font-bold ml-4 my-2 text-scMenuText'>Navigation</p>
               
-              {navData.slice(1,5).map((item) => (
+              {navData.slice(1,3).map((item) => (
                 <div className={styles.navLinks}>
                   <div
                     key={item.id}
                     className={styles.sideitem}                    
                     onClick={() => {                      
                       setPageName(item.text);
-                      if (item.text !== "All (A-Z)") closeMenu();
+                      if (item.text === "All (A-Z)") {return;}
+                      if (item.text === "Popular") {return;}
+                       closeMenu();
                     }}
-                    // to={`/${item.link}`}
                   >
-                    {/* {item.icon} */}
+
                     <div className='flex justify-between w-full cursor-pointer'>
-                      <span className={styles.linkTextTwo}  onClick={() => item.text === "All (A-Z)" ? toggleAzDropdown() : null}
-                      
+                      <span className={styles.linkTextTwo}  
+                      onClick={() => {
+                        if (item.text === "All (A-Z)") {toggleAzDropdown();}
+                        if (item.text === "Popular") {togglePopular();}
+                      }}                      
                       >{item.text} {item.text === "Live" ?  ' (' + (matchLive?.liveMatchCount || '-') + ')' : ''}</span>
 
-                      <div>
-                        {item.text === "All (A-Z)" ? !isAZOpen ? (
-                        <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                      {item.text === "All (A-Z)" ? <div>
+                        {!isAZOpen ? (
+                        <KeyboardArrowUpIcon onClick={() => toggleAzDropdown()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
                         ) : (
-                        <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
-                        ) : null}
-                      </div>
+                        <KeyboardArrowDownIcon onClick={() => toggleAzDropdown()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        )}
+                      </div> : null}
+
+                      {item.text === "Popular" ? <div>
+                        {!isPopularOpen ? (
+                        <KeyboardArrowUpIcon onClick={() => togglePopular()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        ) : (
+                        <KeyboardArrowDownIcon onClick={() => togglePopular()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        )}
+                      </div> : null}
+                      
                     </div>
+                   
 
                   </div>
                 </div>
               ))}
 
 
-<div className='mx-3  mb-4' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
-  {isDataloading ? (
-    <Loading />
-  ) : (
-    !isAZOpen && <div className="mt-1 mx-4 my-2 text-scMenuText ">
-      {matchSortByCountry.map((countryData) => {
-        const { country, leagues } = countryData;
-        const isCountryOpen = openCountry === country; // Check if country dropdown is open
 
-        return (
-          <div key={country} className=" ">
-            {/* Dropdown for Country */}
-            <div
-              className="flex items-center justify-between mt-2 cursor-pointer "
-              // onClick={() => toggleCountryDropdown(country)} // Toggle on click
-            >
-              {/* <label className=" text-white hover:text-scGreen cursor-pointer py-1">{country}</label> */}
-              <span className=" text-white hover:text-scGreen cursor-pointer py-1">{country}</span>
-              {/* {isCountryOpen ? (
-                <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
-              ) : (
-                <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
-              )} */}
-            </div>
 
-            {/* Show leagues if country is open */}
-            {isCountryOpen && leagues.map((league) => {
-              const { title, fixtures } = league;
-              const href = extractHref(title);
-              const isLeagueOpen = openLeague === title; // Check if league dropdown is open
-
-              return (
-                <div key={title} className="">
-                  {/* Dropdown for Leagues */}
+{/* popular */}
+<div className={styles.navLinks}>
                   <div
-                    className="flex items-center justify-between w-full mx-4 pr-8 cursor-pointer  pt-1"
-                    // onClick={() => toggleLeagueDropdown(title)} // Toggle on click
+                    className={styles.sideitem}                    
+                    onClick={() => {                      
+                      setPageName("Popular");
+                    }}
                   >
-                    <p className=" text-white hover:text-scGreen">
-                      {title.replace(/<\/?[^>]+(>|$)/g, "")}
-                    </p>
-                    {/* {isLeagueOpen ? (
-                      <KeyboardArrowUpIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }} /> // Up arrow when open
-                    ) : (
-                      <KeyboardArrowDownIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }}/> // Down arrow when closed
-                    )} */}
-                  </div>
 
-                  {/* Dropdown content - Fixtures within the League */}
-                  {isLeagueOpen && fixtures && fixtures.length > 0 ? (
-                    <ul className=" mx-8  text-white ">
-                      {fixtures.map((fixture, index) => (
-                        <li key={index} className="hover:text-scGreen cursor-pointer my-1"
-                          onClick={() =>
-                            {                
-                              setPageName("Specific");  
-                              setSpecific(href);
-                              // alert(JSON.stringify(fixtures), null, 2);
-                              // alert(JSON.stringify(league), null, 2);
-                            }
-                          }
-                        >
-                          {fixture.homeTeam} vs {fixture.awayTeam} - {fixture.date} {fixture.time}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : isLeagueOpen ? (
-                    <p className=" text-gray-400 ml-2">No fixtures available</p>
-                  ) : null}
-                </div>
-              );
-            })}
+                    <div className='flex justify-between w-full cursor-pointer'>
+                      <span className={styles.linkTextTwo}  
+                      onClick={() => {
+                          {togglePopular();}
+                      }}                      
+                      >Popular</span>
+
+                      <div>
+                        {!isPopularOpen ? (
+                        <KeyboardArrowUpIcon onClick={() => togglePopular()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        ) : (
+                        <KeyboardArrowDownIcon onClick={() => togglePopular()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        )}
+                      </div> 
+                      
+                    </div>
+                   
+
+                  </div>
+                  <div className='mx-4 mb-4' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+  {!isPopularOpen && (
+    <div className="mt-1 mx-4 my-2 text-scMenuText">
+      {Object.entries(popularLeagues).map(([league, id]) => (
+        <div key={id} className="w-full">
+          <div className="flex items-center justify-between mt-2 cursor-pointer">
+            <label
+              className="text-xs text-white hover:text-scGreen cursor-pointer py-1"
+              onClick={() => {
+                setCurrentPopularLeagueId(id);
+                setCurrentPopularLeagueName(league);
+                setPageName("Popular");
+                closeMenu();
+              }}
+            >
+              {league.replace(/([A-Z])/g, ' $1').trim()}
+            </label>
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   )}
+</div>
+
+
+                </div>
+
+
+
+
+{/* All (A-Z) */}
+<div className={styles.navLinks}>
+                  <div
+                    className={styles.sideitem}                    
+                    onClick={() => {                      
+                      setPageName("All (A-Z)");
+                    }}
+                  >
+
+                    <div className='flex justify-between w-full cursor-pointer'>
+                      <span className={styles.linkTextTwo}  
+                      onClick={() => {
+                        {toggleAzDropdown();}
+                      }}                      
+                      >All (A-Z)</span>
+
+                      <div>
+                        {!isAZOpen ? (
+                        <KeyboardArrowUpIcon onClick={() => toggleAzDropdown()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        ) : (
+                        <KeyboardArrowDownIcon onClick={() => toggleAzDropdown()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
+                        )}
+                      </div> 
+                      
+                    </div>
+                   
+
+                  </div>
+                  
+                    <div className='mx-4  mb-4' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+                    {!isAZOpen && <div className="mt-1 mx-4 my-2 text-scMenuText ">
+      {countriesAZ.map((countryData) => {
+
+        return (
+          <div key={countryData} className="w-full ">
+            <div
+              className="flex items-center justify-between mt-2 cursor-pointer "
+            >
+              <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{countryData}</label> 
+            </div>
+          </div>);
+
+        
+      })}
+    </div>  }
+    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+<div className='mx-3  mb-4' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+
+
+
+
+
 </div>
 
 

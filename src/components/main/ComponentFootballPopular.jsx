@@ -94,6 +94,15 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     {
     isDataloading ? <Loading /> :
       <div className="space-y-4">
+
+        <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
+          {/* <img src={fixture.logo} alt="Competition Image" className="mr-2 h-3" />  */}
+          <p className="text-xl text-white hover:text-scGreen">
+            {popularLeagueName}
+          </p>
+        </div>
+
+
         {Object.keys(groupFixturesByDate()).map((date) => {
             const fixtures = groupFixturesByDate()[date];
           

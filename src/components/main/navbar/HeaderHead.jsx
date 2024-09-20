@@ -20,7 +20,9 @@ import TuneIcon from '@mui/icons-material/Tune';
 
 import stars from '../../../assets/images/stars.png';
 
-export default function HeaderHead({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
+export default function HeaderHead({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
+  setCurrentPopularLeagueId, setCurrentPopularLeagueName,
+  popularLeagueId, popularLeagueName }) {
   const navigate = useNavigate();
 
   useEffect(() => {

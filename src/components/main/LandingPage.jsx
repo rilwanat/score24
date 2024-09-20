@@ -11,7 +11,9 @@ import MainContent from './MainContent';
 
 
 export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
-  specificLeague, setSpecific
+  specificLeague, setSpecific,
+  setCurrentPopularLeagueId, setCurrentPopularLeagueName,
+  popularLeagueId, popularLeagueName
  }) {
 
   return (
@@ -29,6 +31,8 @@ export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMen
         setCategory={setCategory} currentCategory={currentCategory} 
         isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
         specificLeague={specificLeague} setSpecific={setSpecific}
+        setCurrentPopularLeagueId={setCurrentPopularLeagueId} setCurrentPopularLeagueName={setCurrentPopularLeagueName}
+        popularLeagueId={popularLeagueId} popularLeagueName={popularLeagueName}
       />
         <div className='flex'>
           <div className='w-full rounded-lg'>
@@ -38,6 +42,8 @@ export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMen
               setCategory={setCategory} currentCategory={currentCategory} 
               isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
               specificLeague={specificLeague} setSpecific={setSpecific}
+              setCurrentPopularLeagueId={setCurrentPopularLeagueId} setCurrentPopularLeagueName={setCurrentPopularLeagueName} 
+              popularLeagueId={popularLeagueId} popularLeagueName={popularLeagueName}
             /> 
 
           </div>
@@ -51,6 +57,8 @@ export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMen
         setCategory={setCategory} currentCategory={currentCategory} 
         isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
         specificLeague={specificLeague} setSpecific={setSpecific}
+        setCurrentPopularLeagueId={setCurrentPopularLeagueId} setCurrentPopularLeagueName={setCurrentPopularLeagueName}
+        popularLeagueId={popularLeagueId} popularLeagueName={popularLeagueName}
       />} 
 
     </div>

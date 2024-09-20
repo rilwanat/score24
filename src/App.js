@@ -18,6 +18,19 @@ function App() {
   }
 
 
+  
+  const [popularLeagueId, setPopularLeagueId] = useState("");
+  const setCurrentPopularLeagueId = (id) => {
+    setPopularLeagueId(id);
+    // alert("cat: " + cat);
+  }
+  const [popularLeagueName, setPopularLeagueName] = useState(""); 
+  const setCurrentPopularLeagueName = (name) => {
+    setPopularLeagueName(name);
+    // alert("cat: " + cat);
+  }
+
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
   useEffect(() => {
     const handleResize = () => {
@@ -68,6 +81,8 @@ function App() {
               setCategory={setCategory} currentCategory={currentCategory} 
               isMobile={isMobile} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
               specificLeague={specificLeague} setSpecific={setSpecific}
+              setCurrentPopularLeagueId={setCurrentPopularLeagueId} setCurrentPopularLeagueName={setCurrentPopularLeagueName}
+              popularLeagueId={popularLeagueId} popularLeagueName={popularLeagueName}
             />}/>
 
           </Routes>

@@ -32,7 +32,10 @@ import stars from '../../../assets/images/stars.png';
 
 import MobileMenu from './MobileMenu';
 
-export default function MobileNavbar({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory }) {
+export default function MobileNavbar({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
+  setCurrentPopularLeagueId, setCurrentPopularLeagueName,
+  popularLeagueId, popularLeagueName
+ }) {
 
   return (
     <div className="w-full fixed top-0 bg-scBackground        pl-4 text-sm" style={{  }}>

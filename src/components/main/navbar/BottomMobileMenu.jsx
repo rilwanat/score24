@@ -19,7 +19,9 @@ import { NavLink } from 'react-router-dom';
 import { navData } from './NavData';
 
 function BottomMobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
-  specificLeague, setSpecific
+  specificLeague, setSpecific,
+  setCurrentPopularLeagueId, setCurrentPopularLeagueName,
+  popularLeagueId, popularLeagueName
  }) {
 
   useEffect(() => {}, []);
@@ -55,6 +57,8 @@ function BottomMobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPage
           setCategory={setCategory} currentCategory={currentCategory} 
           isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} closeMenu={closeMenu} 
           specificLeague={specificLeague} setSpecific={setSpecific}
+          setCurrentPopularLeagueId={setCurrentPopularLeagueId} setCurrentPopularLeagueName={setCurrentPopularLeagueName}
+        popularLeagueId={popularLeagueId} popularLeagueName={popularLeagueName}
         />
       )}
     </div>
