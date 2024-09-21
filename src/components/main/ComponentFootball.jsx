@@ -30,7 +30,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
   const [matchArray, setMatchArray] = useState([]);
   const [matchHeadingImage, setMatchHeadingImage] = useState('');
   const openNotificationModal = (type, title, message, match, headingImage) => {
-    alert(JSON.stringify(match), null, 2);
+    // alert(JSON.stringify(match), null, 2);
     setNotificationType(type);
     setNotificationTitle(title);
     setNotificationMessage(message);
