@@ -28,13 +28,15 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
   const [notificationMessage, setNotificationMessage] = useState("");
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
   const [matchArray, setMatchArray] = useState([]);
-  const openNotificationModal = (type, title, message, match) => {
+  const [matchHeadingImage, setMatchHeadingImage] = useState('');
+  const openNotificationModal = (type, title, message, match, headingImage) => {
     // alert(JSON.stringify(match), null, 2);
     setNotificationType(type);
     setNotificationTitle(title);
     setNotificationMessage(message);
 
     setMatchArray(match);
+    setMatchHeadingImage(headingImage);
   
     setIsNotificationModalOpen(true);
   };
@@ -242,7 +244,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
               <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
                 {fixtures.map((match, index) => (
                   <div key={index} className="text-scMenuText cursor-pointer" 
-                  onClick={() => openNotificationModal(false, currentPageName, "response.data.message", match)}
+                  onClick={() => openNotificationModal(false, currentPageName, "response.data.message", match, headingImage)}
                   >
                     <div className='flex'>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.status}</p>
@@ -291,6 +293,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
               notificationTitle={notificationTitle}
               notificationMessage={notificationMessage}
               matchArray={matchArray}
+              matchHeadingImage={matchHeadingImage}
             />
     </>
   );

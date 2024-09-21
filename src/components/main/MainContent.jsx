@@ -245,7 +245,7 @@ const [isAZOpen, setIsAZOpen] = useState(true);
      md:px-4 lg:px-16 xl:px-24 2xl:px-80  md:py-4  pb-4 
     flex flex-col md:flex-row '>
 
-        <div className='hidden md:flex flex-col justify-start md:mr-4    w-full md:w-1/6'>
+        <div className='hidden md:flex flex-col justify-start md:mr-4   w-full md:w-1/5'>
             <div className='bg-scBackground rounded-lg w-full '>
                 <div className='cursor-pointer flex items-center mb-2  pt-3 pb-1' onClick={() => {
                     setCurrentPopularLeagueId("");

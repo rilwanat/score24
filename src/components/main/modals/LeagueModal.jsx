@@ -38,7 +38,7 @@ const customModalStyles = {
 };
 
 
-const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTitle, notificationMessage, matchArray }) => {
+const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTitle, notificationMessage, matchArray, matchHeadingImage }) => {
 
   return (
     <Modal
@@ -64,11 +64,12 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
         
         <div className='flex items-center mx-4 my-4 text-white text-lg'>
           <img 
-          // src={matchArray.league_country} 
+          src={matchHeadingImage} 
           // alt="Competition Image" 
-          style={{ cursor: 'pointer', height: '40px', width: '40px' }}
-          className="mr-2 h-3" />
-          {matchArray.league_country} - {matchArray.league}
+          style={{ cursor: 'pointer', height: '32px', width: '32px' }}
+          className="mr-2" />
+          <div className=' h-full flex items-center'>{matchArray.league_country} - {matchArray.league}</div>
+          
         </div>
 
         <div className="flex justify-between items-center bg-scBackground rounded-lg px-10 py-2 mx-4 ">
