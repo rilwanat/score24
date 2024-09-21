@@ -45,6 +45,21 @@ const customModalStyles = {
 
 const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTitle, notificationMessage, matchArray, matchHeadingImage }) => {
 
+  // const [isPageLoading, setIsPageLoading] = useState(true);
+  // useEffect(() => {
+  //   const handlePageLoad = () => {
+  //     setIsPageLoading(false);
+  //   };
+  //   // Listen for the window load event
+  //   window.addEventListener('load', handlePageLoad);
+  //   // Cleanup the event listener when the component is unmounted
+  //   return () => {
+  //     window.removeEventListener('load', handlePageLoad);
+  //   };
+  // }, [isPageLoading]);
+
+
+
   const [countdownTime, setCountdownTime] = useState('');
   // Function to format time with leading zeros
   const formatTime = (time) => {
@@ -109,7 +124,11 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
       contentLabel="Notification"
       style={customModalStyles}
     >
-      <div className='flex flex-col w-full h-full justify-between' >
+      <div className='flex flex-col w-full h-full justify-between' 
+      // style={{
+      //   cursor: isPageLoading ? 'wait' : 'default', // Set cursor based on loading state
+      // }}
+      >
       <div className="flex flex-col  w-full ">
         <div className='flex justify-between items-center bg-scBackground p-4'>
           <div className="flex items-center">
@@ -138,7 +157,7 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
           <div className='flex flex-col text-sm text-scMenuText w-1/5 md:w-1/3 items-center justify-center'>
           <img
               className="block h-6 w-auto max-w-none bg-scGreen rounded-lg mb-1"
-              // src={logo}
+              // src={matchArray.home_image}
               style={{ cursor: 'pointer', height: '50px', width: '50px' }}
             />
             {matchArray.home_team}
@@ -186,7 +205,7 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
           <div className='flex flex-col text-sm text-scMenuText  w-1/5 md:w-1/3 items-center justify-center'>
           <img
               className="block h-6 w-auto max-w-none bg-scGreen rounded-lg mb-1"
-              // src={logo}
+              // src={matchArray.away_image}
               style={{ cursor: 'pointer', height: '50px', width: '50px' }}
             />
             {matchArray.away_team}

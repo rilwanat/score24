@@ -14,8 +14,37 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
+import LeagueModal from './modals/LeagueModal';
+
 export default function ComponentFootballPopular({ showingForDate, popularLeagueId, popularLeagueName }) {
   
+  //notification modal
+  const [notificationType, setNotificationType] = useState(false);
+  const [notificationTitle, setNotificationTitle] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+  const [matchArray, setMatchArray] = useState([]);
+  const [matchHeadingImage, setMatchHeadingImage] = useState('');
+  const openNotificationModal = (type, title, message, match, headingImage ) => {
+    
+    // match.heading = heading;
+    // alert(JSON.stringify(match), null, 2);
+
+    setNotificationType(type);
+    setNotificationTitle(title);
+    setNotificationMessage(message);
+
+    setMatchArray(match);
+    setMatchHeadingImage(headingImage);
+  
+    setIsNotificationModalOpen(true);
+  };
+  const closeNotificationModal = () => {
+    setIsNotificationModalOpen(false);  
+  };
+  //notification modal
+
+
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchPopular, setMatchPopular] = useState([]);
   useEffect(() => {
@@ -128,7 +157,9 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                 </div> */}
                 <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
                 {/* {league.fixtures.map((match, index) => ( */}
-                  <div  className="text-scMenuText cursor-pointer">
+                  <div  className="text-scMenuText cursor-pointer"
+                  onClick={() => openNotificationModal(false, "currentPageName", "response.data.message", fixture, "leagueImage")}
+                  >
                     <div className='flex'>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{fixture.fixture_time}</p>
                       <div className='md:flex w-full justify-center mx-4 hidden '>
@@ -176,6 +207,16 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
         })}
       </div>
       }
+
+<LeagueModal
+              isOpen={isNotificationModalOpen}
+              onRequestClose={closeNotificationModal}
+              notificationType={notificationType}
+              notificationTitle={notificationTitle}
+              notificationMessage={notificationMessage}
+              matchArray={matchArray}
+              matchHeadingImage={matchHeadingImage}
+            />
     </>
   );
   
