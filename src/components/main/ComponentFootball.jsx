@@ -230,7 +230,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
                     }
                   }
                 >
-                  <img src={headingImage} alt="Competition Image" className="mr-2 h-3" />
+                  <img src={headingImage} alt="Competition Image" className="mr-2 h-3" style={{ width: '20px', height: '20px' }} />
                   <p className="text-xs text-white hover:text-scGreen">
                     {/* {parse(heading)} */}
                     {/* {heading} */}

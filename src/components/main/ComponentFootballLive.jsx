@@ -14,11 +14,35 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
+import LeagueModal from './modals/LeagueModal';
+
 export default function ComponentFootballLive({ currentPageName, setPageName, showingForDate,
   setSpecific }) {
   const navigate = useNavigate();  
 
   // alert(showingForDate);
+  //notification modal
+  const [notificationType, setNotificationType] = useState(false);
+  const [notificationTitle, setNotificationTitle] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+  const [matchArray, setMatchArray] = useState([]);
+  const [matchHeadingImage, setMatchHeadingImage] = useState('');
+  const openNotificationModal = (type, title, message, match, headingImage) => {
+    // alert(JSON.stringify(match), null, 2);
+    setNotificationType(type);
+    setNotificationTitle(title);
+    setNotificationMessage(message);
+
+    setMatchArray(match);
+    setMatchHeadingImage(headingImage);
+  
+    setIsNotificationModalOpen(true);
+  };
+  const closeNotificationModal = () => {
+    setIsNotificationModalOpen(false);  
+  };
+  //notification modal
 
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchLive, setMatchLive] = useState([]);
@@ -149,7 +173,7 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
                     }
                   }
                 >
-                  <img src={leagueImage} alt="Competition Image" className="mr-2 h-3" />
+                  <img src={leagueImage} alt="Competition Image" className="mr-2 h-3"  style={{ width: '20px', height: '20px' }}/>
                   <p className="text-xs text-white hover:text-scGreen">
                     {/* {parse(heading)} */}
                     {/* {heading} */}
@@ -162,7 +186,9 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
               </div>              
               <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
                 {fixtures.map((match, index) => (
-                  <div key={index} className="text-scMenuText cursor-pointer">
+                  <div key={index} className="text-scMenuText cursor-pointer"
+                  onClick={() => openNotificationModal(false, currentPageName, "response.data.message", match, leagueImage)}
+                  >
                     <div className='flex'>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
                       <div className='md:flex w-full justify-center mx-4 hidden '>
@@ -204,6 +230,15 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
         })}
       </div>
       }
+      <LeagueModal
+              isOpen={isNotificationModalOpen}
+              onRequestClose={closeNotificationModal}
+              notificationType={notificationType}
+              notificationTitle={notificationTitle}
+              notificationMessage={notificationMessage}
+              matchArray={matchArray}
+              matchHeadingImage={matchHeadingImage}
+            />
     </>
   );
   
