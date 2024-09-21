@@ -90,6 +90,18 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
   }, [matchArray]);
 
 
+
+
+
+
+  //tabs
+  const [activeTab, setActiveTab] = useState('info');
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+  };
+  //tabs
+
+
   return (
     <Modal
       isOpen={isOpen}
@@ -181,9 +193,84 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
           </div>
         </div>
         
+
+        {/* Tab */}
         <div className='flex justify-center w-full my-4 text-white'>
-          Tab                  
-        </div> 
+                       
+          <div className="" style={{  }}> 
+            <div className=" text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+              <ul className="flex flex-wrap -mb-px ">
+                <li className="mr-2 cursor-pointer">
+                  <a
+                    // href="#"
+                    className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'info' ? 'text-scGreen border-scGreen' : ''}`}
+                    onClick={() => handleTabClick('info')}
+                  >
+                    {'info'.toUpperCase()}
+                  </a>
+                </li>
+                {/* <li className="mr-2 cursor-pointer">
+                  <a
+                    // href="#"
+                    className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'commentary' ? 'text-scGreen border-scGreen' : ''}`}
+                    onClick={() => handleTabClick('commentary')}
+                  >
+                    {'commentary'.toUpperCase()}
+                  </a>
+                </li>  */}
+                <li className="mr-2 cursor-pointer">
+                  <a
+                    // href="#"
+                    className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'lineups' ? 'text-scGreen border-scGreen' : ''}`}
+                    onClick={() => handleTabClick('lineups')}
+                  >
+                    {'lineups'.toUpperCase()}
+                  </a>
+                </li> 
+                {/* <li className="mr-2 cursor-pointer">
+                  <a
+                    // href="#"
+                    className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'stats' ? 'text-scGreen border-scGreen' : ''}`}
+                    onClick={() => handleTabClick('stats')}
+                  >
+                    {'stats'.toUpperCase()}
+                  </a>
+                </li>  */}
+                <li className="mr-2 cursor-pointer">
+                  <a
+                    // href="#"
+                    className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'table' ? 'text-scGreen border-scGreen' : ''}`}
+                    onClick={() => handleTabClick('table')}
+                  >
+                    {'table'.toUpperCase()}
+                  </a>
+                </li>
+                <li className="mr-2 cursor-pointer">
+                  <a
+                    // href="#"
+                    className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'h2h' ? 'text-scGreen border-scGreen' : ''}`}
+                    onClick={() => handleTabClick('h2h')}
+                  >
+                    {'h2h'.toUpperCase()}
+                  </a>
+                </li>  
+              </ul>
+            </div>
+
+            {/* Tab content */}
+            <div className="p-4">
+              {activeTab === 'info' && 
+              <div>
+                {/* <TransactionComponent userDetails={userDetails} />  */}
+              </div>}
+              {activeTab === 'commentary' && 
+              <div>
+                {/* <ProfileComponent userDetails={userDetails} />  */}
+              </div>}
+            </div>     
+          </div> 
+        </div>
+        {/* Tab */}
         
       </div>
 
