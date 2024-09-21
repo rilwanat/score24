@@ -33,8 +33,13 @@ const customModalStyles = {
     //justifyContent: 'center', // Center vertically
     alignItems: 'center', // Center horizontally
     borderRadius: '0px',//'30px',
-    backgroundColor: '#000F16'
+    backgroundColor: '#000F16',
+    // border: 'none'
+    // borderColor: '#B3E94E'
   },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Sets the background color with transparency
+  }
 };
 
 
