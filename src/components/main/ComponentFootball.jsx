@@ -14,12 +14,34 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
+import LeagueModal from './modals/LeagueModal';
+
 export default function ComponentFootball({ currentPageName, setPageName, showingForDate, 
   setSpecific
  }) {
   const navigate = useNavigate();  
 
   // alert(showingForDate);
+  //notification modal
+  const [notificationType, setNotificationType] = useState(false);
+  const [notificationTitle, setNotificationTitle] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+  const [matchArray, setMatchArray] = useState([]);
+  const openNotificationModal = (type, title, message, match) => {
+    // alert(JSON.stringify(match), null, 2);
+    setNotificationType(type);
+    setNotificationTitle(title);
+    setNotificationMessage(message);
+
+    setMatchArray(match);
+  
+    setIsNotificationModalOpen(true);
+  };
+  const closeNotificationModal = () => {
+    setIsNotificationModalOpen(false);  
+  };
+  //notification modal
   
 
   const [isDataloading, setIsDataLoading] = useState(true);
@@ -219,7 +241,9 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
               </div>              
               <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
                 {fixtures.map((match, index) => (
-                  <div key={index} className="text-scMenuText cursor-pointer">
+                  <div key={index} className="text-scMenuText cursor-pointer" 
+                  onClick={() => openNotificationModal(false, currentPageName, "response.data.message", match)}
+                  >
                     <div className='flex'>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.status}</p>
                       <div className='md:flex w-full justify-center mx-4 hidden '>
@@ -260,6 +284,14 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
         })}
       </div>
       }
+      <LeagueModal
+              isOpen={isNotificationModalOpen}
+              onRequestClose={closeNotificationModal}
+              notificationType={notificationType}
+              notificationTitle={notificationTitle}
+              notificationMessage={notificationMessage}
+              matchArray={matchArray}
+            />
     </>
   );
   
