@@ -180,98 +180,17 @@ const [isAZOpen, setIsAZOpen] = useState(true);
   };
 
 
-
-
   
 
   const [isDataloading, setIsDataLoading] = useState(true);
-  const [matchData, setMatchData] = useState([]);
   const [matchLive, setMatchLive] = useState([]);
-  // const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
-  // const [matchSortByCountry, setMatchSortByCountry] = useState([]);
-  const [matchSpecificLeague, setMatchSpecificLeague] = useState([]);
-
-
-  //
-  // const matchesGroupedByHeading = matchSortByAlphabet.reduce((acc, match) => {
-  //   const matchesGroupedByHeading = matchSortByCountry.reduce((acc, match) => {
-  //   if (!acc[match.heading]) {
-  //     acc[match.heading] = {
-  //       "heading image": match['heading image'], // Add the heading image
-  //       fixtures: [] // Initialize an empty array for fixtures
-  //     };
-  //   }
-  //   // Add the fixtures array directly
-  //   acc[match.heading].fixtures.push(...match.fixtures);
-  //   return acc;
-  // }, {});
-  
-  // // Sort the grouped data by heading in ascending order
-  // const sortedMatchesGroupedByHeading = Object.keys(matchesGroupedByHeadingSortByAlphabet)
-  //   .sort((a, b) => a.localeCompare(b))  // Sort the headings in ascending order
-  //   .reduce((sortedAcc, heading) => {
-  //     sortedAcc[heading] = matchesGroupedByHeadingSortByAlphabet[heading]; // Rebuild the sorted object
-  //     return sortedAcc;
-  //   }, {});
-
-  //   // // Return data by heading as is
-  // const unsortedMatchesGroupedByHeading = Object.keys(matchesGroupedByHeadingSortByAlphabet)
-  // .reduce((sortedAcc, heading) => {
-  //   sortedAcc[heading] = matchesGroupedByHeadingSortByAlphabet[heading]; // Rebuild the object without sorting
-  //   return sortedAcc;
-  // }, {});
 
   
-  
-  useEffect(() => {
-    handleData(showingForDate);
-    handleLive();
-    // handleSortByAlphabet();
-    // handleSortByCountryAlphabet(showingForDate);
+  useEffect(() => {    
+    handleLive(); // this is for the live count
   }, [showingForDate]);
-  const handleData = async (showingForDate) => {    
-    
-    // setCurrentPage(1);
-    setIsDataLoading(true);
-    try {
-      // Prepare the request body
-      const requestBody = {
-        date: showingForDate
-      };
 
 
-      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_MATCH_DATA;
-      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
-      // const response = await axiosInstance.get(endpoint, { //requestBody, {
-        const response = await axios.post(endpoint, requestBody, {
-          //params: { uid: uid },
-          headers: {
-            "Content-Type": "application/json",
-            //Authorization: `Bearer ${token}`,
-          },
-        });
-
-      setIsDataLoading(false);
-      // alert(JSON.stringify(response, null, 2));
-
-      // if (response.data.status) {
-        
-      setMatchData(response.data);
-        //  console.log(response.data);
-
-
-
-      // } else {
-      //   const errorMessage = response.data.message;
-      //   alert("Error: " + errorMessage);
-      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-      // }
-
-    } catch (error) {
-      setIsDataLoading(false);
-      alert("An unexpected error occurred. " + error);
-    }
-  };
 
   const handleLive = async () => {    
     
@@ -317,103 +236,6 @@ const [isAZOpen, setIsAZOpen] = useState(true);
     }
   };
 
-
-  // const handleSortByCountryAlphabet = async (showingForDate) => {    
-    
-
-  //   // setCurrentPage(1);
-  //   setIsDataLoading(true);
-  //   try {
-  //     // Prepare the request body
-  //     const requestBody = {
-  //       date: showingForDate
-  //     };
-
-
-  //     var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_COUNTRY_ALPHABET;
-  //     // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
-  //     // const response = await axiosInstance.get(endpoint, { //requestBody, {
-  //       const response = await axios.post(endpoint, requestBody, {
-  //         //params: { uid: uid },
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           //Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-
-  //     setIsDataLoading(false);
-  //      alert(JSON.stringify(response, null, 2));
-
-  //     // if (response.data.status) {
-        
-  //     setMatchSortByCountry(response.data);
-  //       //  console.log(response.data);
-
-
-
-  //     // } else {
-  //     //   const errorMessage = response.data.message;
-  //     //   alert("Error: " + errorMessage);
-  //     //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-  //     // }
-
-  //   } catch (error) {
-  //     setIsDataLoading(false);
-  //     alert("Country: An unexpected error occurred. " + error);
-  //   }
-  // };
-
-  const handleSpecificLeague = async (leagueEndpoint) => {    
-    
-    // setCurrentPage(1);
-    setIsDataLoading(true);
-    try {
-      // // Prepare the request body
-      // const requestBody = {
-      //   date: showingForDate
-      // };
-
-
-      var endpoint = process.env.REACT_APP_API_URL + leagueEndpoint;
-      // alert(endpoint);
-      // return;
-      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
-      // const response = await axiosInstance.get(endpoint, { //requestBody, {
-        const response = await axios.get(endpoint, { //requestBody, {
-          //params: { uid: uid },
-          headers: {
-            "Content-Type": "application/json",
-            //Authorization: `Bearer ${token}`,
-          },
-        });
-
-      setIsDataLoading(false);
-      alert(JSON.stringify(response, null, 2));
-
-      // if (response.data.status) {
-        
-      setMatchSpecificLeague(response.data);
-        //  console.log(response.data);
-
-
-
-      // } else {
-      //   const errorMessage = response.data.message;
-      //   alert("Error: " + errorMessage);
-      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
-      // }
-
-    } catch (error) {
-      setIsDataLoading(false);
-      alert("League: An unexpected error occurred. " + error);
-    }
-  };
-
-
-  const extractHref = (htmlString) => {
-    const match = htmlString.match(/href="([^"]*)"/);
-    return match ? match[1] : '#'; // Return a default '#' if no href is found
-  };
 
 
 

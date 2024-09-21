@@ -20,6 +20,7 @@ export default function ComponentFootballSpecific({ currentPageName, setPageName
   const navigate = useNavigate();  
 
   // alert(showingForDate);
+  // alert(showingForDate);
   
 
   const [isDataloading, setIsDataLoading] = useState(true);
@@ -123,8 +124,9 @@ export default function ComponentFootballSpecific({ currentPageName, setPageName
       // };
 
 
-      var endpoint = process.env.REACT_APP_API_URL + leagueEndpoint;
-      // alert(endpoint);
+      // var endpoint = process.env.REACT_APP_API_URL + leagueEndpoint;
+      var endpoint = leagueEndpoint;
+      // alert("!! -> " + endpoint);
       // return;
       // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
       // const response = await axiosInstance.get(endpoint, { //requestBody, {
@@ -177,7 +179,7 @@ export default function ComponentFootballSpecific({ currentPageName, setPageName
         const { heading, fixtures } = league;
 
         return (
-          <div key={index} className="w-full py-2 my-4">              
+          <div key={heading} className="w-full py-2 my-4">              
             <div className='flex justify-between'>
               <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
 
@@ -193,7 +195,7 @@ export default function ComponentFootballSpecific({ currentPageName, setPageName
             </div>              
             <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
               {fixtures.map((match, matchIndex) => (
-                <div key={matchIndex} className="text-scMenuText cursor-pointer">
+                <div key={match.home_team + match.away_team} className="text-scMenuText cursor-pointer">
                   <div className='flex'>
                     <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
                     <div className='md:flex w-full justify-center mx-4 hidden '>

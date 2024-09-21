@@ -38,7 +38,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
       };
 
 
-      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_FOOTBALL_MATCH_DATA;
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_LEAGUES;
       // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
       // const response = await axiosInstance.get(endpoint, { //requestBody, {
         const response = await axios.post(endpoint, requestBody, {
@@ -98,7 +98,8 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
   const matchesGroupedByHeading = matchData.reduce((acc, match) => {
     if (!acc[match.heading]) {
       acc[match.heading] = {
-        "heading image": match['heading image'],  // Add the heading image
+        "heading_image": match['heading_image'],  // Add the heading image
+        "heading_url": match['heading_url'],  // Add the heading URL
         fixtures: []  // Initialize an empty array for fixtures
       };
     }
@@ -190,9 +191,9 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
     isDataloading ? <Loading /> : 
       <div className="space-y-4">
         {Object.keys(matchesGroupedByHeading).map((heading) => {
-          const { "heading image": headingImage, fixtures } = matchesGroupedByHeading[heading];
+          const { "heading_image": headingImage, fixtures, heading_url: href } = matchesGroupedByHeading[heading];
 
-          const href = extractHref(heading);
+          // const href = extractHref(heading);
           
           return (
             <div key={heading} className="w-full py-2 my-4">              
@@ -220,28 +221,27 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
                 {fixtures.map((match, index) => (
                   <div key={index} className="text-scMenuText cursor-pointer">
                     <div className='flex'>
-                      <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
+                      <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.status}</p>
                       <div className='md:flex w-full justify-center mx-4 hidden '>
                         <div className='flex w-4/12 md:w-5/12 justify-end'>
-                          <p className='text-white text-right'>{match.homeTeam}</p>
+                          <p className='text-white text-right'>{match.home_team}</p>
                         </div>
                         <div className='flex w-5/12 md:w-2/12 justify-center items-center '>
                           <p className='mx-8 text-center text-scGreen'>
-                            {/* {match.time === 'FT' ? match.home_score : ''} {match.time !== 'FT' ? 'vs.' : '-'} {match.time === 'FT' ? match.away_score : ''} */}
                             {match.status === 'FT' ? match.home_score : ''} {match.status !== 'FT' ? 'vs.' : '-'} {match.status === 'FT' ? match.away_score : ''}                            
                           </p>
                         </div>
                         <div className='flex w-4/12 md:w-5/12 justify-start'>
-                          <p className='text-white text-left'>{match.awayTeam}</p>
+                          <p className='text-white text-left'>{match.away_team}</p>
                         </div>
                       </div>
                       <div className='md:hidden flex flex-col w-full px-2 mx-2'>
                         <div className='flex w-full justify-between'>
-                          <p className='text-white'>{match.homeTeam}</p>
+                          <p className='text-white'>{match.home_team}</p>
                           <p className='text-center text-scGreen'>{match.status === 'FT' ? match.home_score : ''}</p>
                         </div>
                         <div className='flex w-full justify-between'>
-                          <p className='text-white'>{match.awayTeam}</p>
+                          <p className='text-white'>{match.away_team}</p>
                           <p className='text-center text-scGreen'>{match.status === 'FT' ? match.away_score : ''}</p>
                         </div>
                       </div>
