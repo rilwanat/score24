@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 
 
@@ -45,6 +45,51 @@ const customModalStyles = {
 
 const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTitle, notificationMessage, matchArray, matchHeadingImage }) => {
 
+  const [countdownTime, setCountdownTime] = useState('');
+  // Function to format time with leading zeros
+  const formatTime = (time) => {
+    return time.toString().padStart(2, '0');
+  };
+
+
+  // Countdown function
+  useEffect(() => {
+    function startCountdown(targetDate) {
+      const target = new Date(targetDate).getTime();
+      const interval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = target - now;
+
+        if (distance < 0) {
+          clearInterval(interval);
+          // setCountdownTime("Countdown finished!");
+          setCountdownTime("00:00:00:00");
+          return;
+        }
+
+        // const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        // const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        // const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        // const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // // setCountdownTime(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+
+
+        const days = formatTime(Math.floor(distance / (1000 * 60 * 60 * 24)));
+        const hours = formatTime(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+        const minutes = formatTime(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+        const seconds = formatTime(Math.floor((distance % (1000 * 60)) / 1000));
+
+
+        setCountdownTime(`${days}:${hours}:${minutes}:${seconds}`);
+      }, 1000);
+    }
+
+    if (matchArray && matchArray.fixture_date) {
+      startCountdown(matchArray.fixture_date);
+    }
+  }, [matchArray]);
+
+
   return (
     <Modal
       isOpen={isOpen}
@@ -87,13 +132,43 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
             {matchArray.home_team}
           </div>
           <div className='flex flex-col items-center text-sm text-scMenuText w-2/5 md:w-1/3'>
-            <p className='text-4xl font-bold text-white'>{matchArray.home_score !== "Not available" ? matchArray.home_score : ''} : {matchArray.away_score !== "Not available" ? matchArray.away_score : ''}</p>
-            <p className='text-xs text-scMenuText'>{matchArray.status}</p>
-            <p className='text-xs text-scMenuText'>
-            {matchArray  && matchArray.fixture_date ?
-              format(parse(matchArray.fixture_date, 'yyyy-MM-dd HH:mm:ss', new Date()), 'EEE dd MMM, HH:mm') 
-              : "Date not available"}
-            </p>
+
+            <div>
+              {
+                matchArray.status !== "NS" && matchArray.status !== "FT" ? 
+                  <p className='text-xs text-scBackground font-bold bg-scGreen px-2' 
+                    style={{ borderRadius: '4px' }}
+                  >Live</p> : ''
+                }
+            </div>
+
+            <div>
+              { 
+              matchArray.status === "NS" 
+              ? 
+              <p className='text-lg font-bold text-white'>
+                {countdownTime}
+              </p>
+              :
+              <p className='text-4xl font-bold text-white'>
+                {matchArray.home_score !== "Not available" ? matchArray.home_score : ''} : {matchArray.away_score !== "Not available" ? matchArray.away_score : ''}
+              </p>
+              }
+            </div>
+            
+            <p className='text-xs text-scMenuText mt-1'>{matchArray.status !== "NS" ? matchArray.status : 'Not started'}</p>
+
+            {
+              matchArray.status !== "NS" && matchArray.status !== "FT" ? '' : 
+              <p className='text-xs text-scMenuText'>
+                {
+                  matchArray  && matchArray.fixture_date ?
+                  format(parse(matchArray.fixture_date, 'yyyy-MM-dd HH:mm:ss', new Date()), 'EEE dd MMM, HH:mm') 
+                  : "Date not available"
+                }
+              </p>
+            }
+            
             
           </div>
           <div className='flex flex-col text-sm text-scMenuText  w-1/5 md:w-1/3 items-center justify-center'>
@@ -112,9 +187,10 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
         
       </div>
 
-
-
-      <p className="bottom-0 text-xs text-white mt-4 text-center mb-2">Copyright &copy; 2024 Score24</p>
+        <div className="bottom-0 mb-4">
+          <hr className="border-1 border-scHr my-2" />
+          <p className=" text-xs text-white mt-4 text-center">Copyright &copy; 2024 Score24</p>
+        </div>
       </div>
 
     </Modal>
