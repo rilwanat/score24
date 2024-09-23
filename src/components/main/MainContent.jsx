@@ -185,6 +185,8 @@ const [isAZOpen, setIsAZOpen] = useState(true);
 
   
 
+  const [activeTitleIndex, setActiveTitleIndex] = useState(true);
+
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchLive, setMatchLive] = useState([]);
 
@@ -475,9 +477,15 @@ setPageName("Favourites");
         <div className='bg-scBackgroundHover'>
           <ul className="text-white ">
           {Object.values(matchesGroupedByTitle).map((group, index) => (
-            <li key={index} className="py-2 text-xs text-white  cursor-pointer">
+            <li key={index} 
+            onMouseEnter={() => setActiveTitleIndex(index)}
+            onMouseLeave={() => setActiveTitleIndex(null)}
+     className="py-2 text-xs text-white  cursor-pointer">
               <div className='flex justify-between '>
-                <h3 className="text-xs hover:text-scGreen ml-1">{group.title}</h3>
+                <div className='flex'>
+                  {activeTitleIndex == index ? <div className='bg-scGreen mr-1' style={{ width: '2px', height: '16px'}}></div> : <div></div>}
+                  <h3 className="text-xs hover:text-scGreen ml-1">{group.title}</h3>
+                </div>
                 <div className='flex justify-end mr-1' style={{ }}>
                   <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen"  style={{ width: '16px', height: '16px' }}/>
                 </div>
