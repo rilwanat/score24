@@ -185,7 +185,9 @@ const [isAZOpen, setIsAZOpen] = useState(true);
 
   
 
+  const [activeMainMenuIndex, setActiveMainMenuIndex] = useState(true);
   const [activeTitleIndex, setActiveTitleIndex] = useState(true);
+  const [activePopularIndex, setActivePopularIndex] = useState(true);
 
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchLive, setMatchLive] = useState([]);
@@ -402,6 +404,8 @@ setPageName("Favourites");
                       {popularLeagueName == league ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                       <li key={id} 
                       className={`text-xs cursor-pointer py-1 hover:text-scGreen ${popularLeagueName === league ? 'text-scGreen ' : 'text-white'}`}
+                      onMouseEnter={() => setActivePopularIndex(id)}
+                      onMouseLeave={() => setActivePopularIndex(null)}
                         onClick={() => 
                         {
                           setCurrentPopularLeagueId(id);
@@ -411,7 +415,11 @@ setPageName("Favourites");
                         }
                           }
                       >
+                        <div className='flex'>
+                        {/* {activePopularIndex == id ? <div className='bg-scGreen mr-1' style={{ width: '2px', height: '16px'}}></div> : <div></div>} */}
                         {league.replace(/([A-Z])/g, ' $1').trim()}
+                        </div>
+                        
                       </li>
                     </div>                    
                   ))}
@@ -468,7 +476,9 @@ setPageName("Favourites");
         className="flex items-center justify-between mt-2 cursor-pointer "
         onClick={() => toggleCountryDropdown(country)} // Toggle on click
       >
-        <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{country}</label>
+        <label className={`text-xs text-white hover:text-scGreen cursor-pointer py-1 w-full ${
+          openCountry === country ? 'bg-scBackgroundHover' : ''
+        }`}>{country}</label>
         {/* Uncomment arrow icons here if needed */}
       </div>
 
