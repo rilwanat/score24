@@ -44,7 +44,7 @@ function CookieConsent() {
     >
       {isMobile ? (
         <>
-          <p className="text-xs text-white mb-4">
+          <p className="text-sm text-white mb-4">
             We use cookies to deliver our services and analyze performance. 
             <span className="underline cursor-pointer ml-1">Learn more...</span>
           </p>
@@ -52,14 +52,14 @@ function CookieConsent() {
             <div 
               onClick={handleAccept} 
               style={{ backgroundColor: '#dddddd' }}
-              className="bg-scBackground text-scDarkerBackground text-xs px-4 py-1 rounded mr-2 cursor-pointer"
+              className="bg-scBackground text-scDarkerBackground text-sm px-4 py-1 rounded mr-2 cursor-pointer"
             >
               Essentials Only
             </div>
             <div 
               onClick={handleAccept} 
               style={{ backgroundColor: '#dddddd' }}
-              className="bg-scBackground text-scDarkerBackground text-xs px-4 py-1 rounded cursor-pointer"
+              className="bg-scBackground text-scDarkerBackground text-sm px-4 py-1 rounded cursor-pointer"
             >
               Accept all
             </div>
@@ -67,12 +67,12 @@ function CookieConsent() {
         </>
       ) : (
         <div>
-          <p className="text-xs text-white mb-4">
+          <p className="text-sm text-white mb-4">
             We use essential cookies to make our website work. Some of our features which allow you to customise the content of the website use additional Functionality cookies to store data on your device - for example, your selection of Bookmarked leagues or Favourite teams or matches. These features will work without the Functionality cookies, but all customisations will be removed at the end of the session. We would also like to set optional analytical cookies to help us improve our services. The analytical cookies will be sent to and processed by an analytical service based in the US. We will not store or send out any information without your consent. Using this tool will set a cookie to remember your preferences. For more information about our use of cookies, please see our Privacy and Cookie Notice.
           </p>
           <div className="flex mb-4 items-center ">
-            <p className='text-xs text-white mr-2'>Please select cookies you wish to enable:</p>
-            <label className="text-xs text-white flex items-center mr-2">
+            <p className='text-sm text-white mr-2'>Please select cookies you wish to enable:</p>
+            <label className="text-sm text-white flex items-center mr-2">
               <input 
                 type="checkbox" 
                 name="essential" 
@@ -83,7 +83,7 @@ function CookieConsent() {
               />
               Essential (always enabled)
             </label>
-            <label className="text-xs text-white flex items-center mr-2">
+            <label className="text-sm text-white flex items-center mr-2">
               <input 
                 type="checkbox" 
                 name="analytical" 
@@ -93,7 +93,7 @@ function CookieConsent() {
               />
               Analytical (optional)
             </label>
-            <label className="text-xs text-white flex items-center mr-2">
+            <label className="text-sm text-white flex items-center mr-2">
               <input 
                 type="checkbox" 
                 name="functionality" 
@@ -106,7 +106,7 @@ function CookieConsent() {
             <div 
               onClick={handleAccept} 
               style={{  }}
-              className="hover:bg-scButtonHover bg-scButton text-scDarkerBackground text-xs px-4 py-1 rounded mr-2 cursor-pointer"
+              className="hover:bg-scButtonHover bg-scButton text-scDarkerBackground text-sm px-4 py-1 rounded mr-2 cursor-pointer"
             >
               Save and close
             </div>

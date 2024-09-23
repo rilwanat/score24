@@ -34,19 +34,19 @@ function BottomMobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPage
     <div className="fixed bottom-0 left-0 right-0 bg-scBackground z-50 flex justify-around py-2 md:hidden ">
       <div className="flex flex-col items-center cursor-pointer"  onClick={() => setPageName("Home")}>
         <HomeIcon className="text-scTimeText hover:text-scGreen"/>
-        <p className="text-xs text-scTimeText  hover:text-scGreen">Home</p>
+        <p className="text-sm text-scTimeText  hover:text-scGreen">Home</p>
       </div>
       <div className="flex flex-col items-center cursor-pointer"  onClick={() => setPageName("Live")}>
         <LiveTvIcon className="text-scTimeText hover:text-scGreen"/>
-        <p className="text-xs text-scTimeText  hover:text-scGreen">Live</p>
+        <p className="text-sm text-scTimeText  hover:text-scGreen">Live</p>
       </div>
       <div className="flex flex-col items-center cursor-pointer"  onClick={() => setPageName("Favourites")}>
         <FavoriteBorderIcon className="text-scTimeText hover:text-scGreen"/>
-        <p className="text-xs text-scTimeText  hover:text-scGreen">Favourites</p>
+        <p className="text-sm text-scTimeText  hover:text-scGreen">Favourites</p>
       </div>
       <div className="flex flex-col items-center cursor-pointer" onClick={toggleMenu}>
         <MenuIcon className="text-scTimeText hover:text-scGreen"/>
-        <p className="text-xs text-scTimeText  hover:text-scGreen">Menu</p>
+        <p className="text-sm text-scTimeText  hover:text-scGreen">Menu</p>
       </div>
 
 

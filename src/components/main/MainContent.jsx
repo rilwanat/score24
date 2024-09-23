@@ -348,7 +348,7 @@ const [isAZOpen, setIsAZOpen] = useState(true);
      md:px-4 lg:px-16 xl:px-24 2xl:px-80  md:py-4  pb-4 
     flex flex-col md:flex-row '>
 
-        <div className='hidden md:flex flex-col justify-start md:mr-4   w-full md:w-1/5'>
+        <div className='hidden md:flex flex-col justify-start md:mr-4   w-full md:w-1/4'>
             <div className='bg-scBackground rounded-lg w-full '>
                 <div className='cursor-pointer flex items-center mb-2  pt-3 pb-1' onClick={() => {
                     setCurrentPopularLeagueId("");
@@ -357,7 +357,7 @@ setPageName("Home");
                   
                 }}>
                   {currentPageName == "Home" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
-                  <p className={`text-xs hover:text-scGreen ${currentPageName === 'Home' ? 'text-scGreen' : 'text-white'}`}>Home</p>
+                  <p className={`text-sm hover:text-scGreen ${currentPageName === 'Home' ? 'text-scGreen' : 'text-white'}`}>Home</p>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
                 <div className='cursor-pointer flex items-center mb-2 py-1' onClick={() => {
@@ -366,7 +366,7 @@ setPageName("Home");
 setPageName("Live");
                 }}>
                   {currentPageName == "Live" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
-                  <p className={`text-xs hover:text-scGreen ${currentPageName === 'Live' ? 'text-scGreen ' : 'text-white'}`}>Live {' (' + (matchLive?.liveMatchCount || '-') + ')'}
+                  <p className={`text-sm hover:text-scGreen ${currentPageName === 'Live' ? 'text-scGreen ' : 'text-white'}`}>Live {' (' + (matchLive?.liveMatchCount || '-') + ')'}
                   </p>
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2 mb-1" />
@@ -376,7 +376,7 @@ setPageName("Live");
 setPageName("Favourites");
                 }}>
                   {currentPageName == "Favourites" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
-                  <p className={`text-xs hover:text-scGreen ${currentPageName === 'Favourites' ? 'text-scGreen ' : 'text-white'}`}>Favourites</p>
+                  <p className={`text-sm hover:text-scGreen ${currentPageName === 'Favourites' ? 'text-scGreen ' : 'text-white'}`}>Favourites</p>
                 </div>
             </div>
             <div className='bg-scBackground rounded-lg w-full pt-2 my-4 '>
@@ -385,7 +385,7 @@ setPageName("Favourites");
                 >
                   {currentPageName == "Popular" ? <div className='bg-scGreen' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                   <div className='flex w-full justify-start items-center mr-2'>
-                    <p className={`text-xs hover:text-scGreen ${currentPageName === 'Popular' ? 'text-scGreen  ml-4' : 'text-white'}`}>Popular</p>
+                    <p className={`text-sm hover:text-scGreen ${currentPageName === 'Popular' ? 'text-scGreen  ml-4' : 'text-white'}`}>Popular</p>
                     {/* <div className='cursor-pointer'>
                         {!isPopularOpen ? (
                         <KeyboardArrowUpIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
@@ -403,7 +403,7 @@ setPageName("Favourites");
                     <div className="flex items-center mt-2 cursor-pointer ">
                       {popularLeagueName == league ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>}
                       <li key={id} 
-                      className={`text-xs cursor-pointer py-1 hover:text-scGreen ${popularLeagueName === league ? 'text-scGreen ' : 'text-white'}`}
+                      className={`text-sm cursor-pointer py-1 hover:text-scGreen ${popularLeagueName === league ? 'text-scGreen ' : 'text-white'}`}
                       onMouseEnter={() => setActivePopularIndex(id)}
                       onMouseLeave={() => setActivePopularIndex(null)}
                         onClick={() => 
@@ -435,7 +435,7 @@ setPageName("Favourites");
                   {/* {currentPageName == "Popular" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>} */}
                   
                   <div className='flex w-full justify-between items-center '>
-                    <p className={'text-xs hover:text-scGreen text-white'}>All (A-Z)</p>
+                    <p className={'text-sm hover:text-scGreen text-white'}>All (A-Z)</p>
                     <RefreshIcon className='mr-1 text-scMenuText hover:text-scGreen' style={{ width: '16px', height: '16px' }} onClick={() => handleSortByCountryAlphabet(showingForDate) } />
                     {/* <div className='cursor-pointer'>
                         {!isPopularOpen ? (
@@ -448,7 +448,7 @@ setPageName("Favourites");
                 </div>
                 <hr className="border-1.5 border-gray-900  mt-2" />
                 {/* <div className='flex justify-between  cursor-pointer'>
-                  <p className='text-xs text-white' >All (A-Z)</p>
+                  <p className='text-sm text-white' >All (A-Z)</p>
                   {!isAZOpen ? (
                     <KeyboardArrowUpIcon onClick={() => toggleAzDropdown()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
                     ) : (
@@ -476,7 +476,7 @@ setPageName("Favourites");
         className="flex items-center justify-between mt-2 cursor-pointer "
         onClick={() => toggleCountryDropdown(country)} // Toggle on click
       >
-        <label className={`text-xs text-white hover:text-scGreen cursor-pointer py-1 w-full ${
+        <label className={`text-sm text-white hover:text-scGreen cursor-pointer py-1 w-full ${
           openCountry === country ? 'bg-scBackgroundHover' : ''
         }`}>{country}</label>
         {/* Uncomment arrow icons here if needed */}
@@ -490,11 +490,11 @@ setPageName("Favourites");
             <li key={index} 
             onMouseEnter={() => setActiveTitleIndex(index)}
             onMouseLeave={() => setActiveTitleIndex(null)}
-     className="py-2 text-xs text-white  cursor-pointer">
+     className="py-2 text-sm text-white  cursor-pointer">
               <div className='flex justify-between '>
-                <div className='flex'>
+                <div className='flex items-center'>
                   {activeTitleIndex == index ? <div className='bg-scGreen mr-1' style={{ width: '2px', height: '16px'}}></div> : <div></div>}
-                  <h3 className="text-xs hover:text-scGreen ml-1">{group.title}</h3>
+                  <h3 className="text-sm hover:text-scGreen ml-1">{group.title}</h3>
                 </div>
                 <div className='flex justify-end mr-1' style={{ }}>
                   <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen"  style={{ width: '16px', height: '16px' }}/>
@@ -502,7 +502,7 @@ setPageName("Favourites");
               </div>
               {/* <ul>
                 {group.fixtures.map((fixture, fixtureIndex) => (
-                  <li key={fixtureIndex} className="flex items-center my-1 text-xs hover:text-scGreen cursor-pointer"
+                  <li key={fixtureIndex} className="flex items-center my-1 text-sm hover:text-scGreen cursor-pointer"
                     onClick={() => {
                       setPageName("Specific");
                       setSpecific(group.title); // or href if needed
@@ -524,7 +524,7 @@ setPageName("Favourites");
 
         
       ) : isCountryOpen ? (
-        <p className="text-xs text-gray-400 ml-2">No fixtures available</p>
+        <p className="text-sm text-gray-400 ml-2">No fixtures available</p>
       ) : null}
     </div>
   );
@@ -543,8 +543,8 @@ setPageName("Favourites");
         <div className='flex flex-col w-full'>
             <div className='hidden md:flex justify-center bg-scBackground rounded-lg w-full p-4 mb-4  hover:bg-scBackgroundHover cursor-pointer'>
                 <div className='flex items-center justify-center'>
-                  {/* <p className='text-xs text-white mr-2'>{formatDate0(new Date()).toUpperCase()}</p> */}
-                  <p className='text-xs text-white mr-2'>{formatDate0(new Date()).toUpperCase()}</p>
+                  {/* <p className='text-sm text-white mr-2'>{formatDate0(new Date()).toUpperCase()}</p> */}
+                  <p className='text-sm text-white mr-2'>{formatDate0(new Date()).toUpperCase()}</p>
                   <CalendarMonthIcon style={{ width: '18px', height: '18px', color: '#FFFFFF' }}/>
                 </div>
             </div>
@@ -559,8 +559,8 @@ setPageName("Favourites");
                   className='  w-full px-1 py-2  hover:bg-scBackgroundHover cursor-pointer'
                 >
                   <div className='flex items-center justify-center w-full bg-red-100'>
-                    <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate1(date)}</p>
-                    <p className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate2(date)}</p>
+                    <p className={`text-sm ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate1(date)}</p>
+                    <p className={`text-sm ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate2(date)}</p>
                   </div> 
                 </div>
               )
@@ -584,8 +584,8 @@ setPageName("Favourites");
                     onClick={() => setTheDateToShow(date)}
                   >
                     <div className="flex flex-col items-center  p-1 bg-scBackgroundHover ">
-                      <span className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate1(date)}</span>
-                      <span className={`text-xs ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate2(date)}</span>
+                      <span className={`text-sm ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate1(date)}</span>
+                      <span className={`text-sm ${isToday ? 'text-scGreen' : 'text-scMenuText'} text-center`}>{formatDate2(date)}</span>
                     </div>
                   </div>
                   )

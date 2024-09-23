@@ -284,7 +284,7 @@ export default function ComponentBasketball() {
             <div className='flex justify-between'>
               <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
                 <img src={competitionImage} alt="Competition Image" className="mr-2 w-4" /> 
-                <p className="text-xs text-white hover:text-scGreen">{competition.toUpperCase()}</p>
+                <p className="text-sm text-white hover:text-scGreen">{competition.toUpperCase()}</p>
               </div>
               <div className='flex justify-end mx-3' style={{ width: '60px' }}>
                 <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen" />

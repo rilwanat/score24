@@ -167,7 +167,7 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
             <div>
               {
                 matchArray.status !== "NS" && matchArray.status !== "FT" ? 
-                  <p className='text-xs text-scBackground font-bold bg-scGreen px-2' 
+                  <p className='text-sm text-scBackground font-bold bg-scGreen px-2' 
                     style={{ borderRadius: '4px' }}
                   >Live</p> : ''
                 }
@@ -187,11 +187,11 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
               }
             </div>
             
-            <p className='text-xs text-scMenuText mt-1'>{matchArray.status !== "NS" ? matchArray.status : 'Not started'}</p>
+            <p className='text-sm text-scMenuText mt-1'>{matchArray.status !== "NS" ? matchArray.status : 'Not started'}</p>
 
             {
               matchArray.status !== "NS" && matchArray.status !== "FT" ? '' : 
-              <p className='text-xs text-scMenuText'>
+              <p className='text-sm text-scMenuText'>
                 {
                   matchArray  && matchArray.fixture_date ?
                   format(parse(matchArray.fixture_date, 'yyyy-MM-dd HH:mm:ss', new Date()), 'EEE dd MMM, HH:mm') 
@@ -295,7 +295,7 @@ const LeagueModal = ({ isOpen, onRequestClose, notificationType, notificationTit
 
         <div className="bottom-0 mb-4">
           <hr className="border-1 border-scHr my-2" />
-          <p className=" text-xs text-white mt-4 text-center">Copyright &copy; 2024 Score24</p>
+          <p className=" text-sm text-white mt-4 text-center">Copyright &copy; 2024 Score24</p>
         </div>
       </div>
 

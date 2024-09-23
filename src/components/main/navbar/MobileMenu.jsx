@@ -453,7 +453,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
         <div key={id} className="w-full">
           <div className="flex items-center justify-between mt-2 cursor-pointer">
             <label
-              className="text-xs text-white hover:text-scGreen cursor-pointer pb-1"
+              className="text-sm text-white hover:text-scGreen cursor-pointer pb-1"
               onClick={() => {
                 setCurrentPopularLeagueId(id);
                 setCurrentPopularLeagueName(league);
@@ -527,7 +527,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
         className="flex items-center justify-between mt-2 cursor-pointer "
         onClick={() => toggleCountryDropdown(country)} // Toggle on click
       >
-        <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{country}</label>
+        <label className="text-sm text-white hover:text-scGreen cursor-pointer py-1">{country}</label>
         {/* Uncomment arrow icons here if needed */}
       </div>
 
@@ -536,16 +536,16 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
         <div className='bg-scBackgroundHover'>
           <ul className="text-white ">
           {Object.values(matchesGroupedByTitle).map((group, index) => (
-            <li key={index} className="py-2 text-xs text-white  cursor-pointer">
+            <li key={index} className="py-2 text-sm text-white  cursor-pointer">
               <div className='flex justify-between '>
-                <h3 className="text-xs hover:text-scGreen ml-1">{group.title}</h3>
+                <h3 className="text-sm hover:text-scGreen ml-1">{group.title}</h3>
                 <div className='flex justify-end mr-1' style={{ }}>
                   <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen"  style={{ width: '16px', height: '16px' }}/>
                 </div>
               </div>
               {/* <ul>
                 {group.fixtures.map((fixture, fixtureIndex) => (
-                  <li key={fixtureIndex} className="flex items-center my-1 text-xs hover:text-scGreen cursor-pointer"
+                  <li key={fixtureIndex} className="flex items-center my-1 text-sm hover:text-scGreen cursor-pointer"
                     onClick={() => {
                       setPageName("Specific");
                       setSpecific(group.title); // or href if needed
@@ -567,7 +567,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
         
       ) : isCountryOpen ? (
-        <p className="text-xs text-gray-400 ml-2">No fixtures available</p>
+        <p className="text-sm text-gray-400 ml-2">No fixtures available</p>
       ) : null}
     </div>
   );
@@ -625,7 +625,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
             <div className="mt-auto">
               <div className="bottom-0 w-full bg-opacity-0 pt-20 text-center">
-                <p className="text-xs text-white pt-2">Copyright &copy; Score24</p>
+                <p className="text-sm text-white pt-2">Copyright &copy; Score24</p>
               </div>
             </div>
           </nav>

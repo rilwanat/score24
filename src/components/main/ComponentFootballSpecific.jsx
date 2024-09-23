@@ -218,7 +218,7 @@ export default function ComponentFootballSpecific({ currentPageName, setPageName
 
                 {/* <img src={headingImage} alt="Competition Image" className="mr-2 h-3" /> */}
 
-                <p className="text-xs text-white hover:text-scGreen">
+                <p className="text-sm text-white hover:text-scGreen">
                   {heading}
                 </p>
               </div>

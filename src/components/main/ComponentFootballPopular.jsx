@@ -147,7 +147,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                 {/* <div key={index} className='flex justify-between mt-4'>
                   <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
                     <img src={fixture.logo} alt="Competition Image" className="mr-2 h-3" /> 
-                    <p className="text-xs text-white hover:text-scGreen">
+                    <p className="text-sm text-white hover:text-scGreen">
                       {fixture.heading}
                     </p>
                   </div>
