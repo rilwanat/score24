@@ -33,7 +33,10 @@ import Loading from './Loading';
 
 
 import popularLeagues from './data/popularLeagues';
-import countriesAZ from './data/countriesAZ';
+// import Cookies from 'js-cookie';
+// import LZString from 'lz-string';
+import RefreshIcon from '@mui/icons-material/Refresh';
+
 
 export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
   specificLeague, setSpecific,
@@ -185,10 +188,31 @@ const [isAZOpen, setIsAZOpen] = useState(true);
   const [isDataloading, setIsDataLoading] = useState(true);
   const [matchLive, setMatchLive] = useState([]);
 
-  
-  useEffect(() => {    
-    handleLive(); // this is for the live count
+  const [isCountryDataloading, setIsCountryDataLoading] = useState(true);
+  // const [matchSortByCountry, setMatchSortByCountry] = useState([]);
+  // Initialize state
+  const [matchSortByCountry, setMatchSortByCountry] = useState(() => {
+    const storedData = localStorage.getItem('matchSortByCountry');
+    return storedData ? JSON.parse(storedData) : [];
+  });
+
+
+
+  useEffect(() => {
+    handleLive(); // This is for the live count
+
+    // Check if local storage has data for 'matchSortByCountry'
+    const storedData = localStorage.getItem('matchSortByCountry');
+
+    if (!storedData) {
+        handleSortByCountryAlphabet(showingForDate);
+    } else {
+        // If the data is present in local storage, set the state from it
+        setMatchSortByCountry(JSON.parse(storedData));
+        setIsCountryDataLoading(false);
+    }
   }, [showingForDate]);
+
 
 
 
@@ -237,6 +261,81 @@ const [isAZOpen, setIsAZOpen] = useState(true);
   };
 
 
+  const handleSortByCountryAlphabet = async (showingForDate) => {    
+    
+
+    // setCurrentPage(1);
+    setIsCountryDataLoading(true);
+    try {
+      // Prepare the request body
+      const requestBody = {
+        date: showingForDate
+      };
+
+
+      var endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_SORT_BY_COUNTRY_ALPHABET;
+      // alert(endpoint + "  " + JSON.stringify(requestBody, null, 2));
+      // const response = await axiosInstance.get(endpoint, { //requestBody, {
+        const response = await axios.post(endpoint, requestBody, {
+          //params: { uid: uid },
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setIsCountryDataLoading(false);
+      //  alert(JSON.stringify(response, null, 2));
+
+      // if (response.data.status) {
+        
+      setMatchSortByCountry(response.data);
+        //  console.log(response.data);
+      
+      // const compressedData = LZString.compressToUTF16(JSON.stringify(response.data));
+      // Cookies.set('matchSortByCountry', compressedData, { expires: 1 / 24 });
+      // // Cookies.set('matchSortByCountry', JSON.stringify(response.data), { expires: 1 / 24 }); // 1 hour expiration
+      // console.log("Cookie set:", Cookies.get('matchSortByCountry')); // Verify if cookie is set
+
+
+      // Store in local storage instead of a cookie
+      localStorage.setItem('matchSortByCountry', JSON.stringify(response.data));
+      // console.log("Data stored in local storage");
+
+      // } else {
+      //   const errorMessage = response.data.message;
+      //   alert("Error: " + errorMessage);
+      //   // openNotificationModal(false, currentPageName + " Error", errorMessage);
+      // }
+
+    } catch (error) {
+      setIsCountryDataLoading(false);
+      alert("Country: An unexpected error occurred. " + error);
+    }
+  };
+
+
+  const extractHref = (htmlString) => {
+    const match = htmlString.match(/href="([^"]*)"/);
+    return match ? match[1] : '#'; // Return a default '#' if no href is found
+  };
+
+  const groupFixturesByTitle = (fixtures) => {
+    return fixtures.reduce((acc, fixtureData) => {
+      const { title, logoUrl, fixture } = fixtureData;
+  
+      if (!acc[title]) {
+        acc[title] = {
+          title,
+          logoUrl,
+          fixtures: [],
+        };
+      }
+      
+      acc[title].fixtures.push(fixture); // Add the fixture to the appropriate group
+      return acc;
+    }, {});
+  };
 
 
 
@@ -321,12 +420,13 @@ setPageName("Favourites");
             </div>
             <div className='bg-scBackground  rounded-lg w-full py-2 pl-4 pr-2 my-4 '>
               <div className='cursor-pointer flex items-center mb-2 py-1' 
-                // onClick={() => toggleAzDropdown()}
+                onClick={() => toggleAzDropdown()}
                 >
                   {/* {currentPageName == "Popular" ? <div className='bg-scGreen mr-3.5' style={{ width: '2px', height: '16px'}}></div> : <div className='ml-4'></div>} */}
                   
-                  <div className='flex w-full justify-start items-center '>
+                  <div className='flex w-full justify-between items-center '>
                     <p className={'text-xs hover:text-scGreen text-white'}>All (A-Z)</p>
+                    <RefreshIcon className='mr-1 text-scMenuText hover:text-scGreen' style={{ width: '16px', height: '16px' }} onClick={() => handleSortByCountryAlphabet(showingForDate) } />
                     {/* <div className='cursor-pointer'>
                         {!isPopularOpen ? (
                         <KeyboardArrowUpIcon  className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
@@ -347,90 +447,74 @@ setPageName("Favourites");
                 </div> */}
                 
 
-                {/* {!isAZOpen &&  ( */}
-    <div className="mt-1 ">
-      {countriesAZ.map((countryData) => {
-        // const { country, leagues } = countryData;
-        // const isCountryOpen = openCountry === country; // Check if country dropdown is open
+                {isCountryDataloading ? 
+    <Loading /> 
+    // <></>
+    :
+                <div className="mt-1 ">
+{matchSortByCountry.map((countryData) => {
+  const { country, fixtures } = countryData;
+  const isCountryOpen = openCountry === country; // Check if country dropdown is open
 
-        return (
-          <div key={countryData} className="w-full ">
-            <div
-              className="flex items-center justify-between mt-2 cursor-pointer "
-              // onClick={() => toggleCountryDropdown(country)} // Toggle on click
-            >
-              <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{countryData}</label>  
-            </div>
-          </div>);
+  // Group fixtures by title
+  const matchesGroupedByTitle = groupFixturesByTitle(fixtures);
 
-          
+  return (
+    <div key={country} className="w-full ">
+      {/* Dropdown for Country */}
+      <div
+        className="flex items-center justify-between mt-2 cursor-pointer "
+        onClick={() => toggleCountryDropdown(country)} // Toggle on click
+      >
+        <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{country}</label>
+        {/* Uncomment arrow icons here if needed */}
+      </div>
 
-          // <div key={country} className="w-full ">
-            {/* Dropdown for Country
-            <div
-              className="flex items-center justify-between mt-2 cursor-pointer "
-              // onClick={() => toggleCountryDropdown(country)} // Toggle on click
-            >
-              <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{country}</label>
-              {isCountryOpen ? (
-                <KeyboardArrowUpIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Up arrow when open
-              ) : (
-                <KeyboardArrowDownIcon className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> // Down arrow when closed
-              )}
-            </div> */}
-
-            {/* Show leagues if country is open
-            {isCountryOpen && leagues.map((league) => {
-              const { title, fixtures } = league;
-              const href = extractHref(title);
-              const isLeagueOpen = openLeague === title; // Check if league dropdown is open
-
-              return (
-                <div key={title} className="ml-2">
-                  Dropdown for Leagues
-                  <div
-                    className="flex items-center justify-between w-full ml-4 md:ml-0 cursor-pointer  py-1"
-                    // onClick={() => toggleLeagueDropdown(title)} // Toggle on click
-                  >
-                    <p className="text-xs text-white hover:text-scGreen">
-                      {title.replace(/<\/?[^>]+(>|$)/g, "")}
-                    </p>
-                    {isLeagueOpen ? (
-                      <KeyboardArrowUpIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }} /> // Up arrow when open
-                    ) : (
-                      <KeyboardArrowDownIcon className="text-white hover:text-scGreen" style={{ width: '12px', height: '16px' }}/> // Down arrow when closed
-                    )}
-                  </div>
-
-                  Dropdown content - Fixtures within the League 
-                  {isLeagueOpen && fixtures && fixtures.length > 0 ? (
-                    <ul className=" ml-2  text-white ">
-                      {fixtures.map((fixture, index) => (
-                        <li key={index} className="text-xs hover:text-scGreen cursor-pointer my-1"
-                          onClick={() =>
-                            {                
-                              setPageName("Specific");  
-                              setSpecific(href);
-                              // alert(JSON.stringify(fixtures), null, 2);
-                              // alert(JSON.stringify(league), null, 2);
-                            }
-                          }
-                        >
-                          {fixture.homeTeam} vs {fixture.awayTeam} - {fixture.date} {fixture.time}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : isLeagueOpen ? (
-                    <p className="text-xs text-gray-400 ml-2">No fixtures available</p>
-                  ) : null}
+      {/* Show grouped fixtures if country is open */}
+      {isCountryOpen && Object.keys(matchesGroupedByTitle).length > 0 ? (
+        <div className='bg-scBackgroundHover'>
+          <ul className="text-white ">
+          {Object.values(matchesGroupedByTitle).map((group, index) => (
+            <li key={index} className="py-2 text-xs text-white  cursor-pointer">
+              <div className='flex justify-between '>
+                <h3 className="text-xs hover:text-scGreen ml-1">{group.title}</h3>
+                <div className='flex justify-end mr-1' style={{ }}>
+                  <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen"  style={{ width: '16px', height: '16px' }}/>
                 </div>
-              );
-            })} */}
-          {/* </div> */}
-        // );
-      })}
+              </div>
+              {/* <ul>
+                {group.fixtures.map((fixture, fixtureIndex) => (
+                  <li key={fixtureIndex} className="flex items-center my-1 text-xs hover:text-scGreen cursor-pointer"
+                    onClick={() => {
+                      setPageName("Specific");
+                      setSpecific(group.title); // or href if needed
+                    }}
+                  >
+                    <img src={group.logoUrl} alt={group.title} className="w-4 h-4 mr-2" />
+                    {fixture.homeTeam} vs {fixture.awayTeam} - {fixture.date} {fixture.time}
+                    <span className="ml-2 text-gray-400">
+                      {fixture.home_score}:{fixture.away_score} {fixture.status}
+                    </span>
+                  </li>
+                ))}
+              </ul> */}
+            </li>
+          ))}
+        </ul>
+
+        </div>
+
+        
+      ) : isCountryOpen ? (
+        <p className="text-xs text-gray-400 ml-2">No fixtures available</p>
+      ) : null}
     </div>
-  {/* )} */}
+  );
+})}
+
+
+    </div>
+   }
     
 
 

@@ -22,11 +22,15 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'; // Import arrow icons
 
 
+import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+import RefreshIcon from '@mui/icons-material/Refresh';
+
+
 import parse from 'html-react-parser';
 import Loading from '../Loading';
 
 import popularLeagues from '../data/popularLeagues';
-import countriesAZ from '../data/countriesAZ';
+// import countriesAZ from '../data/countriesAZ';
 
 
 function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
@@ -98,7 +102,6 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   const [matchData, setMatchData] = useState([]);
   const [matchLive, setMatchLive] = useState([]);
   // const [matchSortByAlphabet, setMatchSortByAlphabet] = useState([]);
-  const [matchSortByCountry, setMatchSortByCountry] = useState([]);
   const [matchSpecificLeague, setSpecificLeague] = useState([]);
   
   
@@ -116,11 +119,29 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
   // }, {});
 
 
+  const [isCountryDataloading, setIsCountryDataLoading] = useState(true);
+  // const [matchSortByCountry, setMatchSortByCountry] = useState([]);
+  // Initialize state
+  const [matchSortByCountry, setMatchSortByCountry] = useState(() => {
+    const storedData = localStorage.getItem('matchSortByCountry');
+    return storedData ? JSON.parse(storedData) : [];
+  });
+
+
+
   useEffect(() => {
-    // handleData(showingForDate);
-    handleLive();
-    // handleSortByAlphabet();
-    // handleSortByCountryAlphabet(showingForDate);
+    handleLive(); // This is for the live count
+
+    // Check if local storage has data for 'matchSortByCountry'
+    const storedData = localStorage.getItem('matchSortByCountry');
+
+    if (!storedData) {
+        handleSortByCountryAlphabet(showingForDate);
+    } else {
+        // If the data is present in local storage, set the state from it
+        setMatchSortByCountry(JSON.parse(storedData));
+        setIsCountryDataLoading(false);
+    }
   }, [showingForDate]);
 
   const handleLive = async () => {    
@@ -171,7 +192,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
     
 
     // setCurrentPage(1);
-    setIsDataLoading(true);
+    setIsCountryDataLoading(true);
     try {
       // Prepare the request body
       const requestBody = {
@@ -190,15 +211,23 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
           },
         });
 
-      setIsDataLoading(false);
+        setIsCountryDataLoading(false);
       //  alert(JSON.stringify(response, null, 2));
 
       // if (response.data.status) {
         
       setMatchSortByCountry(response.data);
         //  console.log(response.data);
+      
+      // const compressedData = LZString.compressToUTF16(JSON.stringify(response.data));
+      // Cookies.set('matchSortByCountry', compressedData, { expires: 1 / 24 });
+      // // Cookies.set('matchSortByCountry', JSON.stringify(response.data), { expires: 1 / 24 }); // 1 hour expiration
+      // console.log("Cookie set:", Cookies.get('matchSortByCountry')); // Verify if cookie is set
 
 
+      // Store in local storage instead of a cookie
+      localStorage.setItem('matchSortByCountry', JSON.stringify(response.data));
+      // console.log("Data stored in local storage");
 
       // } else {
       //   const errorMessage = response.data.message;
@@ -207,7 +236,7 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
       // }
 
     } catch (error) {
-      setIsDataLoading(false);
+      setIsCountryDataLoading(false);
       alert("Country: An unexpected error occurred. " + error);
     }
   };
@@ -264,7 +293,22 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
     return match ? match[1] : '#'; // Return a default '#' if no href is found
   };
 
-
+  const groupFixturesByTitle = (fixtures) => {
+    return fixtures.reduce((acc, fixtureData) => {
+      const { title, logoUrl, fixture } = fixtureData;
+  
+      if (!acc[title]) {
+        acc[title] = {
+          title,
+          logoUrl,
+          fixtures: [],
+        };
+      }
+      
+      acc[title].fixtures.push(fixture); // Add the fixture to the appropriate group
+      return acc;
+    }, {});
+  };
 
   return (
 
@@ -441,19 +485,20 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                     }}
                   >
 
-                    <div className='flex justify-between w-full cursor-pointer'>
+                    <div className='flex justify-between items-center w-full cursor-pointer'>
                       <span className={styles.linkTextTwo}  
                       onClick={() => {
-                        {toggleAzDropdown();}
+                        // {toggleAzDropdown();}
                       }}                      
                       >All (A-Z)</span>
 
                       <div>
-                        {!isAZOpen ? (
+                      <RefreshIcon className='mr-1 text-scMenuText hover:text-scGreen' style={{ width: '16px', height: '16px' }} onClick={() => handleSortByCountryAlphabet(showingForDate) } />
+                        {/* {!isAZOpen ? (
                         <KeyboardArrowUpIcon onClick={() => toggleAzDropdown()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
                         ) : (
                         <KeyboardArrowDownIcon onClick={() => toggleAzDropdown()} className="text-white hover:text-scGreen"  style={{ width: '12px', height: '16px' }} /> 
-                        )}
+                        )} */}
                       </div> 
                       
                     </div>
@@ -462,21 +507,76 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
                   </div>
                   
                     <div className='mx-4 ' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
-                    {!isAZOpen && <div className="mt-1 mx-4 my-2 text-scMenuText ">
-      {countriesAZ.map((countryData) => {
+                    <div className="mt-1 mx-4 my-2 text-scMenuText ">
+                    {isCountryDataloading ? 
+    <Loading /> 
+    // <></>
+    :
+                <div className="mt-1 ">
+{matchSortByCountry.map((countryData) => {
+  const { country, fixtures } = countryData;
+  const isCountryOpen = openCountry === country; // Check if country dropdown is open
 
-        return (
-          <div key={countryData} className="w-full ">
-            <div
-              className="flex items-center justify-between mt-2 cursor-pointer "
-            >
-              <label className="text-xs text-white hover:text-scGreen cursor-pointer pb-1">{countryData}</label> 
-            </div>
-          </div>);
+  // Group fixtures by title
+  const matchesGroupedByTitle = groupFixturesByTitle(fixtures);
+
+  return (
+    <div key={country} className="w-full ">
+      {/* Dropdown for Country */}
+      <div
+        className="flex items-center justify-between mt-2 cursor-pointer "
+        onClick={() => toggleCountryDropdown(country)} // Toggle on click
+      >
+        <label className="text-xs text-white hover:text-scGreen cursor-pointer py-1">{country}</label>
+        {/* Uncomment arrow icons here if needed */}
+      </div>
+
+      {/* Show grouped fixtures if country is open */}
+      {isCountryOpen && Object.keys(matchesGroupedByTitle).length > 0 ? (
+        <div className='bg-scBackgroundHover'>
+          <ul className="text-white ">
+          {Object.values(matchesGroupedByTitle).map((group, index) => (
+            <li key={index} className="py-2 text-xs text-white  cursor-pointer">
+              <div className='flex justify-between '>
+                <h3 className="text-xs hover:text-scGreen ml-1">{group.title}</h3>
+                <div className='flex justify-end mr-1' style={{ }}>
+                  <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen"  style={{ width: '16px', height: '16px' }}/>
+                </div>
+              </div>
+              {/* <ul>
+                {group.fixtures.map((fixture, fixtureIndex) => (
+                  <li key={fixtureIndex} className="flex items-center my-1 text-xs hover:text-scGreen cursor-pointer"
+                    onClick={() => {
+                      setPageName("Specific");
+                      setSpecific(group.title); // or href if needed
+                    }}
+                  >
+                    <img src={group.logoUrl} alt={group.title} className="w-4 h-4 mr-2" />
+                    {fixture.homeTeam} vs {fixture.awayTeam} - {fixture.date} {fixture.time}
+                    <span className="ml-2 text-gray-400">
+                      {fixture.home_score}:{fixture.away_score} {fixture.status}
+                    </span>
+                  </li>
+                ))}
+              </ul> */}
+            </li>
+          ))}
+        </ul>
+
+        </div>
 
         
-      })}
-    </div>  }
+      ) : isCountryOpen ? (
+        <p className="text-xs text-gray-400 ml-2">No fixtures available</p>
+      ) : null}
+    </div>
+  );
+})}
+
+
+    </div>
+   }
+    </div>
     </div>
 
                 </div>
