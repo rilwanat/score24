@@ -160,7 +160,7 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
         {Object.keys(matchesGroupedByLeague).map((heading) => {
           const { "logo": leagueImage, fixtures } = matchesGroupedByLeague[heading];
 
-          const href = extractHref(heading);
+          const href = process.env.REACT_APP_API_URL + extractHref(heading).slice(1);
           
           return (
             <div key={heading} className="w-full py-2 mb-4">              
@@ -168,13 +168,14 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
                 <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer' 
                   onClick={() =>
                     {                
+                      // alert(href);return;
                       setPageName("Specific");  
                       setSpecific(href);
                     }
                   }
                 >
                   <img src={leagueImage} alt="Competition Image" className="mr-2 h-3"  style={{ width: '20px', height: '20px' }}/>
-                  <p className="text-sm text-white hover:text-scGreen">
+                  <p className="text-sm text-white hover:text-scGreen" style={{ fontSize: '16px' }}>
                     {/* {parse(heading)} */}
                     {/* {heading} */}
                     {heading.replace(/<\/?[^>]+(>|$)/g, "")}
@@ -189,7 +190,7 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
                   <div key={index} className="text-scMenuText cursor-pointer"
                   onClick={() => openNotificationModal(false, currentPageName, "response.data.message", match, leagueImage)}
                   >
-                    <div className='flex'>
+                    <div className='flex' style={{ fontSize: '16px' }}>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
                       <div className='md:flex w-full justify-center mx-4 hidden '>
                         <div className='flex w-4/12 md:w-5/12 justify-end'>

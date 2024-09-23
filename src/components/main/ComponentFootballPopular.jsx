@@ -160,7 +160,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                   <div  className="text-scMenuText cursor-pointer"
                   onClick={() => openNotificationModal(false, "currentPageName", "response.data.message", fixture, "leagueImage")}
                   >
-                    <div className='flex'>
+                    <div className='flex' style={{ fontSize: '16px' }}>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{fixture.fixture_time}</p>
                       <div className='md:flex w-full justify-center mx-4 hidden '>
                         <div className='flex w-4/12 md:w-5/12 justify-end'>

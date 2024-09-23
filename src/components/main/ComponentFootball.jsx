@@ -224,14 +224,15 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
               <div className='flex justify-between'>
                 <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer' 
                   onClick={() =>
-                    {                
+                    {            
+                      // alert(href);return;    
                       setPageName("Specific");  
                       setSpecific(href);
                     }
                   }
                 >
                   <img src={headingImage} alt="Competition Image" className="mr-2 h-3" style={{ width: '20px', height: '20px' }} />
-                  <p className="text-sm text-white hover:text-scGreen">
+                  <p className="text-sm text-white hover:text-scGreen" style={{ fontSize: '16px' }}>
                     {/* {parse(heading)} */}
                     {/* {heading} */}
                     {heading.replace(/<\/?[^>]+(>|$)/g, "")}
@@ -246,7 +247,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
                   <div key={index} className="text-scMenuText cursor-pointer" 
                   onClick={() => openNotificationModal(false, currentPageName, "response.data.message", match, headingImage)}
                   >
-                    <div className='flex'>
+                    <div className='flex ' style={{ fontSize: '16px' }}>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.status}</p>
                       <div className='md:flex w-full justify-center mx-4 hidden '>
                         <div className='flex w-4/12 md:w-5/12 justify-end'>

@@ -218,7 +218,7 @@ export default function ComponentFootballSpecific({ currentPageName, setPageName
 
                 {/* <img src={headingImage} alt="Competition Image" className="mr-2 h-3" /> */}
 
-                <p className="text-sm text-white hover:text-scGreen">
+                <p className="text-sm text-white hover:text-scGreen" style={{ fontSize: '16px' }}>
                   {heading}
                 </p>
               </div>
@@ -232,7 +232,7 @@ export default function ComponentFootballSpecific({ currentPageName, setPageName
                 // onClick={() => openNotificationModal(false, currentPageName, "response.data.message", matchSpecific, leagueImage)}
                 onClick={() => openNotificationModal(false, currentPageName, "response.data.message", match, "")}
                 >
-                  <div className='flex'>
+                  <div className='flex' style={{ fontSize: '16px' }}>
                     <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
                     <div className='md:flex w-full justify-center mx-4 hidden '>
                       <div className='flex w-4/12 md:w-5/12 justify-end'>
