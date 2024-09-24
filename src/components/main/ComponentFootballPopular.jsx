@@ -353,7 +353,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     <>
 
     {/* Tab */}
-    <div className='flex justify-center w-full my-4 text-white '>
+    <div className='flex justify-center w-full md:-mt-2 my-4 text-white '>
                        
                        <div className="w-full" style={{  }}> 
 
@@ -370,11 +370,11 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                             </div>
                           </div>
 
-        <div>
+        <div> 
 
 {/* dektop */}
-        <div className="mb-4 text-sm text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 md:flex hidden">
-                           <ul className="flex flex-wrap -mb-px ">
+        <div className=" text-sm text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 md:flex hidden">
+                           <ul className="flex flex-wrap  ">
                              <li className="mr-2 cursor-pointer">
                                <a
                                  // href="#"
@@ -435,6 +435,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
         </div>
       </div>
       </div>
+      <hr className="md:hidden border-1 border-scHr mt-2" />
 
 
                          
