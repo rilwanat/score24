@@ -138,7 +138,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     <div className='flex justify-center w-full my-4 text-white '>
                        
                        <div className="w-full" style={{  }}> 
-                         <div className="mb-4 text-lg text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                         <div className="mb-4 text-sm text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                            <ul className="flex flex-wrap -mb-px ">
                              <li className="mr-2 cursor-pointer">
                                <a
