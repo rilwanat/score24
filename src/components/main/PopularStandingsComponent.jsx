@@ -49,7 +49,7 @@ export default function PopularStandingsComponent({
                     
                     {/* Team rank and logo */}
                     <div className="mr-3 flex items-center">
-                      <p>{team.rank}</p>
+                      <p>{String(team.rank).padStart(2, '0')}</p>
                     </div>
                     <div className="w-4/12 flex items-center">
                       <img src={team.teamLogo} alt={`${team.teamName} logo`} className=" mr-2" style={{ width: '16px', height: 'auto', objectFit: 'contain' }}/>
