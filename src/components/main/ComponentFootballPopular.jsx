@@ -70,6 +70,12 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     };
     
     fetchData();
+
+    setActiveTab("results");
+    setMatchPopularResults([]);
+    setMatchPopularFixtures([]);
+    setMatchPopularStandings([]);
+
   }, [popularLeagueId]);
   const handlePopularResults = async () => {
     setIsResultsDataLoading(true);
@@ -88,7 +94,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   
       setIsResultsDataLoading(false);
       // alert("ok");
-      alert(JSON.stringify(response.data, null, 2));
+      // alert(JSON.stringify(response.data, null, 2));
       // alert(response.data[0].length);
       // if (response.data) {
       //   // Ensure response.data has the structure you expect
@@ -313,31 +319,34 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                          <div className="px-4 py-4">
                           {activeTab === 'results' && 
                            <div>
+                            {isResultsDataLoading ? <Loading/> :
                              <PopularResultsComponent 
                                 isResultsDataLoading={isResultsDataLoading} 
                                 popularLeagueName={popularLeagueName} 
                                 groupResults={groupResults} 
                                 openNotificationModal={openNotificationModal} 
-                             />                              
+                             />  }                            
                            </div>}
                            {activeTab === 'fixtures' && 
                            <div>
+                            {isFixturesDataLoading ? <Loading/> :
                              <PopularFixturesComponent 
                                 isFixturesDataLoading={isFixturesDataLoading} 
                                 popularLeagueName={popularLeagueName} 
                                 groupFixturesByDate={groupFixturesByDate} 
                                 openNotificationModal={openNotificationModal} 
-                             />                              
+                             />  }                              
                            </div>}
                            {activeTab === 'standings' && 
                            <div>
+                            {isStandingsDataLoading ? <Loading/> :
                              <PopularStandingsComponent 
                                 isStandingsDataLoading={isStandingsDataLoading} 
                                 popularLeagueName={popularLeagueName} 
                                 groupStandingsByGroup={groupStandingsByGroup} 
                                 openNotificationModal={openNotificationModal} 
                                 // matchPopularStandings
-                             />  
+                             />  }  
                             
                            </div>}
                          </div>     

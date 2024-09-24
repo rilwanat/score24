@@ -22,6 +22,29 @@ export default function PopularResultsComponent({
   isResultsDataloading, popularLeagueName, groupResults, openNotificationModal
  }) {
 
+
+  const getFixtureDate = (fixtureDateString) => {
+    const date = fixtureDateString.split(' ')[0]; // Splitting the date and time by space and taking the date part
+    return date;
+  };
+
+  // const getFixtureTime = (fixtureDateString) => {
+  //   const time = fixtureDateString.split(' ')[1]; // Splitting the date and time by space and taking the time part
+  //   return time;
+  // };
+
+  const getFixtureTime = (fixtureDateString) => {
+    // Extracting the time part (HH:mm:ss)
+    const time = fixtureDateString.split(' ')[1]; 
+  
+    // Splitting the time into hours and minutes only
+    const [hours, minutes] = time.split(':');
+  
+    // Returning the time in HH:mm format
+    return `${hours}:${minutes}`;
+  };
+
+
   return (
     <>
     {
@@ -65,7 +88,10 @@ export default function PopularResultsComponent({
                   onClick={() => openNotificationModal(false, "currentPageName", "response.data.message", fixture, "leagueImage")}
                   >
                     <div className='flex' style={{ fontSize: '16px' }}>
-                      <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{fixture.fixture_time}</p>
+                      <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>
+                        {/* {getFixtureDate(fixture.fixture_date)}  */}
+                        {getFixtureTime(fixture.fixture_date)}
+                        </p>
                       <div className='md:flex w-full justify-center mx-4 hidden '>
                         <div className='flex w-4/12 md:w-5/12 justify-end'>
                           <p className='text-white text-right'>{fixture.home_team}</p>
