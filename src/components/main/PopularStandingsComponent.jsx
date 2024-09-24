@@ -32,7 +32,7 @@ export default function PopularStandingsComponent({
                 {/* Table Header */}
                 <div className="flex justify-between text-white py-2 p-3">
                   <div className="w-1/12">#</div>
-                  <div className="w-2/12">Team</div>
+                  <div className="w-3/12">Team</div>
                   <div className="w-1/12 text-center">MP</div>
                   <div className="w-1/12 text-center">W</div>
                   <div className="w-1/12 text-center">D</div>
@@ -51,7 +51,7 @@ export default function PopularStandingsComponent({
                     <div className="w-1/12 flex items-center">
                       <p>{team.rank}</p>
                     </div>
-                    <div className="w-2/12 flex items-center">
+                    <div className="w-3/12 flex items-center">
                       <img src={team.teamLogo} alt={`${team.teamName} logo`} className=" mr-2" style={{ width: '20px', height: 'auto', objectFit: 'contain' }}/>
                       <p>{team.teamName}</p>
                     </div>
