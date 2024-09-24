@@ -49,6 +49,9 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   //notification modal
 
 
+  const [isResultsDataLoading, setIsResultsDataLoading] = useState(true);
+  const [matchPopularResults, setMatchPopularResults] = useState([]);
+
   const [isFixturesDataLoading, setIsFixturesDataLoading] = useState(true);
   const [matchPopularFixtures, setMatchPopularFixtures] = useState([]);
 
@@ -56,16 +59,51 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   const [matchPopularStandings, setMatchPopularStandings] = useState([]);
 
 
+
   useEffect(() => {
     const fetchData = async () => {
       await Promise.all([
+        handlePopularResults(),
         handlePopularFixtures(), 
-        handlePopularStandings()
+        handlePopularStandings()        
       ]);
     };
     
     fetchData();
   }, [popularLeagueId]);
+  const handlePopularResults = async () => {
+    setIsResultsDataLoading(true);
+    try {
+       const requestBody = {
+        "league_id": popularLeagueId
+       };
+  
+      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR_RESULTS;
+      // alert(endpoint + " " + popularLeagueId);
+      const response = await axios.post(endpoint, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      setIsResultsDataLoading(false);
+      // alert("ok");
+      alert(JSON.stringify(response.data, null, 2));
+      // alert(response.data[0].length);
+      // if (response.data) {
+      //   // Ensure response.data has the structure you expect
+      // return;
+        setMatchPopularResults(response.data);
+      // } else {
+      //   alert("Unexpected response structure.");
+      // }
+  
+    } catch (error) {
+      // setMatchDataData([]); set live to globally
+      setIsResultsDataLoading(false);
+      alert("Popular Results: An unexpected error occurred. " + error);
+    }
+  };
   const handlePopularFixtures = async () => {
     setIsFixturesDataLoading(true);
     try {
@@ -132,6 +170,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
       alert("Popular Standings: An unexpected error occurred. " + error);
     }
   };
+
   
 
 
@@ -211,6 +250,10 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
       return acc;
     }, {});
   };
+
+  const groupResults = () => {
+    return matchPopularResults;
+  }
   
   
 
@@ -271,7 +314,10 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                           {activeTab === 'results' && 
                            <div>
                              <PopularResultsComponent 
-                            //  userDetails={userDetails} 
+                                isResultsDataLoading={isResultsDataLoading} 
+                                popularLeagueName={popularLeagueName} 
+                                groupResults={groupResults} 
+                                openNotificationModal={openNotificationModal} 
                              />                              
                            </div>}
                            {activeTab === 'fixtures' && 

@@ -18,139 +18,103 @@ import LeagueModal from './modals/LeagueModal';
 
 
 
-export default function PopularResultsComponent({ showingForDate, popularLeagueId, popularLeagueName }) {
-  
-  //notification modal
-  const [notificationType, setNotificationType] = useState(false);
-  const [notificationTitle, setNotificationTitle] = useState("");
-  const [notificationMessage, setNotificationMessage] = useState("");
-  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
-  const [matchArray, setMatchArray] = useState([]);
-  const [matchHeadingImage, setMatchHeadingImage] = useState('');
-  const openNotificationModal = (type, title, message, match, headingImage ) => {
-    
-    // match.heading = heading;
-    // alert(JSON.stringify(match), null, 2);
-
-    setNotificationType(type);
-    setNotificationTitle(title);
-    setNotificationMessage(message);
-
-    setMatchArray(match);
-    setMatchHeadingImage(headingImage);
-  
-    setIsNotificationModalOpen(true);
-  };
-  const closeNotificationModal = () => {
-    setIsNotificationModalOpen(false);  
-  };
-  //notification modal
-
-
-  const [isFixturesDataloading, setIsFixturesDataLoading] = useState(true);
-  const [matchPopularFixtures, setMatchPopularFixtures] = useState([]);
-  useEffect(() => {
-    // handlePopularFixtures();
-  }, [popularLeagueId]);
-  const handlePopularFixtures = async () => {
-    setIsFixturesDataLoading(true);
-    try {
-       const requestBody = {
-        "leagueId": popularLeagueId,
-        "leagueTitle": popularLeagueName
-       };
-  
-      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR_LEAGUES;
-      // alert(endpoint);
-      const response = await axios.post(endpoint, requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
-      setIsFixturesDataLoading(false);
-      // alert("ok");
-      // alert(JSON.stringify(response.data, null, 2));
-      // alert(response.data[0].length);
-      // if (response.data) {
-      //   // Ensure response.data has the structure you expect
-        setMatchPopularFixtures(response.data);
-      // } else {
-      //   alert("Unexpected response structure.");
-      // }
-  
-    } catch (error) {
-      // setMatchDataData([]); set live to globally
-      setIsFixturesDataLoading(false);
-      alert("Popular: An unexpected error occurred. " + error);
-    }
-  };
-  
-
-
-  const groupFixturesByDate = () => {
-    if (!matchPopularFixtures || matchPopularFixtures.length === 0) return {};
-
-    return matchPopularFixtures.reduce((acc, league) => {
-      if (!league.fixtures || league.fixtures.length === 0) return acc;
-
-      league.fixtures.forEach(fixture => {
-        const date = fixture.fixture_date;
-
-        if (!acc[date]) {
-          acc[date] = [];
-        }
-
-        acc[date].push({
-          heading: league.heading,
-          logo: league["heading image"],
-          fixture_time: fixture.fixture_time,
-          home_team: fixture.home_team,
-          away_team: fixture.away_team,
-          home_score: fixture.home_score,
-          away_score: fixture.away_score,
-          status: fixture.status,
-          league_name: fixture.league_name,
-        });
-      });
-
-      return acc;
-    }, {});
-  };
-    
-
-
-  //tabs
-  const [activeTab, setActiveTab] = useState('info');
-  const handleTabClick = (tabName) => {
-    setActiveTab(tabName);
-  };
-  //tabs
-
-  
+export default function PopularResultsComponent({ 
+  isResultsDataloading, popularLeagueName, groupResults, openNotificationModal
+ }) {
 
   return (
     <>
+    {
+    isResultsDataloading ? <Loading /> :
+      <div className="space-y-4">
 
-    <div className='flex justify-center w-full my-4 text-white'>
-                       
-                       <div className="w-full" style={{  }}> 
-                         
-             Results
-                            
-                       </div> 
-                     </div>
+        <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
+          {/* <img src={fixture.logo} alt="Competition Image" className="mr-2 h-3" />  */}
+          <p className="text-xl text-white hover:text-scGreen">
+            {popularLeagueName}
+          </p>
+        </div>
+
+
+        {Object.keys(groupResults()).map((date) => {
+            const fixtures = groupResults()[date];
+          
+          return (
+            <div key={date} className="w-full py-2 mb-4"> 
+              <h2 className="text-lg text-white">{date}</h2>
+
+
+              {
+              fixtures.map((fixture, index) => (
+                
+                <>
+                {/* <div key={index} className='flex justify-between mt-4'>
+                  <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
+                    <img src={fixture.logo} alt="Competition Image" className="mr-2 h-3" /> 
+                    <p className="text-sm text-white hover:text-scGreen">
+                      {fixture.heading}
+                    </p>
+                  </div>
+                  <div className='flex justify-end mx-3' style={{ width: '60px' }}>
+                    <PushPinOutlinedIcon className="cursor-pointer text-scMenuText hover:text-scGreen" />
+                  </div>
+                </div> */}
+                <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
+                {/* {league.fixtures.map((match, index) => ( */}
+                  <div  className="text-scMenuText cursor-pointer"
+                  onClick={() => openNotificationModal(false, "currentPageName", "response.data.message", fixture, "leagueImage")}
+                  >
+                    <div className='flex' style={{ fontSize: '16px' }}>
+                      <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{fixture.fixture_time}</p>
+                      <div className='md:flex w-full justify-center mx-4 hidden '>
+                        <div className='flex w-4/12 md:w-5/12 justify-end'>
+                          <p className='text-white text-right'>{fixture.home_team}</p>
+                        </div>
+                        <div className='flex w-5/12 md:w-2/12 justify-center items-center '>
+                          <p className='mx-8 text-center text-scGreen'>
+                            {/* {fixture.status}                       */}
+                            {fixture.status === 'FT' ? fixture.home_score : ''} {fixture.status !== 'FT' ? 'vs.' : '-'} {fixture.status === 'FT' ? fixture.away_score : ''}        
+                          </p>
+                        </div>
+                        <div className='flex w-4/12 md:w-5/12 justify-start'>
+                          <p className='text-white text-left'>{fixture.away_team}</p>
+                        </div>
+                      </div>
+                       <div className='md:hidden flex flex-col w-full px-2 mx-2'>
+                        <div className='flex w-full justify-between'>
+                          <p className='text-white'>{fixture.home_team}</p>
+                          <p className='text-center text-scGreen'>{fixture.status === 'FT' ? fixture.home_score : ''}</p>
+                        </div>
+                        <div className='flex w-full justify-between'>
+                          <p className='text-white'>{fixture.away_team}</p>
+                          <p className='text-center text-scGreen'>{fixture.status === 'FT' ? fixture.away_score : ''}</p>
+                        </div>
+                      </div>
+                      <p className="cursor-pointer flex items-center justify-end" style={{ width: '60px' }}>
+                        <StarBorderIcon className='hover:text-scGreen' />
+                      </p>
+                    </div>
+                    {/* {index !== fixtures.length - 1 && (
+                      <hr className="border-1 border-scHr mt-2" />
+                    )} */}
+                  </div>
+                {/* ))} */}
+                </div>
+              </>
+                
+              ))
+              }
+
+
+                          
+              {/*  */}
+            </div>
+          );
+        })}
+      </div>
+      }
 
          
-<LeagueModal
-              isOpen={isNotificationModalOpen}
-              onRequestClose={closeNotificationModal}
-              notificationType={notificationType}
-              notificationTitle={notificationTitle}
-              notificationMessage={notificationMessage}
-              matchArray={matchArray}
-              matchHeadingImage={matchHeadingImage}
-            />
     </>
   );
   
