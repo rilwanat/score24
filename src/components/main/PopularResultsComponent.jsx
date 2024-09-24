@@ -16,11 +16,9 @@ import Loading from './Loading';
 
 import LeagueModal from './modals/LeagueModal';
 
-import PopularResultsComponent from './PopularResultsComponent';
-import PopularFixturesComponent from './PopularFixturesComponent';
-import PopularStandingsComponent from './PopularStandingsComponent';
 
-export default function ComponentFootballPopular({ showingForDate, popularLeagueId, popularLeagueName }) {
+
+export default function PopularResultsComponent({ showingForDate, popularLeagueId, popularLeagueName }) {
   
   //notification modal
   const [notificationType, setNotificationType] = useState(false);
@@ -52,7 +50,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   const [isFixturesDataloading, setIsFixturesDataLoading] = useState(true);
   const [matchPopularFixtures, setMatchPopularFixtures] = useState([]);
   useEffect(() => {
-    handlePopularFixtures();
+    // handlePopularFixtures();
   }, [popularLeagueId]);
   const handlePopularFixtures = async () => {
     setIsFixturesDataLoading(true);
@@ -134,77 +132,16 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   return (
     <>
 
-    {/* Tab */}
     <div className='flex justify-center w-full my-4 text-white'>
                        
                        <div className="w-full" style={{  }}> 
-                         <div className=" text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-                           <ul className="flex flex-wrap -mb-px ">
-                             {/* <li className="mr-2 cursor-pointer">
-                               <a
-                                 // href="#"
-                                 className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'results' ? 'text-scGreen border-scGreen' : ''}`}
-                                 onClick={() => handleTabClick('results')}
-                               >
-                                 {'results'.toUpperCase()}
-                               </a>
-                             </li> */}
-                             <li className="mr-2 cursor-pointer">
-                               <a
-                                 // href="#"
-                                 className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'fixtures' ? 'text-scGreen border-scGreen' : ''}`}
-                                 onClick={() => handleTabClick('fixtures')}
-                               >
-                                 {'fixtures'.toUpperCase()}
-                               </a>
-                             </li> 
-                             <li className="mr-2 cursor-pointer">
-                               <a
-                                 // href="#"
-                                 className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'standings' ? 'text-scGreen border-scGreen' : ''}`}
-                                 onClick={() => handleTabClick('standings')}
-                               >
-                                 {'standings'.toUpperCase()}
-                               </a>
-                             </li>
-                             
-                           </ul>
-                         </div>
-
                          
-             
-                         {/* Tab content */}
-                         <div className="p-4">
-                          {activeTab === 'results' && 
-                           <div>
-                             <PopularResultsComponent 
-                            //  userDetails={userDetails} 
-                             />                              
-                           </div>}
-                           {activeTab === 'fixtures' && 
-                           <div>
-                             <PopularFixturesComponent 
-                             isFixturesDataloading={isFixturesDataloading} 
-                             popularLeagueName={popularLeagueName} 
-                             groupFixturesByDate={groupFixturesByDate} 
-                             openNotificationModal={openNotificationModal} 
-                             />                              
-                           </div>}
-                           {activeTab === 'standings' && 
-                           <div>
-                             <PopularStandingsComponent 
-                            //  userDetails={userDetails} 
-                             />  
+             Results
                             
-                           </div>}
-                         </div>     
                        </div> 
                      </div>
-                     {/* Tab */}
 
-                     
-
-
+         
 <LeagueModal
               isOpen={isNotificationModalOpen}
               onRequestClose={closeNotificationModal}

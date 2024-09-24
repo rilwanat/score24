@@ -603,7 +603,10 @@ setPageName("Favourites");
               (currentPageName === 'Home' ? <ComponentFootball setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
                currentPageName === 'Live' ? <ComponentFootballLive setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
                currentPageName === 'Favourites' ? <></> : //<ComponentFootballFavourites showingForDate={showingForDate} /> :
-               currentPageName === 'Popular' ? <ComponentFootballPopular setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific} 
+               
+               currentPageName === 'Popular' ?                
+               <ComponentFootballPopular 
+               setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific} 
                popularLeagueId={popularLeagueId} popularLeagueName={popularLeagueName} 
                /> :
                currentPageName === 'Specific' ? <ComponentFootballSpecific setPageName={setPageName} showingForDate={showingForDate} specificLeague={specificLeague} setSpecific={setSpecific}/> :
