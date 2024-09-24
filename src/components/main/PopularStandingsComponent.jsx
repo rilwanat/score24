@@ -31,29 +31,29 @@ export default function PopularStandingsComponent({
 
                 {/* Table Header */}
                 <div className="flex justify-between text-white py-2 p-3">
-                  <div className="w-1/12">#</div>
-                  <div className="w-3/12">Team</div>
+                  <div className="mr-3">#</div>
+                  <div className="w-4/12">Team</div>
                   <div className="w-1/12 text-center">MP</div>
                   <div className="w-1/12 text-center">W</div>
                   <div className="w-1/12 text-center">D</div>
                   <div className="w-1/12 text-center">L</div>
                   <div className="w-1/12 text-center">G</div>
                   <div className="w-1/12 text-center">PTS</div>
-                  <div className="w-2/12 text-center ">Form</div>
+                  <div className="w-2/12 text-center  md:flex hidden">Form</div>
                   {/* <div className="w-1/12"></div> */}
                 </div>
 
                 {/* Teams Data */}
                 {standings.teams.map((team, index) => (
-                  <div key={index} className="flex justify-between items-center py-2 bg-scBackground rounded-lg p-3">
+                  <div key={index} className="flex justify-between items-center py-2 bg-scBackground rounded-lg p-3 ">
                     
                     {/* Team rank and logo */}
-                    <div className="w-1/12 flex items-center">
+                    <div className="mr-3 flex items-center">
                       <p>{team.rank}</p>
                     </div>
-                    <div className="w-3/12 flex items-center">
-                      <img src={team.teamLogo} alt={`${team.teamName} logo`} className=" mr-2" style={{ width: '20px', height: 'auto', objectFit: 'contain' }}/>
-                      <p>{team.teamName}</p>
+                    <div className="w-4/12 flex items-center">
+                      <img src={team.teamLogo} alt={`${team.teamName} logo`} className=" mr-2" style={{ width: '16px', height: 'auto', objectFit: 'contain' }}/>
+                      <p >{team.teamName}</p>
                     </div>
 
                     {/* Matches Played (MP) */}
@@ -87,7 +87,7 @@ export default function PopularStandingsComponent({
                     </div>
 
                     {/* Form */}
-                    <div className="w-2/12 text-center ">
+                    <div className="w-2/12 text-center md:flex hidden">
                       {/* Display the form with each character in a separate div with specific colors */}
 <div className="flex space-x-1 justify-center">
   {team.form.split('').map((char, index) => {

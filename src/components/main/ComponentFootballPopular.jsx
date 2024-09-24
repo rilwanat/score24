@@ -267,7 +267,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                          
              
                          {/* Tab content */}
-                         <div className="p-4">
+                         <div className="px-4 py-4">
                           {activeTab === 'results' && 
                            <div>
                              <PopularResultsComponent 

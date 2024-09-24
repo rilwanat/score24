@@ -21,8 +21,6 @@ export default function PopularFixturesComponent({
   isFixturesDataloading, popularLeagueName, groupFixturesByDate, openNotificationModal
  }) {
   
- 
-
   return (
     <>
     {
@@ -81,12 +79,14 @@ export default function PopularFixturesComponent({
                           <p className='text-white text-left'>{fixture.away_team}</p>
                         </div>
                       </div>
-                      <div className='md:hidden flex flex-col w-full px-2 mx-2'>
+                       <div className='md:hidden flex flex-col w-full px-2 mx-2'>
                         <div className='flex w-full justify-between'>
                           <p className='text-white'>{fixture.home_team}</p>
+                          <p className='text-center text-scGreen'>{fixture.status === 'FT' ? fixture.home_score : ''}</p>
                         </div>
                         <div className='flex w-full justify-between'>
                           <p className='text-white'>{fixture.away_team}</p>
+                          <p className='text-center text-scGreen'>{fixture.status === 'FT' ? fixture.away_score : ''}</p>
                         </div>
                       </div>
                       <p className="cursor-pointer flex items-center justify-end" style={{ width: '60px' }}>
