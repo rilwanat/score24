@@ -208,6 +208,42 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
 
 
 
+  // const handleClick = (currentPageName) => {
+  //   // window.location.href = 'https://google.com'; // Replace with the URL you want to open
+  //   window.open('https://google.com', currentPageName, 'width=800,height=600');
+  // };
+
+
+  // const handleClick = (currentPageName, match, headingImage) => {
+  //   const route = '/specific-league'; // Replace with your desired route
+  //   const params = new URLSearchParams(match).toString(); // Convert data object to query string
+  //   const newWindow = window.open(currentPageName, '_blank', 'width=800,height=600'); // Open a new window
+
+  //   if (newWindow) {
+  //     newWindow.location.href = `${window.location.origin}${route}?${params}`; // Set the URL of the new window with query parameters
+  //   }
+  // };
+
+  const handleClick = (currentPageName, matchArray, headingImage) => {
+    alert("not ready");
+    const route = '/specific-league'; // Replace with your desired route
+  
+    // Convert the match object and headingImage to query parameters
+    const params = new URLSearchParams({
+      // ...match,
+      matchArray: JSON.stringify(matchArray), // Convert array to JSON string
+      matchHeadingImage: headingImage,
+    }).toString(); // Convert data object to query string
+  
+    const newWindow = window.open(currentPageName, '_blank', 'width=800,height=600'); // Open a new window
+  
+    if (newWindow) {
+      newWindow.location.href = `${window.location.origin}${route}?${params}`; // Set the URL of the new window with query parameters
+    }
+  };
+  
+
+
 
   return (
     <>
@@ -245,7 +281,10 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
               <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
                 {fixtures.map((match, index) => (
                   <div key={index} className="text-scMenuText cursor-pointer" 
-                  onClick={() => openNotificationModal(false, currentPageName, "response.data.message", match, headingImage)}
+                  onClick={() =>
+                    handleClick(currentPageName, match, headingImage) 
+                    // openNotificationModal(false, currentPageName, "response.data.message", match, headingImage)
+                  }
                   >
                     <div className='flex ' style={{ fontSize: '16px' }}>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.status}</p>
