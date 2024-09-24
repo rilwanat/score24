@@ -88,17 +88,20 @@ export default function MainContent({ isMobile, isMenuOpen, toggleMenu, closeMen
     setOpenCountry(openCountry === country ? null : country); // Toggle country dropdown
   };  
 
-const [isAZOpen, setIsAZOpen] = useState(true);
+  const [isAZOpen, setIsAZOpen] = useState(true);
+  // const toggleAzDropdown = () => {
+  //   setIsAZOpen(!isAZOpen); // Toggle country dropdown
+  // };
   const toggleAzDropdown = () => {
-    // alert("s");
-    setIsAZOpen(!isAZOpen); // Toggle country dropdown
+    setIsAZOpen(prev => !prev);
   };
 
-
-
   const [isPopularOpen, setIsPopularOpen] = useState(true);
+  // const togglePopular = () => {
+  //   setIsPopularOpen(!isPopularOpen); // Toggle popular dropdown
+  // };
   const togglePopular = () => {
-    setIsPopularOpen(!isPopularOpen); // Toggle popular dropdown
+    setIsPopularOpen(prev => !prev);
   };
 
 

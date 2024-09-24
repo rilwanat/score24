@@ -36,19 +36,26 @@ import popularLeagues from '../data/popularLeagues';
 function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
   specificLeague, setSpecific,
   setCurrentPopularLeagueId, setCurrentPopularLeagueName,
-  popularLeagueId, popularLeagueName
+  popularLeagueId, popularLeagueName 
  }) {
 
 
   const [isAZOpen, setIsAZOpen] = useState(true);
+  // const toggleAzDropdown = () => {
+  //   setIsAZOpen(!isAZOpen); // Toggle country dropdown
+  // };
   const toggleAzDropdown = () => {
-    setIsAZOpen(!isAZOpen); // Toggle country dropdown
+    setIsAZOpen(prev => !prev);
   };
 
   const [isPopularOpen, setIsPopularOpen] = useState(true);
+  // const togglePopular = () => {
+  //   setIsPopularOpen(!isPopularOpen); // Toggle popular dropdown
+  // };
   const togglePopular = () => {
-    setIsPopularOpen(!isPopularOpen); // Toggle popular dropdown
+    setIsPopularOpen(prev => !prev);
   };
+  
 
   
   // Format the dates as 'YYYY-MM-DD'
@@ -447,7 +454,9 @@ function MobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, 
 
                   </div>
                   <div className='mx-4 ' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
-  {!isPopularOpen && (
+  {
+  !isPopularOpen && 
+  (
     <div className="mt-1 mx-4 my-2 text-scMenuText">
       {Object.entries(popularLeagues).map(([league, id]) => (
         <div key={id} className="w-full">

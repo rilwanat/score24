@@ -21,7 +21,8 @@ import { navData } from './NavData';
 function BottomMobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
   specificLeague, setSpecific,
   setCurrentPopularLeagueId, setCurrentPopularLeagueName,
-  popularLeagueId, popularLeagueName
+  popularLeagueId, popularLeagueName,
+  // popularLeagues
  }) {
 
   useEffect(() => {}, []);
@@ -59,6 +60,7 @@ function BottomMobileMenu({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPage
           specificLeague={specificLeague} setSpecific={setSpecific}
           setCurrentPopularLeagueId={setCurrentPopularLeagueId} setCurrentPopularLeagueName={setCurrentPopularLeagueName}
         popularLeagueId={popularLeagueId} popularLeagueName={popularLeagueName}
+        // popularLeagues={popularLeagues}
         />
       )}
     </div>

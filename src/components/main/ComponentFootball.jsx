@@ -14,7 +14,7 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
-// import LeagueModal from './modals/LeagueModal';
+import LeagueModal from './modals/LeagueModal';
 
 export default function ComponentFootball({ currentPageName, setPageName, showingForDate, 
   setSpecific
@@ -209,6 +209,8 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
 
   const handleClick = (currentPageName, matchArray, headingImage) => {
     // alert(JSON.stringify(matchArray), null, 2);
+    // return;
+
     const route = '/specific-league';
     
     const params = new URLSearchParams({
@@ -308,7 +310,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
         })}
       </div>
       }
-      {/* <LeagueModal
+      <LeagueModal
               isOpen={isNotificationModalOpen}
               onRequestClose={closeNotificationModal}
               notificationType={notificationType}
@@ -316,7 +318,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
               notificationMessage={notificationMessage}
               matchArray={matchArray}
               matchHeadingImage={matchHeadingImage}
-            /> */}
+            />
     </>
   );
   

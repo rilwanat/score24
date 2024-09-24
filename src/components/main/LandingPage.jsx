@@ -10,6 +10,7 @@ import CookieConsent from './navbar/CookieConsent';
 import MainContent from './MainContent';
 
 
+
 export default function LandingPage({ isMobile, isMenuOpen, toggleMenu, closeMenu, setPageName, currentPageName, setCategory, currentCategory,
   specificLeague, setSpecific,
   setCurrentPopularLeagueId, setCurrentPopularLeagueName,

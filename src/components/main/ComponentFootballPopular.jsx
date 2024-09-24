@@ -78,6 +78,10 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
 
   }, [popularLeagueId]);
   const handlePopularResults = async () => {
+
+    if (!popularLeagueId) return;
+
+
     setIsResultsDataLoading(true);
     try {
        const requestBody = {
@@ -111,6 +115,9 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     }
   };
   const handlePopularFixtures = async () => {
+
+    if (!popularLeagueId) return;
+
     setIsFixturesDataLoading(true);
     try {
        const requestBody = {
@@ -144,6 +151,9 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     }
   };
   const handlePopularStandings = async () => {
+
+    if (!popularLeagueId) return;
+    
     setIsStandingsDataLoading(true);
     try {
        const requestBody = {
