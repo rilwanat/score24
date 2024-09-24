@@ -14,7 +14,7 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
-import LeagueModal from './modals/LeagueModal';
+// import LeagueModal from './modals/LeagueModal';
 
 export default function ComponentFootball({ currentPageName, setPageName, showingForDate, 
   setSpecific
@@ -207,30 +207,11 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
 
 
 
-
-  // const handleClick = (currentPageName) => {
-  //   // window.location.href = 'https://google.com'; // Replace with the URL you want to open
-  //   window.open('https://google.com', currentPageName, 'width=800,height=600');
-  // };
-
-
-  // const handleClick = (currentPageName, match, headingImage) => {
-  //   const route = '/specific-league'; // Replace with your desired route
-  //   const params = new URLSearchParams(match).toString(); // Convert data object to query string
-  //   const newWindow = window.open(currentPageName, '_blank', 'width=800,height=600'); // Open a new window
-
-  //   if (newWindow) {
-  //     newWindow.location.href = `${window.location.origin}${route}?${params}`; // Set the URL of the new window with query parameters
-  //   }
-  // };
-
   const handleClick = (currentPageName, matchArray, headingImage) => {
-    alert("not ready");
-    const route = '/specific-league'; // Replace with your desired route
-  
-    // Convert the match object and headingImage to query parameters
+    // alert(JSON.stringify(matchArray), null, 2);
+    const route = '/specific-league';
+    
     const params = new URLSearchParams({
-      // ...match,
       matchArray: JSON.stringify(matchArray), // Convert array to JSON string
       matchHeadingImage: headingImage,
     }).toString(); // Convert data object to query string
@@ -279,6 +260,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
                 </div>
               </div>              
               <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
+                {/* <p onClick={() => handleClick(currentPageName, match, headingImage)  }>#</p> */}
                 {fixtures.map((match, index) => (
                   <div key={index} className="text-scMenuText cursor-pointer" 
                   onClick={() =>
@@ -326,7 +308,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
         })}
       </div>
       }
-      <LeagueModal
+      {/* <LeagueModal
               isOpen={isNotificationModalOpen}
               onRequestClose={closeNotificationModal}
               notificationType={notificationType}
@@ -334,7 +316,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
               notificationMessage={notificationMessage}
               matchArray={matchArray}
               matchHeadingImage={matchHeadingImage}
-            />
+            /> */}
     </>
   );
   

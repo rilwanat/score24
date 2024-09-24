@@ -52,7 +52,9 @@ export default function PopularStandingsComponent({
                       <p>{String(team.rank).padStart(2, '0')}</p>
                     </div>
                     <div className="w-4/12 flex items-center">
-                      <img src={team.teamLogo} alt={`${team.teamName} logo`} className=" mr-2" style={{ width: '16px', height: 'auto', objectFit: 'contain' }}/>
+                      <img src={team.teamLogo} 
+                      // alt={`${team.teamName}logo`} 
+                      className=" mr-2" style={{ width: '16px', height: 'auto', objectFit: 'contain' }}/>
                       <p >{team.teamName}</p>
                     </div>
 

@@ -30,6 +30,7 @@ const SpecificLeaguePage = () => {
 
   const isOpen = queryParams.get('isOpen') === 'true'; // Assuming isOpen is a boolean
   const onRequestClose = () => {}; // Define how to close the modal if needed
+  const notificationType = queryParams.get('notificationType') || 'success'; // Example default value
   const notificationTitle = queryParams.get('notificationTitle');
   const notificationMessage = queryParams.get('notificationMessage');
   
@@ -38,12 +39,9 @@ const SpecificLeaguePage = () => {
   const matchHeadingImage = queryParams.get('matchHeadingImage');
 
   // State hooks
-  const [countdownTime, setCountdownTime] = useState('');
+  const [countdownTime, setCountdownTime] = useState("");
   const [activeTab, setActiveTab] = useState('info');
   
-  // Define notificationType (you can set this based on your logic)
-  const notificationType = queryParams.get('notificationType') || 'success'; // Example default value
-
   // Handle empty matchArray case
   if (matchArray.length === 0) {
     return <div>No matches found.</div>; 
@@ -54,9 +52,14 @@ const SpecificLeaguePage = () => {
   };
 
   // useEffect(() => {
-  //   function startCountdown(targetDate) {
+  //   let interval; // Declare interval variable to manage it
+  
+  //   // Start the countdown based on target date
+  //   const startCountdown = (targetDate) => {
   //     const target = new Date(targetDate).getTime();
-  //     const interval = setInterval(() => {
+  
+  //     // Start the interval to update countdown
+  //     interval = setInterval(() => {
   //       const now = new Date().getTime();
   //       const distance = target - now;
   
@@ -73,15 +76,19 @@ const SpecificLeaguePage = () => {
   
   //       setCountdownTime(`${days}:${hours}:${minutes}:${seconds}`);
   //     }, 1000);
+  //   };
   
-  //     return () => clearInterval(interval); // Cleanup interval on unmount
-  //   }
-  
-  //   // Always call the useEffect, then check the condition
+  //   // Check the condition and call the countdown function
   //   if (matchArray && matchArray.fixture_date) {
   //     startCountdown(matchArray.fixture_date);
+  //   } else {
+  //     setCountdownTime("00:00:00:00"); // Reset if no valid date
   //   }
+  
+  //   // Cleanup interval on unmount or when matchArray changes
+  //   return () => clearInterval(interval);
   // }, [matchArray]); // Include `matchArray` in the dependency array
+  
   
 
   const handleTabClick = (tabName) => {
@@ -89,7 +96,8 @@ const SpecificLeaguePage = () => {
   };
 
   return (
-    <div className='flex flex-col w-full h-full justify-between'>
+    <div className='bg-scDarkerBackground h-screen'>
+      <div className='flex flex-col w-full h-full justify-between bg-scBackgroundDark'>
       <div className="flex flex-col w-full">
         <div className='flex justify-between items-center bg-scBackground p-4'>
           <div className="flex items-center">
@@ -197,7 +205,8 @@ const SpecificLeaguePage = () => {
           </div>
         </div>
 
-        <div className="w-full bg-scBackground rounded-lg px-4 py-4">
+        <div className='flex w-full px-4'>
+        <div className="w-full bg-scBackground rounded-lg px-4 py-4 text-white ">
           <div className="flex flex-col">
             {activeTab === 'info' && 
               <div>
@@ -221,27 +230,15 @@ const SpecificLeaguePage = () => {
             }
           </div>
         </div>
-      </div>
-
-      {/* Modal */}
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={onRequestClose}
-        style={customModalStyles}
-        contentLabel="Notification Modal"
-      >
-        <div className='flex flex-col justify-center items-center p-4'>
-          <div className='flex justify-between items-center w-full'>
-            <h2 className='text-xl text-white'>{notificationTitle}</h2>
-            <CloseIcon className='cursor-pointer' style={{ color: '#ffffff' }} onClick={onRequestClose} />
-          </div>
-          <p className='text-white text-center mt-2'>{notificationMessage}</p>
-          <div className='mt-4'>
-            {notificationType === 'success' ? <CheckCircleIcon className='text-scGreen' /> : <CancelIcon className='text-red-500' />}
-          </div>
-          <button className='mt-4 bg-scGreen text-white px-4 py-2 rounded' onClick={onRequestClose}>Close</button>
         </div>
-      </Modal>
+      </div>
+      
+      <div className="bottom-0 mb-4">
+          <hr className="border-1 border-scHr my-2" />
+          <p className=" text-xs text-white mt-4 text-center">Copyright &copy; 2024 Score24</p>
+        </div>
+      </div>
+      
     </div>
   );
 };

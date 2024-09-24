@@ -14,7 +14,7 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
-import LeagueModal from './modals/LeagueModal';
+// import LeagueModal from './modals/LeagueModal';
 
 import PopularResultsComponent from './PopularResultsComponent';
 import PopularFixturesComponent from './PopularFixturesComponent';
@@ -271,6 +271,21 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   };
   //tabs
 
+
+  const handleClick = (currentPageName, matchArray, headingImage) => {
+    const route = '/specific-league';
+    
+    const params = new URLSearchParams({
+      matchArray: JSON.stringify(matchArray), // Convert array to JSON string
+      matchHeadingImage: headingImage,
+    }).toString(); // Convert data object to query string
+  
+    const newWindow = window.open(currentPageName, '_blank', 'width=800,height=600'); // Open a new window
+  
+    if (newWindow) {
+      newWindow.location.href = `${window.location.origin}${route}?${params}`; // Set the URL of the new window with query parameters
+    }
+  };
   
 
   return (
@@ -357,7 +372,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                      
 
 
-<LeagueModal
+{/* <LeagueModal
               isOpen={isNotificationModalOpen}
               onRequestClose={closeNotificationModal}
               notificationType={notificationType}
@@ -365,7 +380,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
               notificationMessage={notificationMessage}
               matchArray={matchArray}
               matchHeadingImage={matchHeadingImage}
-            />
+            /> */}
     </>
   );
   

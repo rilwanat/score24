@@ -14,13 +14,31 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
-import LeagueModal from './modals/LeagueModal';
+// import LeagueModal from './modals/LeagueModal';
 
 
 export default function PopularFixturesComponent({ 
   isFixturesDataloading, popularLeagueName, groupFixturesByDate, openNotificationModal
  }) {
   
+
+  const handleClick = (currentPageName, matchArray, headingImage) => {
+    const route = '/specific-league';
+    
+    const params = new URLSearchParams({
+      matchArray: JSON.stringify(matchArray), // Convert array to JSON string
+      matchHeadingImage: headingImage,
+    }).toString(); // Convert data object to query string
+  
+    const newWindow = window.open(currentPageName, '_blank', 'width=800,height=600'); // Open a new window
+  
+    if (newWindow) {
+      newWindow.location.href = `${window.location.origin}${route}?${params}`; // Set the URL of the new window with query parameters
+    }
+  };
+
+
+
   return (
     <>
     {
@@ -61,8 +79,11 @@ export default function PopularFixturesComponent({
                 <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
                 {/* {league.fixtures.map((match, index) => ( */}
                   <div  className="text-scMenuText cursor-pointer"
-                  onClick={() => openNotificationModal(false, "currentPageName", "response.data.message", fixture, "leagueImage")}
-                  >
+                  onClick={() => 
+                    handleClick(popularLeagueName, fixture, "") 
+                    // handleClick(currentPageName, fixture, headingImage) 
+                    // openNotificationModal(false, "currentPageName", "response.data.message", fixture, "leagueImage")
+                    }>
                     <div className='flex' style={{ fontSize: '16px' }}>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{fixture.fixture_time}</p>
                       <div className='md:flex w-full justify-center mx-4 hidden '>

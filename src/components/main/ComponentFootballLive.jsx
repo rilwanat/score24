@@ -14,7 +14,7 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Loading from './Loading';
 
-import LeagueModal from './modals/LeagueModal';
+// import LeagueModal from './modals/LeagueModal';
 
 export default function ComponentFootballLive({ currentPageName, setPageName, showingForDate,
   setSpecific }) {
@@ -150,7 +150,20 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
   };
 
 
-
+  const handleClick = (currentPageName, matchArray, headingImage) => {
+    const route = '/specific-league';
+    
+    const params = new URLSearchParams({
+      matchArray: JSON.stringify(matchArray), // Convert array to JSON string
+      matchHeadingImage: headingImage,
+    }).toString(); // Convert data object to query string
+  
+    const newWindow = window.open(currentPageName, '_blank', 'width=800,height=600'); // Open a new window
+  
+    if (newWindow) {
+      newWindow.location.href = `${window.location.origin}${route}?${params}`; // Set the URL of the new window with query parameters
+    }
+  };
 
   return (
     <>
@@ -188,7 +201,10 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
               <div className="space-y-2 mt-2 bg-scBackground rounded-lg p-3">
                 {fixtures.map((match, index) => (
                   <div key={index} className="text-scMenuText cursor-pointer"
-                  onClick={() => openNotificationModal(false, currentPageName, "response.data.message", match, leagueImage)}
+                  onClick={() => 
+                    handleClick(currentPageName, match, leagueImage) 
+                    // openNotificationModal(false, currentPageName, "response.data.message", match, leagueImage)
+                  }
                   >
                     <div className='flex' style={{ fontSize: '16px' }}>
                       <p className="flex items-center justify-start text-scTimeText" style={{ width: '60px' }}>{match.time}</p>
@@ -231,7 +247,7 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
         })}
       </div>
       }
-      <LeagueModal
+      {/* <LeagueModal
               isOpen={isNotificationModalOpen}
               onRequestClose={closeNotificationModal}
               notificationType={notificationType}
@@ -239,7 +255,7 @@ export default function ComponentFootballLive({ currentPageName, setPageName, sh
               notificationMessage={notificationMessage}
               matchArray={matchArray}
               matchHeadingImage={matchHeadingImage}
-            />
+            /> */}
     </>
   );
   
