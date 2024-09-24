@@ -18,7 +18,7 @@ import Loading from './Loading';
 
 
 
-export default function PopularResultsComponent({ 
+export default function PopularTopscorerComponent({ 
   isResultsDataloading, popularLeagueName, groupResults, openNotificationModal
  }) {
 

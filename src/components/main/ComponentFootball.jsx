@@ -310,7 +310,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
         })}
       </div>
       }
-      <LeagueModal
+      {/* <LeagueModal
               isOpen={isNotificationModalOpen}
               onRequestClose={closeNotificationModal}
               notificationType={notificationType}
@@ -318,7 +318,7 @@ export default function ComponentFootball({ currentPageName, setPageName, showin
               notificationMessage={notificationMessage}
               matchArray={matchArray}
               matchHeadingImage={matchHeadingImage}
-            />
+            /> */}
     </>
   );
   

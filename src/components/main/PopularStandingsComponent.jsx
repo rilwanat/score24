@@ -14,12 +14,11 @@ export default function PopularStandingsComponent({
         <div className="space-y-4">
 
           {/* League Name */}
-          <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
+          {/* <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer'>
             <p className="text-xl text-white hover:text-scGreen">
               {popularLeagueName} 
-              {/* {Object.keys(groupStandingsByGroup()).length} */}
             </p>
-          </div>
+          </div> */}
 
           {/* Loop through each group */}
           {Object.keys(groupStandingsByGroup()).map((group) => {

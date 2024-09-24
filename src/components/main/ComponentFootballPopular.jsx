@@ -6,6 +6,11 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+
 // import headingImage from '../../assets/svg/1x1.svg';
 
 import axios from 'axios';
@@ -19,6 +24,9 @@ import Loading from './Loading';
 import PopularResultsComponent from './PopularResultsComponent';
 import PopularFixturesComponent from './PopularFixturesComponent';
 import PopularStandingsComponent from './PopularStandingsComponent';
+import PopularTopscorerComponent from './PopularTopscorerComponent';
+
+
 
 export default function ComponentFootballPopular({ showingForDate, popularLeagueId, popularLeagueName }) {
   
@@ -58,6 +66,8 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   const [isStandingsDataLoading, setIsStandingsDataLoading] = useState(true);
   const [matchPopularStandings, setMatchPopularStandings] = useState([]);
 
+  const [isTopscorerDataLoading, setIsTopscorerDataLoading] = useState(true);
+  const [matchPopularTopscorer, setMatchPopularTopscorer] = useState([]);
 
 
   useEffect(() => {
@@ -65,7 +75,8 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
       await Promise.all([
         handlePopularResults(),
         handlePopularFixtures(), 
-        handlePopularStandings()        
+        handlePopularStandings(),       
+        // handlePopularTopscorer()       
       ]);
     };
     
@@ -75,6 +86,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     setMatchPopularResults([]);
     setMatchPopularFixtures([]);
     setMatchPopularStandings([]);
+    // setMatchPopularTopscorer([]);
 
   }, [popularLeagueId]);
   const handlePopularResults = async () => {
@@ -153,7 +165,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   const handlePopularStandings = async () => {
 
     if (!popularLeagueId) return;
-    
+
     setIsStandingsDataLoading(true);
     try {
        const requestBody = {
@@ -184,6 +196,42 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
       // setMatchDataData([]); set live to globally
       setIsStandingsDataLoading(false);
       alert("Popular Standings: An unexpected error occurred. " + error);
+    }
+  };
+  const handlePopularTopscorer = async () => {
+
+    if (!popularLeagueId) return;
+
+    setIsTopscorerDataLoading(true);
+    try {
+       const requestBody = {
+        "league": popularLeagueId
+       };
+  
+      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR_STANDINGS;
+      // alert(endpoint + " " + popularLeagueId);
+      const response = await axios.post(endpoint, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      setIsTopscorerDataLoading(false);
+      // alert("ok");
+      // alert(JSON.stringify(response.data, null, 2));
+      // alert(response.data[0].length);
+      // if (response.data) {
+      //   // Ensure response.data has the structure you expect
+      // return;
+        setMatchPopularTopscorer(response.data.response);
+      // } else {
+      //   alert("Unexpected response structure.");
+      // }
+  
+    } catch (error) {
+      // setMatchDataData([]); set live to globally
+      setIsTopscorerDataLoading(false);
+      alert("Popular Topscorer: An unexpected error occurred. " + error);
     }
   };
 
@@ -271,6 +319,9 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     return matchPopularResults;
   }
   
+  const groupTopscorer = () => {
+    return matchPopularTopscorer;
+  }
   
 
 
@@ -305,7 +356,24 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     <div className='flex justify-center w-full my-4 text-white '>
                        
                        <div className="w-full" style={{  }}> 
-                         <div className="mb-4 text-sm text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+
+                         
+
+
+                         {/* Icon Navigation for Mobile */}
+                          <div className=' mb-2'>
+                            <div className='flex items-center w-full ml-4 md:ml-0 cursor-pointer mb-4 '>
+                              {/* <img src={fixture.logo} alt="Competition Image" className="mr-2 h-3" />  */}
+                              <p className="text-xl text-white hover:text-scGreen">
+                                {popularLeagueName}
+                              </p>
+                            </div>
+                          </div>
+
+        <div>
+
+{/* dektop */}
+        <div className="mb-4 text-sm text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 md:flex hidden">
                            <ul className="flex flex-wrap -mb-px ">
                              <li className="mr-2 cursor-pointer">
                                <a
@@ -318,11 +386,11 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                              </li>
                              <li className="mr-2 cursor-pointer">
                                <a
-                                 // href="#"
-                                 className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'fixtures' ? 'text-scGreen border-scGreen' : ''}`}
-                                 onClick={() => handleTabClick('fixtures')}
+                                 // href="#" formerly fixtures
+                                 className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'matches' ? 'text-scGreen border-scGreen' : ''}`}
+                                 onClick={() => handleTabClick('matches')}
                                >
-                                 {'fixtures'.toUpperCase()}
+                                 {'matches'.toUpperCase()}
                                </a>
                              </li> 
                              <li className="mr-2 cursor-pointer">
@@ -334,9 +402,40 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                                  {'standings'.toUpperCase()}
                                </a>
                              </li>
+                             <li className="mr-2 cursor-pointer">
+                               <a
+                                 // href="#"
+                                 className={`inline-block pl-2 pr-1 border-b-2 border-transparent  ${activeTab === 'top-scorer' ? 'text-scGreen border-scGreen' : ''}`}
+                                 onClick={() => handleTabClick('top-scorer')}
+                               >
+                                 {'top-scorer'.toUpperCase()}
+                               </a>
+                             </li>
                              
                            </ul>
                          </div>
+
+{/* mobile */}
+      <div className="flex justify-around  text-center md:hidden">
+        <div className="cursor-pointer" onClick={() => handleTabClick('results')}>
+          <SummarizeIcon className={`text-2xl ${activeTab === 'results' ? 'text-scGreen' : 'text-gray-500'}`} />
+          <p className={`text-xs mt-1 ${activeTab === 'results' ? 'text-scGreen' : 'text-gray-500'}`}>Results</p>
+        </div>
+        <div className="cursor-pointer" onClick={() => handleTabClick('matches')}>
+          <FormatListBulletedIcon className={`text-2xl ${activeTab === 'matches' ? 'text-scGreen' : 'text-gray-500'}`} />
+          <p className={`text-xs mt-1 ${activeTab === 'matches' ? 'text-scGreen' : 'text-gray-500'}`} >Matches</p>
+        </div>
+        <div className="cursor-pointer" onClick={() => handleTabClick('standings')}>
+          <AccessibilityNewIcon className={`text-2xl ${activeTab === 'standings' ? 'text-scGreen' : 'text-gray-500'}`} />
+          <p className={`text-xs mt-1 ${activeTab === 'standings' ? 'text-scGreen' : 'text-gray-500'}`} >Standings</p>
+        </div>
+        <div className="cursor-pointer" onClick={() => handleTabClick('top-scorer')}>
+          <SportsSoccerIcon className={`text-2xl ${activeTab === 'top-scorer' ? 'text-scGreen' : 'text-gray-500'}`} />
+          <p className={`text-xs mt-1 ${activeTab === 'top-scorer' ? 'text-scGreen' : 'text-gray-500'}`} >Top Scorer</p>
+        </div>
+      </div>
+      </div>
+
 
                          
              
@@ -352,7 +451,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                                 openNotificationModal={openNotificationModal} 
                              />  }                            
                            </div>}
-                           {activeTab === 'fixtures' && 
+                           {activeTab === 'matches' && //'fixtures' && 
                            <div>
                             {isFixturesDataLoading ? <Loading/> :
                              <PopularFixturesComponent 
@@ -372,6 +471,18 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                                 openNotificationModal={openNotificationModal} 
                                 // matchPopularStandings
                              />  }  
+                            
+                           </div>}
+                           {activeTab === 'top-scorer' && 
+                           <div>
+                            {/* {isTopscorerDataLoading ? <Loading/> :
+                             <PopularTopscorerComponent 
+                                isTopscorerDataLoading={isTopscorerDataLoading} 
+                                popularLeagueName={popularLeagueName} 
+                                groupTopscorer={groupTopscorer} 
+                                openNotificationModal={openNotificationModal} 
+                                // matchPopularTopscorer
+                             />  }   */}
                             
                            </div>}
                          </div>     
