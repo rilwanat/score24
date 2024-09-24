@@ -49,10 +49,22 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
   //notification modal
 
 
-  const [isFixturesDataloading, setIsFixturesDataLoading] = useState(true);
+  const [isFixturesDataLoading, setIsFixturesDataLoading] = useState(true);
   const [matchPopularFixtures, setMatchPopularFixtures] = useState([]);
+
+  const [isStandingsDataLoading, setIsStandingsDataLoading] = useState(true);
+  const [matchPopularStandings, setMatchPopularStandings] = useState([]);
+
+
   useEffect(() => {
-    handlePopularFixtures();
+    const fetchData = async () => {
+      await Promise.all([
+        handlePopularFixtures(), 
+        handlePopularStandings()
+      ]);
+    };
+    
+    fetchData();
   }, [popularLeagueId]);
   const handlePopularFixtures = async () => {
     setIsFixturesDataLoading(true);
@@ -62,7 +74,7 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
         "leagueTitle": popularLeagueName
        };
   
-      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR_LEAGUES;
+      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR_FIXTURES;
       // alert(endpoint);
       const response = await axios.post(endpoint, requestBody, {
         headers: {
@@ -84,7 +96,40 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
     } catch (error) {
       // setMatchDataData([]); set live to globally
       setIsFixturesDataLoading(false);
-      alert("Popular: An unexpected error occurred. " + error);
+      alert("Popular Fixtures: An unexpected error occurred. " + error);
+    }
+  };
+  const handlePopularStandings = async () => {
+    setIsStandingsDataLoading(true);
+    try {
+       const requestBody = {
+        "league": popularLeagueId
+       };
+  
+      const endpoint = process.env.REACT_APP_API_URL + process.env.REACT_APP_POPULAR_STANDINGS;
+      // alert(endpoint + " " + popularLeagueId);
+      const response = await axios.post(endpoint, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      setIsStandingsDataLoading(false);
+      // alert("ok");
+      // alert(JSON.stringify(response.data, null, 2));
+      // alert(response.data[0].length);
+      // if (response.data) {
+      //   // Ensure response.data has the structure you expect
+      // return;
+        setMatchPopularStandings(response.data.response);
+      // } else {
+      //   alert("Unexpected response structure.");
+      // }
+  
+    } catch (error) {
+      // setMatchDataData([]); set live to globally
+      setIsStandingsDataLoading(false);
+      alert("Popular Standings: An unexpected error occurred. " + error);
     }
   };
   
@@ -119,7 +164,55 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
       return acc;
     }, {});
   };
-    
+
+
+  const groupStandingsByGroup = () => {
+    if (!matchPopularStandings || matchPopularStandings.length === 0) return {};
+  
+    return matchPopularStandings.reduce((acc, leagueData) => {
+      const leagueInfo = {
+        leagueName: leagueData.league.name,
+        country: leagueData.league.country,
+        logo: leagueData.league.logo,
+        flag: leagueData.league.flag,
+        season: leagueData.league.season,
+      };
+
+      
+  
+      leagueData.league.standings.forEach((groupStandings) => {
+        groupStandings.forEach((teamData) => {
+          const group = teamData.group || "Unknown Group"; // Handle missing group
+  
+          if (!acc[group]) {
+            acc[group] = {
+              league: leagueInfo,
+              teams: [],
+            };
+          }
+  
+          acc[group].teams.push({
+            rank: teamData.rank,
+            teamName: teamData.team.name,
+            teamLogo: teamData.team.logo,
+            points: teamData.points,
+            goalsDiff: teamData.goalsDiff,
+            form: teamData.form,
+            status: teamData.status,
+            description: teamData.description,
+            allStats: teamData.all,
+            homeStats: teamData.home,
+            awayStats: teamData.away,
+            lastUpdate: teamData.update,
+          });
+        });
+      });
+  
+      return acc;
+    }, {});
+  };
+  
+  
 
 
   //tabs
@@ -184,16 +277,20 @@ export default function ComponentFootballPopular({ showingForDate, popularLeague
                            {activeTab === 'fixtures' && 
                            <div>
                              <PopularFixturesComponent 
-                             isFixturesDataloading={isFixturesDataloading} 
-                             popularLeagueName={popularLeagueName} 
-                             groupFixturesByDate={groupFixturesByDate} 
-                             openNotificationModal={openNotificationModal} 
+                                isFixturesDataLoading={isFixturesDataLoading} 
+                                popularLeagueName={popularLeagueName} 
+                                groupFixturesByDate={groupFixturesByDate} 
+                                openNotificationModal={openNotificationModal} 
                              />                              
                            </div>}
                            {activeTab === 'standings' && 
                            <div>
                              <PopularStandingsComponent 
-                            //  userDetails={userDetails} 
+                                isStandingsDataLoading={isStandingsDataLoading} 
+                                popularLeagueName={popularLeagueName} 
+                                groupStandingsByGroup={groupStandingsByGroup} 
+                                openNotificationModal={openNotificationModal} 
+                                // matchPopularStandings
                              />  
                             
                            </div>}
