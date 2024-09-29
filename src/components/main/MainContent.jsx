@@ -491,6 +491,7 @@ setPageName("Favourites");
           <ul className="text-white ">
           {Object.values(matchesGroupedByTitle).map((group, index) => (
             <li key={index} 
+            onClick={() => alert(JSON.stringify(group), null, 2)}
             onMouseEnter={() => setActiveTitleIndex(index)}
             onMouseLeave={() => setActiveTitleIndex(null)}
      className="py-2 text-sm text-white  cursor-pointer">
